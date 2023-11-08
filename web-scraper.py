@@ -191,7 +191,6 @@ def update_club_db(club_to_leagues):
             
 def add_player_to_db(player_profile, clubs):
     # MongoDB connection setup
-    print("player-profile: ", player_profile)
     client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
     db = client['soccer-player-index']  
     player_collection = db['player'] 
@@ -209,17 +208,42 @@ def add_player_to_db(player_profile, clubs):
             "shirt-number": player_profile["shirt-number"],
             "club-history": clubs
         })  
+
+def add_player_season_to_db(player_profile, player_stats):
+    client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
+    db = client['soccer-player-index']  
+    player_stats_collection = db['player-stats'] 
+    for season_stats in player_stats:
+        player_stats_document = player_stats_collection.find_one({
+            "name": player_profile["name"],
+            "club": season_stats["club"],
+            "season": season_stats["season"],
+            "league": season_stats["league"]
+        })
+        if player_stats_document == None:
+            player_stats_collection.insert_one({
+                "name": player_profile["name"],
+                "club": season_stats["club"],
+                "season": season_stats["season"],
+                "league": season_stats["league"],
+                "appearances": season_stats["appearances"],
+                "goals": season_stats["goals"],
+                "assists": season_stats["assists"],
+                "yellow-cards": season_stats["yellow-cards"],
+                "red-cards": season_stats["red-cards"],
+                "man-of-the-matches": season_stats["man-of-the-matches"],
+                "average-match-rating": season_stats["average-match-rating"],
+            })
     
-# for link in links:
-#     scrape_player_stats(link)
-player_profile, player_stats = scrape_player_stats(links[0])
-club_to_leagues = find_leagues_per_club(player_stats)
-update_club_db(club_to_leagues) 
-clubs = []
-for club in club_to_leagues:
-    clubs.append(club)
-add_player_to_db(player_profile, clubs)
-# scrape_player_stats(links[1])
+for link in links:
+    player_profile, player_stats = scrape_player_stats(link)
+    club_to_leagues = find_leagues_per_club(player_stats)
+    update_club_db(club_to_leagues) 
+    clubs = []
+    for club in club_to_leagues:
+        clubs.append(club)
+    add_player_to_db(player_profile, clubs)
+    add_player_season_to_db(player_profile, player_stats)
     
 
 
