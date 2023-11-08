@@ -19,13 +19,3 @@ exports.getPlayerStats = async (req, res) => {
       res.status(500).send('Server Error');
     }
 };
-
-// exports.createPlayer = async (req, res) => {
-//   try {
-//     const newPlayer = new Player(req.body);
-//     const player = await newPlayer.save();
-//     res.json(player);
-//   } catch (err) {
-//     res.status(500).send('Server Error');
-//   }
-// };
