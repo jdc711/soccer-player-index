@@ -42,7 +42,7 @@ const PlayerList = ({ name }) => {
             <tr key={player._id}>
               <td>{player.name}</td>
               <td>{player.nationality}</td>
-              <td>{player.club}</td>
+              <td>{player["current-club"]}</td>
             </tr>
           ))}
         </tbody>
