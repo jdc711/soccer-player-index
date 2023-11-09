@@ -1,7 +1,7 @@
 // src/pages/SearchResultsPage.js
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import searchService from '../services/search-service';
 // Import any additional components you may have created
 
 const SearchResultsPage = () => {
@@ -15,14 +15,14 @@ const SearchResultsPage = () => {
     const fetchResults = async () => {
       if (query) {
         setLoading(true);
-        // try {
-        //   const response = await axios.get(`/api/search`, { params: { q: query } });
-        //   setResults(response.data);
-        //   setError('');
-        // } catch (error) {
-        //   console.error('Error fetching search results', error);
-        //   setError('Failed to load search results.');
-        // }
+        try {
+          const data = await searchService.search(query);
+          setResults(data);
+          setError('');
+        } catch (error) {
+          console.error('Error fetching search results', error);
+          setError('Failed to load search results.');
+        }
         setLoading(false);
       }
     };

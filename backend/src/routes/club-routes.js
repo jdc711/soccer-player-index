@@ -4,5 +4,7 @@ const clubController = require('../controllers/club-controller');
 
 // Define routes
 router.get('/club-profile', clubController.getClubProfile);
+router.get('/search-clubs-by-name', clubController.searchByClubName);
+
 
 module.exports = router;

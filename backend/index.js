@@ -10,14 +10,13 @@ app.use(cors());
 app.use(express.json());
 
 // Database Connection
-require('./src/db/db');
-connectDB();
+db = require('./src/db/db');
+db();
 
 // Routes
-app.use('/public/players', require('./src/routes/player-routes'));
-app.use('/public/clubs', require('./src/routes/club-routes'));
-app.use('/public/leagues', require('./src/routes/league-routes'));
-app.use('/public/player-stats', require('./src/routes/player-stats-routes'));
+app.use('/public/player', require('./src/routes/player-routes'));
+app.use('/public/club', require('./src/routes/club-routes'));
+app.use('/public/league', require('./src/routes/league-routes'));
 
 const PORT = process.env.PORT || 5000;
 
