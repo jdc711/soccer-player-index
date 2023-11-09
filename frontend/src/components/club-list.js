@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import searchService from '../services/search-service'; // Adjust the import path as needed
 
 const ClubList = ({name}) => {
-  const [Clubs, setClubs] = useState([]);
+  const [clubs, setClubs] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,24 +24,31 @@ const ClubList = ({name}) => {
   if (loading) {
     return <div>Loading Clubs...</div>;
   }
+  
+  if (!loading && clubs.length === 0) {
+    return <div></div>;
+  }
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Leagues</th>
-        </tr>
-      </thead>
-      <tbody>
-        {Clubs.map((Club) => (
-          <tr key={Club._id}>
-            <td>{Club.name}</td>
-            <td>{Club.leagues.join(", ")}</td>
+    <div>      
+      <h1>Clubs</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Leagues</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {clubs.map((Club) => (
+            <tr key={Club._id}>
+              <td>{Club.name}</td>
+              <td>{Club.leagues.join(", ")}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

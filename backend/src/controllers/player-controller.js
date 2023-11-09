@@ -31,10 +31,13 @@ exports.getAllPlayers = async (req, res) => {
 
 exports.searchByPlayerName = async (req, res) => {
   const nameToSearch = req.query.name; // Or req.params.name if you're using route parameters
-  
   try {
     // Use a regular expression to search for a case-insensitive partial match
-    const players = await Player.find({ name: {$regex : nameToSearch} }).exec();
+    
+
+    const players = await Player.find({ name: {$regex : nameToSearch,  $options: "i"} }).exec();
+    console.log("players: ", players)
+
     res.json(players);
     return
   } catch (err) {

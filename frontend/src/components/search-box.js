@@ -7,12 +7,9 @@ const SearchBox = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
-
   const validateSearchTerm = async (e) => {
     e.preventDefault();
-    if (searchTerm.trim()) {
-        navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
-    }
+    navigate('/search-results/' + searchTerm.trim());
   };
 
   return (

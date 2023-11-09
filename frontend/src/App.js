@@ -20,6 +20,7 @@ function App() {
         <Route path="/league/:leagueId" element={<LeaguePage />} />
         <Route path="/club/:clubId" element={<ClubPage />} />
         <Route path="/player/:playerId" element={<PlayerPage />} />
+        <Route path="/search-results/:query" element={<SearchResultsPage />} />
         <Route path="/search-results" element={<SearchResultsPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
