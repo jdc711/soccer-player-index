@@ -1,9 +1,10 @@
 import axios from 'axios';
-const apiUrl = process.env.REACT_APP_API_URL;
+const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const searchPlayersByName = async (q) => {
+console.log("q: ", q)
   try {
-    const response = await axios.get('/public/player/search-players-by-name', { params: { name: q } });
+    const response = await axios.get(baseUrl + '/public/player/search-players-by-name', { params: { name: q } });
     return response.data;
   } catch (error) {
     throw error;
@@ -12,7 +13,7 @@ const searchPlayersByName = async (q) => {
 
 const searchClubsByName = async (q) => {
   try {
-    const response = await axios.get('/public/club/search-clubs-by-name', { params: { name: q } });
+    const response = await axios.get(baseUrl + '/public/club/search-clubs-by-name', { params: { name: q } });
     return response.data;
   } catch (error) {
     throw error;

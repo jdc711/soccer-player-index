@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import searchService from '../services/search-service'; // Adjust the import path as needed
 
-const PlayerList = () => {
+const PlayerList = ({ name }) => {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -9,7 +9,7 @@ const PlayerList = () => {
     const getPlayers = async () => {
       try {
         setLoading(true);
-        const playersData = await searchService.searchPlayersByName();
+        const playersData = await searchService.searchPlayersByName(name);
         console.log("playersData: ", playersData)
         setPlayers(playersData);
       } catch (error) {
@@ -20,7 +20,7 @@ const PlayerList = () => {
     };
 
     getPlayers();
-  }, []);
+  }, [name]);
 
   if (loading) {
     return <div>Loading players...</div>;

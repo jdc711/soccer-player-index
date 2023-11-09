@@ -6,8 +6,8 @@ import ClubList  from '../components/club-list'
 const HomePage = () => {
     return (
         <div>
-            <PlayerList />
-            <ClubList />
+            <PlayerList name={""} />            
+            <ClubList name={""}/>
         </div>
     );
 };

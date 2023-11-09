@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import searchService from '../services/search-service'; // Adjust the import path as needed
 
-const ClubList = () => {
+const ClubList = ({name}) => {
   const [Clubs, setClubs] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -9,7 +9,7 @@ const ClubList = () => {
     const getClubs = async () => {
       try {
         setLoading(true);
-        const ClubsData = await searchService.searchClubsByName();
+        const ClubsData = await searchService.searchClubsByName(name);
         setClubs(ClubsData);
       } catch (error) {
         console.error(error);
@@ -19,7 +19,7 @@ const ClubList = () => {
     };
 
     getClubs();
-  }, []);
+  }, [name]);
 
   if (loading) {
     return <div>Loading Clubs...</div>;
