@@ -1,4 +1,4 @@
 .DS_Store
 chromedriver*
-.env
+.env*
 node_modules

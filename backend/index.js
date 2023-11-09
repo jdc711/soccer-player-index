@@ -1,7 +1,10 @@
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
-dotenv.config(); // To use environment variables
+if (process.env.NODE_ENV === 'production') {
+    require('dotenv').config({ path: '.env.production' });
+  } else {
+    require('dotenv').config({ path: '.env.development' });
+  }
 
 const app = express();
 
