@@ -3,21 +3,23 @@ const PlayerStats = require('../models/player-stats');
 
 
 exports.getPlayerProfile = async (req, res) => {
+  const playerId = req.query.playerId; 
   try {
-    const players = await Player.find();
-    res.json(players);
+    const playerProfile = await Player.find({_id: playerId});
+    res.json(playerProfile);
   } catch (err) {
     res.status(500).send('Server Error');
   }
 };
 
 exports.getPlayerStats = async (req, res) => {
-    try {
-      const players = await PlayerStats.find();
-      res.json(players);
+  const playerId = req.query.playerId; 
+  try {
+    const playerStats = await PlayerStats.find({_player_id: playerId});
+    res.json(playerStats);     
     } catch (err) {
       res.status(500).send('Server Error');
-    }
+  }
 };
 
 exports.getAllPlayers = async (req, res) => {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import searchService from '../services/search-service'; // Adjust the import path as needed
+import { Link } from 'react-router-dom';
 
 
 const PlayerList = ({ name }) => {
@@ -44,7 +45,11 @@ const PlayerList = ({ name }) => {
         <tbody>
           {players.map((player) => (
             <tr key={player._id}>
-              <td>{player.name}</td>
+              <td>
+                <Link to={"/player/" + player._id}>
+                  {player.name}
+                </Link>
+              </td>
               <td>{player.nationality}</td>
               <td>{player["current-club"]}</td>
             </tr>

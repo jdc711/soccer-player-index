@@ -1,12 +1,11 @@
-// src/components/NavBar.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBox from './search-box';
 import playerService from '../services/player-service'
 // import { useAuth } from '../context/AuthContext';
 
 const PlayerProfile = ({playerId}) => {
-    const [playerProfile, setPlayerProfile] = useState([]);
+    const [playerProfile, setPlayerProfile] = useState(null);
     const [loading, setLoading] = useState(true);
   
     useEffect(() => {
@@ -35,17 +34,17 @@ const PlayerProfile = ({playerId}) => {
                 <tr>
                     <td>Image</td>
                     <td>
-                        Name: {playerProfile.name}
+                        Name: {playerProfile[0].name}
                         <br></br>
-                        Age: {playerProfile.age}
+                        Age: {playerProfile[0].age}
                         <br></br>
-                        Nationality: {playerProfile.nationality}
+                        Nationality: {playerProfile[0].nationality}
                         <br></br>
-                        Positions: {playerProfile.positions}
+                        Positions: {playerProfile[0].positions}
                         <br></br>
-                        Club: {playerProfile["current-club"]}
+                        Club: {playerProfile[0]["current-club"]}
                         <br></br>
-                        Shirt Number: {playerProfile["shirt-number"]}
+                        Shirt Number: {playerProfile[0]["shirt-number"]}
                     </td>
                 </tr>
             </tbody>

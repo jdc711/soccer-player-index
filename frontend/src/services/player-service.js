@@ -1,8 +1,10 @@
 import axios from 'axios';
+const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
 
 const getPlayerProfile = async (playerId) => {
   try {
-    const response = await axios.get('/public/player/player-profile', { params: { _id: playerId } });
+    const response = await axios.get(baseUrl + '/public/player/player-profile', { params: { playerId: playerId } });
     return response.data;
   } catch (error) {
     throw error;
@@ -11,7 +13,8 @@ const getPlayerProfile = async (playerId) => {
 
 const getPlayerStats = async (playerId) => {
     try {
-      const response = await axios.get('/public/player/player-stats', { params: { _id: playerId } });
+      console.log("playerId: " , playerId)
+      const response = await axios.get(baseUrl + '/public/player/player-stats', { params: { playerId: playerId } });
       return response.data;
     } catch (error) {
       throw error;
@@ -20,7 +23,7 @@ const getPlayerStats = async (playerId) => {
 
 const getAllPlayers = async () => {
     try {
-      const response = await axios.get('/public/player/all-players', { params: { _id: playerId } });
+      const response = await axios.get(baseUrl + '/public/player/all-players', {});
       return response.data;
     } catch (error) {
       throw error;

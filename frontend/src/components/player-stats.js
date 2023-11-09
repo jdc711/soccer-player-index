@@ -1,5 +1,4 @@
-// src/components/NavBar.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBox from './search-box';
 import playerService from '../services/player-service'
@@ -14,6 +13,7 @@ const PlayerStats = ({playerId}) => {
         try {
           setLoading(true);
           const playerStatsData = await playerService.getPlayerStats(playerId);
+
           setPlayerStats(playerStatsData);
         } catch (error) {
           console.error(error);
@@ -46,9 +46,20 @@ const PlayerStats = ({playerId}) => {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>{playerStats.club}</td>
-                </tr>
+                {playerStats.map((SeasonStat) => (
+                    <tr key={SeasonStat._id}>
+                        <td>{SeasonStat.club}</td>
+                        <td>{SeasonStat.league}</td>
+                        <td>{SeasonStat.season}</td>
+                        <td>{SeasonStat.appearances}</td>
+                        <td>{SeasonStat.goals}</td>
+                        <td>{SeasonStat.assists}</td>
+                        <td>{SeasonStat["man-of-the-matches"]}</td>
+                        <td>{SeasonStat["average-match-rating"]}</td>
+                        <td>{SeasonStat["yellow-cards"]}</td>
+                        <td>{SeasonStat["red-cards"]}</td>
+                    </tr>
+                ))}
             </tbody>
         </table>
     );
