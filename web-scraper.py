@@ -20,8 +20,7 @@ CHROME_DRIVER_PATH = os.getenv('CHROME_DRIVER_PATH')
 USER_AGENT = os.getenv('USER_AGENT')
 MONGODB_CONNECTION_STRING = os.getenv('MONGODB_CONNECTION_STRING')
 
-
-league_abbreviation_to_name = {
+league_abbreviation_to_name_map = {
     'FL1': "Ligue 1",
     'SLL': "LaLiga",
     'UCL': "UEFA Champions League",
@@ -29,11 +28,26 @@ league_abbreviation_to_name = {
     'WC': "FIFA World Cup",
     'ICA': "Copa America",
     'GB': "Bundesliga",
-    'UEC': "UEFA European Championship",
+    # 'UEC': "UEFA European Championship",
     'EPL': "Premier League",
     'ISA': "Serie A",
-    'UMLS': "Major League Soccer"
+    'UMLS': "Major League Soccer",
+    'EFLC': "Carabao Cup",
+    "ECS": "Community Shield",
+    "UNL": "UEFA Nations League"
 }
+
+def league_abbreviation_to_name(abbr, season):
+    if abbr == "UEC":
+        if season == "2008" or season == "2012" or season == "2016" or season == "2020" or season == "2024" or season == "2028":
+            return "UEFA European Championship"
+        else:
+            return "UEFA European Championship Qualifiers"
+    else:
+        if abbr not in league_abbreviation_to_name_map:
+            return None
+        return league_abbreviation_to_name_map[abbr]
+
 
 
 def parse_player_profile_text(player_profile_text):
@@ -83,8 +97,9 @@ def parse_player_stats_text(player_stats_text, player_profile):
             else:
                 season_stats["club"] = " ".join(words[1:])  
         else:
-            if words[0] in league_abbreviation_to_name:
-                season_stats["league"] = league_abbreviation_to_name[words[0]]
+            league = league_abbreviation_to_name(words[0], season_stats["season"])
+            if league:
+                season_stats["league"] = league
             else:
                 season_stats["league"] = words[0]
             season_stats["appearances"] = words[1]
@@ -135,7 +150,7 @@ def scrape_player_stats(link):
         
         player_profile = parse_player_profile_text(player_profile_scraped.text)
         player_stats = parse_player_stats_text(stats_table_scraped.text, player_profile)
-        
+
         return player_profile, player_stats
     except Exception as e:
         print("An error occurred:", e)

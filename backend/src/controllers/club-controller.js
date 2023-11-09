@@ -15,18 +15,7 @@ exports.searchClubsByName = async (req, res) => {
   
   try {
     // Use a regular expression to search for a case-insensitive partial match
-    const count = await Club.countDocuments({});
-    console.log("count:", count)
-    Club.exists({}).then(result => { 
-      console.log("RESULT:",result) 
-    })
-    const allClubs = await Club.find({}).exec();
-    console.log("allClubs: ", allClubs)
-    const allClubs2 = await Club.find({});
-    console.log("allClubs: ", allClubs2)
-
     const clubs = await Club.find({ name: {$regex : nameToSearch} }).exec();
-    console.log("clubs: ", clubs)
     res.json(clubs);
     return
   } catch (err) {

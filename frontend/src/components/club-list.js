@@ -37,7 +37,7 @@ const ClubList = ({name}) => {
         {Clubs.map((Club) => (
           <tr key={Club._id}>
             <td>{Club.name}</td>
-            <td>{Club.leagues}</td>
+            <td>{Club.leagues.join(", ")}</td>
           </tr>
         ))}
       </tbody>
