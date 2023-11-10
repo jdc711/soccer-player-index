@@ -6,6 +6,7 @@ const ClubList = ({name}) => {
   const [clubs, setClubs] = useState([]);
   const [nationalTeams, setNationalTeams] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const getClubs = async () => {
@@ -17,8 +18,9 @@ const ClubList = ({name}) => {
 
         setClubs(filteredClubs);
         setNationalTeams(filteredNationalTeams);
-
+        setError('');
       } catch (error) {
+        setError('Failed to fetch clubs.');
         console.error(error);
       } finally {
         setLoading(false);
@@ -30,6 +32,10 @@ const ClubList = ({name}) => {
 
   if (loading) {
     return <div>Loading Clubs...</div>;
+  }
+  
+  if (error) {
+    return <div>{error}</div>;
   }
   
   if (!loading && clubs.length === 0) {

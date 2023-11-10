@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 const PlayerList = ({ name }) => {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const getPlayers = async () => {
@@ -13,8 +14,12 @@ const PlayerList = ({ name }) => {
         setLoading(true);
         const playersData = await searchService.searchPlayersByName(name);
         setPlayers(playersData);
+        setError('');
+
       } catch (error) {
         console.error(error);
+        setError('Failed to fetch players.');
+
       } finally {
         setLoading(false);
       }
@@ -25,6 +30,10 @@ const PlayerList = ({ name }) => {
 
   if (loading) {
     return <div>Loading players...</div>;
+  }
+  
+  if (error) {
+    return <div>{error}</div>;
   }
 
   if (!loading && players.length === 0) {
