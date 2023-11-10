@@ -12,8 +12,6 @@ const NavBar = () => {
             {/* Navigation links to switch between routes */}
             <Link to="/">Home</Link>
             <SearchBox />      
-            <Link to="/club">Club</Link>
-            <Link to="/player">Player</Link>
             {/* {!isLoggedIn && <Link to="/register">Register</Link>}
             {!isLoggedIn && <Link to="/login">Login</Link>}
             {isLoggedIn && (

@@ -32,7 +32,7 @@ const PlayerProfile = ({playerId}) => {
         <table>
             <tbody>
                 <tr>
-                    <td>Image</td>
+                    <td><img src={playerProfile[0]["image-url"]} alt='Image Not Found'></img></td>
                     <td>
                         Name: {playerProfile[0].name}
                         <br></br>
@@ -42,7 +42,9 @@ const PlayerProfile = ({playerId}) => {
                         <br></br>
                         Positions: {playerProfile[0].positions}
                         <br></br>
-                        Club: {playerProfile[0]["current-club"]}
+                        <Link to={"/club/" + playerProfile[0]._current_club_id}>
+                          Club: {playerProfile[0]["current-club"]}
+                        </Link>
                         <br></br>
                         Shirt Number: {playerProfile[0]["shirt-number"]}
                     </td>

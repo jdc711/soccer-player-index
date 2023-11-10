@@ -48,8 +48,16 @@ const PlayerStats = ({playerId}) => {
             <tbody>
                 {playerStats.map((SeasonStat) => (
                     <tr key={SeasonStat._id}>
-                        <td>{SeasonStat.club}</td>
-                        <td>{SeasonStat.league}</td>
+                        <td>
+                          <Link to={"/club/" + SeasonStat._club_id}>
+                            {SeasonStat.club}
+                          </Link>
+                        </td>
+                        <td>
+                          <Link to={"/league/" + SeasonStat._league_id}>
+                            {SeasonStat.league}
+                          </Link>
+                        </td>
                         <td>{SeasonStat.season}</td>
                         <td>{SeasonStat.appearances}</td>
                         <td>{SeasonStat.goals}</td>

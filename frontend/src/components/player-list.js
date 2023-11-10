@@ -28,7 +28,7 @@ const PlayerList = ({ name }) => {
   }
 
   if (!loading && players.length === 0) {
-    return <div></div>;
+    return <div>No players found.</div>;
   }
   
   return (
@@ -51,7 +51,13 @@ const PlayerList = ({ name }) => {
                 </Link>
               </td>
               <td>{player.nationality}</td>
-              <td>{player["current-club"]}</td>
+              <td>
+                {player["current-club"] === "N/A" ? (player["current-club"]) : (
+                  <Link to={"/club/" + player._current_club_id}>
+                    {player["current-club"]}
+                  </Link>
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
