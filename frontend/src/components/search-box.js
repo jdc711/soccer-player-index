@@ -9,7 +9,9 @@ const SearchBox = () => {
 
   const validateSearchTerm = async (e) => {
     e.preventDefault();
+    
     navigate('/search-results/' + searchTerm.trim());
+    
   };
 
   return (

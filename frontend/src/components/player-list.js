@@ -7,26 +7,41 @@ const PlayerList = ({ name }) => {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  
+  const fetchPlayers = async () => {
+    try {
+      setLoading(true);
+      const response = await searchService.searchPlayersByName(name, currentPage, 10);
+      setPlayers(response.players);
+      setTotalPages(response.totalPages);
+      setError('');
+    } catch (error) {
+      console.error(error);
+      setError('Failed to fetch players.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  // Reset current page when name changes
   useEffect(() => {
-    const getPlayers = async () => {
-      try {
-        setLoading(true);
-        const playersData = await searchService.searchPlayersByName(name);
-        setPlayers(playersData);
-        setError('');
-
-      } catch (error) {
-        console.error(error);
-        setError('Failed to fetch players.');
-
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getPlayers();
+    if (currentPage == 1){
+      fetchPlayers();
+    }
+    setCurrentPage(1);
   }, [name]);
+
+  // Fetch players whenever currentPage or name changes
+  useEffect(() => {
+    fetchPlayers();
+  }, [ currentPage]);
+  
+   // Function to handle page change
+   const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   if (loading) {
     return <div>Loading players...</div>;
@@ -71,6 +86,14 @@ const PlayerList = ({ name }) => {
           ))}
         </tbody>
       </table>
+      {/* Pagination controls */}
+      <div>
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+          <button key={page} disabled={page === currentPage} onClick={() => handlePageChange(page)}>
+            {page}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

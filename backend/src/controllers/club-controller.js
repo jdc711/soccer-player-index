@@ -12,14 +12,21 @@ exports.getClubProfile = async (req, res) => {
 };
 
 exports.searchClubsByName = async (req, res) => {
-
-  const nameToSearch = req.query.name; // Or req.params.name if you're using route parameters
-  
+  const nameToSearch = req.query.name; 
+  const currentPage = parseInt(req.query.currentPage) || 1;
+  const pageLimit = parseInt(req.query.pageLimit) || 10; 
+  const skip = (currentPage - 1) * pageLimit;
   try {
     // Use a regular expression to search for a case-insensitive partial match
-    const clubs = await Club.find({ name: {$regex : nameToSearch, $options: "i"} }).exec();
-    res.json(clubs);
-    return
+    const clubs = await Club.find({ name: {$regex : nameToSearch,  $options: "i"}, "is-club":true }).skip(skip).limit(pageLimit);
+    const totalClubCount = await Club.countDocuments({ name: {$regex : nameToSearch,  $options: "i"},"is-club":true });
+
+    res.json({
+      totalClubCount: totalClubCount,
+      totalPages: Math.ceil(totalClubCount / pageLimit),
+      currentPage:currentPage,
+      clubs: clubs
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

@@ -8,11 +8,21 @@ import ClubList  from '../components/club-list'
 
 const SearchResultsPage = () => {
   let { query } = useParams();
+  // const [currentPage, setCurrentPage] = useState(1);
   
+  // useEffect(() => {
+  //   // Reset the current page to 1 every time the searchTerm changes
+  //   setCurrentPage(1);
+  //   console.log("pageNumber on searchResults: ",currentPage )
+  //   // Navigate to the first page of new search results when searchTerm changes
+  //   // navigate(`/search-results/${searchTerm}/1`);
+  // }, [query]);
+
+
   if (!query){
     return (
       <div>
-        <PlayerList name={""} />            
+        <PlayerList name={""}/>            
         <ClubList name={""}/>
       </div>
     );
@@ -20,7 +30,7 @@ const SearchResultsPage = () => {
 
   return (
     <div>
-      <PlayerList name={query} />            
+      <PlayerList name={query}/>            
       <ClubList name={query}/>
     </div>
   );

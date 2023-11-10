@@ -1,19 +1,34 @@
 import axios from 'axios';
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
-const searchPlayersByName = async (q) => {
-console.log("q: ", q)
+const searchPlayersByName = async (q, currentPage, pageLimit) => {
   try {
-    const response = await axios.get(baseUrl + '/public/player/search-players-by-name', { params: { name: q } });
+    const response = await axios.get(baseUrl + '/public/player/search-players-by-name', 
+    { 
+      params: 
+        { 
+          name: q,
+          currentPage: currentPage,
+          pageLimit: pageLimit
+        } 
+    });
     return response.data;
   } catch (error) {
     throw error;
   }
 };
 
-const searchClubsByName = async (q) => {
+const searchClubsByName = async (q,  currentPage, pageLimit) => {
   try {
-    const response = await axios.get(baseUrl + '/public/club/search-clubs-by-name', { params: { name: q } });
+    const response = await axios.get(baseUrl + '/public/club/search-clubs-by-name', 
+    { 
+      params: 
+      { 
+        name: q,
+        currentPage: currentPage,
+        pageLimit: pageLimit
+      } 
+    });
     return response.data;
   } catch (error) {
     throw error;

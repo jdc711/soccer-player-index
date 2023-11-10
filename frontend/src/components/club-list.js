@@ -7,28 +7,44 @@ const ClubList = ({name}) => {
   const [nationalTeams, setNationalTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
+  const fetchClubs = async () => {
+    try {
+      setLoading(true);
+      const response = await searchService.searchClubsByName(name,currentPage,10);
+      const filteredClubs = response.clubs.filter(club => club["is-club"] === true);
+      const filteredNationalTeams = response.clubs.filter(club => club["is-club"] === false);
+      setClubs(filteredClubs);
+      setNationalTeams(filteredNationalTeams);
+      setTotalPages(response.totalPages); // Assuming the response has a 'totalPages' field
+      setError('');
+    } catch (error) {
+      setError('Failed to fetch clubs.');
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Reset current page when name changes
   useEffect(() => {
-    const getClubs = async () => {
-      try {
-        setLoading(true);
-        const ClubsData = await searchService.searchClubsByName(name);
-        const filteredClubs = ClubsData.filter(club => club["is-club"] === true);
-        const filteredNationalTeams = ClubsData.filter(club => club["is-club"] === false);
-
-        setClubs(filteredClubs);
-        setNationalTeams(filteredNationalTeams);
-        setError('');
-      } catch (error) {
-        setError('Failed to fetch clubs.');
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getClubs();
+    if (currentPage == 1){
+      fetchClubs();
+    }
+    setCurrentPage(1);
   }, [name]);
+
+  // Fetch players whenever currentPage or name changes
+  useEffect(() => {
+    fetchClubs();
+  }, [ currentPage]);
+  
+  // Function to handle page change
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   if (loading) {
     return <div>Loading Clubs...</div>;
@@ -62,7 +78,7 @@ const ClubList = ({name}) => {
               </td>
               <td>
                 {Club.leagues.map((league, index) => (
-                  <span key={league._league_id}>
+                  <span key={Club._id + '-' + league._league_id}>
                     <Link to={"/league/" + league._league_id}>
                       {league.name}
                     </Link>
@@ -74,6 +90,14 @@ const ClubList = ({name}) => {
           ))}
         </tbody>
       </table>
+      {/* Pagination controls */}
+      <div>
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+          <button key={page} disabled={page === currentPage} onClick={() => handlePageChange(page)}>
+            {page}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

@@ -32,16 +32,21 @@ exports.getAllPlayers = async (req, res) => {
 };
 
 exports.searchByPlayerName = async (req, res) => {
-  const nameToSearch = req.query.name; // Or req.params.name if you're using route parameters
+  const nameToSearch = req.query.name; 
+  const currentPage = parseInt(req.query.currentPage) || 1;
+  const pageLimit = parseInt(req.query.pageLimit) || 10; 
+  const skip = (currentPage - 1) * pageLimit;
   try {
-    // Use a regular expression to search for a case-insensitive partial match
-    
+    const players = await Player.find({ name: {$regex : nameToSearch,  $options: "i"} }).skip(skip).limit(pageLimit);
+    const totalPlayerCount = await Player.countDocuments({ name: {$regex : nameToSearch,  $options: "i"} });
 
-    const players = await Player.find({ name: {$regex : nameToSearch,  $options: "i"} }).exec();
     console.log("players: ", players)
-
-    res.json(players);
-    return
+    res.json({
+      totalPlayerCount: totalPlayerCount,
+      totalPages: Math.ceil(totalPlayerCount / pageLimit),
+      currentPage:currentPage,
+      players: players
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

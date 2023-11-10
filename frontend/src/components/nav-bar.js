@@ -12,13 +12,7 @@ const NavBar = () => {
             {/* Navigation links to switch between routes */}
             <Link to="/">Home</Link>
             <SearchBox />      
-            {/* {!isLoggedIn && <Link to="/register">Register</Link>}
-            {!isLoggedIn && <Link to="/login">Login</Link>}
-            {isLoggedIn && (
-                <button onClick={logout}>
-                Logout
-                </button>
-            )} */}
+           
         </nav>
     );
 };
