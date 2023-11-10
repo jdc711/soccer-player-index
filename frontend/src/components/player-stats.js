@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBox from './search-box';
 import playerService from '../services/player-service'
+import "./player-stats.css"
 // import { useAuth } from '../context/AuthContext';
 
 const PlayerStats = ({playerId}) => {
@@ -30,6 +31,7 @@ const PlayerStats = ({playerId}) => {
     }
     
     return (
+      <div className='playerStats'>
         <table>
             <thead>
                 <tr>
@@ -70,6 +72,7 @@ const PlayerStats = ({playerId}) => {
                 ))}
             </tbody>
         </table>
+      </div>
     );
 };
 

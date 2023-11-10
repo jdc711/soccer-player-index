@@ -1,0 +1,23 @@
+/* Width for first column */
+div.clubList table tr th:nth-child(1),
+div.clubList table tr td:nth-child(1) {
+    width: 250px;
+}
+
+.clubList table {
+    width: 100%; /* Or any specific width */
+    table-layout: fixed;
+}
+
+.clubList table th, .clubList table td {
+    box-sizing: border-box;
+}
+
+/* Add alternating row colors */
+.clubList table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2; /* Set the background color for odd rows */
+}
+
+.clubList table tbody tr:nth-child(even) {
+    background-color: #ffffff; /* Set the background color for even rows */
+}

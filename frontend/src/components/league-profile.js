@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBox from './search-box';
 import leagueService from '../services/league-service'
-// import { useAuth } from '../context/AuthContext';
+import "./league-profile.css"
 
 const LeagueProfile = ({leagueId}) => {
     const [leagueProfile, setLeagueProfile] = useState(null);
@@ -29,6 +29,7 @@ const LeagueProfile = ({leagueId}) => {
     }
     
     return (
+      <div className='clubProfile'>
         <table>
             <tbody>
                 <tr>
@@ -41,6 +42,7 @@ const LeagueProfile = ({leagueId}) => {
                 </tr>
             </tbody>
         </table>
+      </div>
     );
 };
 

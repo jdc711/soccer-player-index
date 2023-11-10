@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import searchService from '../services/search-service'; // Adjust the import path as needed
 import { Link } from 'react-router-dom';
+import "./club-list.css"
 
 const ClubList = ({name}) => {
   const [clubs, setClubs] = useState([]);
@@ -59,7 +60,7 @@ const ClubList = ({name}) => {
   }
 
   return (
-    <div>      
+    <div className='clubList'>      
       <h1>Clubs</h1>
       <table>
         <thead>
@@ -93,7 +94,7 @@ const ClubList = ({name}) => {
       {/* Pagination controls */}
       <div>
         {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-          <button key={page} disabled={page === currentPage} onClick={() => handlePageChange(page)}>
+          <button key={page} className="pagination-button" disabled={page === currentPage} onClick={() => handlePageChange(page)}>
             {page}
           </button>
         ))}

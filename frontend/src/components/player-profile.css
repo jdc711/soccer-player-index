@@ -1,0 +1,14 @@
+/* Width for first column */
+div.playerProfile table tr th:nth-child(1),
+div.playerProfile table tr td:nth-child(1) {
+    width: 150px;
+}
+
+.playerProfile table {
+    width: 100%; /* Or any specific width */
+    table-layout: fixed;
+}
+
+.playerProfile table th, .playerProfile table td {
+    box-sizing: border-box;
+}

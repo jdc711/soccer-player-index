@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBox from './search-box';
 import clubService from '../services/club-service'
+import "./club-profile.css"
 
 const ClubProfile = ({clubId}) => {
     const [clubProfile, setClubProfile] = useState(null);
@@ -28,6 +29,7 @@ const ClubProfile = ({clubId}) => {
     }
     
     return (
+      <div className='clubProfile'>
         <table>
             <tbody>
                 <tr>
@@ -49,6 +51,7 @@ const ClubProfile = ({clubId}) => {
                 </tr>
             </tbody>
         </table>
+      </div>
     );
 };
 

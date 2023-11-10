@@ -1,0 +1,14 @@
+/* Width for first column */
+div.clubProfile table tr th:nth-child(1),
+div.clubProfile table tr td:nth-child(1) {
+    width: 150px;
+}
+
+.clubProfile table {
+    width: 100%; /* Or any specific width */
+    table-layout: fixed;
+}
+
+.clubProfile table th, .clubProfile table td {
+    box-sizing: border-box;
+}

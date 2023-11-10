@@ -4,7 +4,6 @@ import PlayerProfile from '../components/player-profile'
 import PlayerStats from '../components/player-stats'
 import { useParams } from 'react-router-dom';
 
-
 const PlayerPage = () => {
     let { playerId } = useParams();
     

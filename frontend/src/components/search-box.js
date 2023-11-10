@@ -1,7 +1,7 @@
 // src/components/SearchBar.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import "./search-box.css"
 
 const SearchBox = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -15,15 +15,19 @@ const SearchBox = () => {
   };
 
   return (
-    <form onSubmit={validateSearchTerm}>
-      <input
-        type="text"
-        placeholder="Search"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <button type="submit">Search</button>
-    </form>
+    <div className='searchBox'>
+      <form onSubmit={validateSearchTerm}>
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Search"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button type="submit">Search</button>
+        </div>
+      </form>
+    </div>
   );
 };
 

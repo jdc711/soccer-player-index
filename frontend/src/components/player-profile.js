@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBox from './search-box';
 import playerService from '../services/player-service'
-// import { useAuth } from '../context/AuthContext';
-
+import "./player-profile.css"
 const PlayerProfile = ({playerId}) => {
     const [playerProfile, setPlayerProfile] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -29,6 +28,7 @@ const PlayerProfile = ({playerId}) => {
     }
     
     return (
+      <div className='playerProfile'>
         <table>
             <tbody>
                 <tr>
@@ -50,7 +50,8 @@ const PlayerProfile = ({playerId}) => {
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> 
+      </div>
     );
 };
 

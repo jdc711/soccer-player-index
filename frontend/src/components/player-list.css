@@ -1,0 +1,29 @@
+/* Width for first column */
+div.playerList table tr th:nth-child(1),
+div.playerList table tr td:nth-child(1) {
+    width: 250px;
+}
+
+/* Width for second column */
+div.playerList table tr th:nth-child(2),
+div.playerList table tr td:nth-child(2) {
+    width: 250px; /* Adjust the width as needed */
+}
+
+.playerList table {
+    width: 100%; /* Or any specific width */
+    table-layout: fixed;
+}
+
+.playerList table th, .playerList table td {
+    box-sizing: border-box;
+}
+
+/* Add alternating row colors */
+.playerList table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2; /* Set the background color for odd rows */
+}
+
+.playerList table tbody tr:nth-child(even) {
+    background-color: #ffffff; /* Set the background color for even rows */
+}

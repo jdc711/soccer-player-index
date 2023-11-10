@@ -1,0 +1,19 @@
+nav {
+    background-color: #333; /* Dark background */
+    color: white;
+    padding: 10px 20px; /* Padding around the content */
+    display: flex; /* Flex layout for inline styling of elements */
+    align-items: center; /* Align items vertically */
+  }
+  
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px; /* Space between links */
+    font-size: 18px; /* Larger font size */
+  }
+  
+  nav a:hover {
+    color: #ddd; /* Color change on hover */
+  }
+  

@@ -24,7 +24,7 @@ exports.searchClubsByName = async (req, res) => {
     res.json({
       totalClubCount: totalClubCount,
       totalPages: Math.ceil(totalClubCount / pageLimit),
-      currentPage:currentPage,
+      currentPage: currentPage,
       clubs: clubs
     });
   } catch (err) {
