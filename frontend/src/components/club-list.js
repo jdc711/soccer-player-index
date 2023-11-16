@@ -5,6 +5,7 @@ import "./club-list.css"
 
 const ClubList = ({name}) => {
   const [clubs, setClubs] = useState([]);
+  // const [leaguesPerClub, setLeaguesPerClub] = useState([]);
   const [nationalTeams, setNationalTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -19,7 +20,7 @@ const ClubList = ({name}) => {
       const filteredNationalTeams = response.clubs.filter(club => club["is-club"] === false);
       setClubs(filteredClubs);
       setNationalTeams(filteredNationalTeams);
-      setTotalPages(response.totalPages); // Assuming the response has a 'totalPages' field
+      setTotalPages(response.totalPages);
       setError('');
     } catch (error) {
       setError('Failed to fetch clubs.');

@@ -1,5 +1,5 @@
 * {
-  font-family: Arial, sans-serif; /* Or any other font you prefer */
+  font-family: Arial, sans-serif;
   line-height: 1.6;
   color: #333;
 }
@@ -17,7 +17,7 @@ a{
 table td,
 table th {
     padding: 8px;
-    word-wrap: break-word; /* Break long words */
+    word-wrap: break-word;
     overflow-wrap: break-word;
 }
 
@@ -37,14 +37,14 @@ table {
     margin-bottom: 20px;
     border: 1px solid #ddd;
     border-collapse: collapse;
-    table-layout: fixed; /* Add this line */
+    table-layout: fixed;
 }
 
 .pagination-button {
   padding: 5px 10px;
   margin: 0 5px;
   border: none;
-  background-color: #007bff;
+  background-color:#007bff;
   color: white;
   border-radius: 5px;
   cursor: pointer;

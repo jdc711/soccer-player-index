@@ -39,7 +39,10 @@ league_abbreviation_to_name_map = {
     "BSA": "Brazilian Serie A",
     "NE": "Eliteserien",
     "PLN": "Liga Portugal",
-    "EC": "English Championship"
+    "EC": "English Championship",
+    "IEU": "UEFA European Championship U21",
+    "ACoN": "Africa Cup of Nations",
+    "ICC": "FIFA Confederations Cup"
 }
 
 def team_abbreviation_to_name_map(name):
@@ -297,7 +300,7 @@ def update_club_db(club_to_leagues, current_club, current_club_img_url, national
                         "$addToSet": {
                             "leagues": 
                                 {
-                                    "name": league,
+                                    "name": league_document["name"],
                                     "_league_id": league_document["_id"]        
                                 } 
                         }
@@ -312,7 +315,7 @@ def update_club_db(club_to_leagues, current_club, current_club_img_url, national
                         "$addToSet": {
                             "leagues": 
                                 {
-                                    "name": league,
+                                    "name": league_document["name"],
                                     "_league_id": league_document["_id"]        
                                 } 
                             }
@@ -472,6 +475,34 @@ for link in links:
     add_player_season_to_db(player_profile, player_stats, player_id)
     print("here5")
 
+def add_league_to_club(club,league):
+    client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
+    db = client['soccer-player-index']  
+    club_collection = db['club'] 
+    league_collection = db['league'] 
+    league_document = league_collection.find_one({"name": league})
+    if league_document == None:
+        print("Could not find league ", league)
+    club_document = club_collection.find_one({"name":club})
+    if club_document == None:
+        print("Could not find club ", club)
+    print("club before: ", club_document)
+    club_collection.update_one(
+        {"name": club},  # Query to find the document
+        {
+            "$addToSet": {
+                "leagues": 
+                    {
+                        "name": league_document["name"],
+                        "_league_id": league_document["_id"]        
+                    } 
+            }
+        },
+    )
+    club_document = club_collection.find_one({"name":club})
+    print("club after: ", club_document)
     
+
+
 
 

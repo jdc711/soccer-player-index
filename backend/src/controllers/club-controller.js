@@ -1,5 +1,6 @@
+const { ObjectId } = require('mongodb');
 const Club = require('../models/club');
-
+const League = require('../models/league');
 exports.getClubProfile = async (req, res) => {
   const clubId = req.query.clubId; 
 
@@ -25,7 +26,7 @@ exports.searchClubsByName = async (req, res) => {
       totalClubCount: totalClubCount,
       totalPages: Math.ceil(totalClubCount / pageLimit),
       currentPage: currentPage,
-      clubs: clubs
+      clubs: clubs,
     });
   } catch (err) {
     console.error(err.message);
