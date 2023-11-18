@@ -1,19 +1,19 @@
 /* Width for first column */
 div.playerStats table tr th:nth-child(1),
 div.playerStats table tr td:nth-child(1) {
-    width: 200px;
+    width: 150px;
 }
 
 /* Width for first column */
 div.playerStats table tr th:nth-child(2),
 div.playerStats table tr td:nth-child(2) {
-    width: 350px;
+    width: 200px;
 }
 
 /* Width for first column */
 div.playerStats table tr th:nth-child(3),
 div.playerStats table tr td:nth-child(3) {
-    width: 150px;
+    width: 340px;
 }
 
 /* Width for first column */

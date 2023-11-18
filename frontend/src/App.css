@@ -60,6 +60,9 @@ table {
   cursor: default;
 }
 
+img{
+max-width: 100px;
+}
 
 
 

@@ -35,9 +35,9 @@ const PlayerStats = ({playerId}) => {
         <table>
             <thead>
                 <tr>
+                    <th>Season</th>
                     <th>Club</th>
                     <th>League</th>
-                    <th>Season</th>
                     <th>Matches</th>
                     <th>Goals</th>
                     <th>Assists</th>
@@ -50,6 +50,7 @@ const PlayerStats = ({playerId}) => {
             <tbody>
                 {playerStats.map((SeasonStat) => (
                     <tr key={SeasonStat._id}>
+                        <td>{SeasonStat.season}</td>
                         <td>
                           <Link to={"/club/" + SeasonStat._club_id}>
                             {SeasonStat.club}
@@ -60,7 +61,6 @@ const PlayerStats = ({playerId}) => {
                             {SeasonStat.league}
                           </Link>
                         </td>
-                        <td>{SeasonStat.season}</td>
                         <td>{SeasonStat.appearances === "-" ? 0 : SeasonStat.appearances}</td>
                         <td>{SeasonStat.goals === "-" ? 0 : SeasonStat.goals}</td>
                         <td>{SeasonStat.assists === "-" ? 0 : SeasonStat.assists}</td>
