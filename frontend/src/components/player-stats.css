@@ -71,3 +71,11 @@ div.playerStats table tr td:nth-child(9) {
     background-color: #ffffff; /* Set the background color for even rows */
 }
 
+.playerStats td span{
+    cursor: pointer;
+}
+
+.playerStats td span:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import SearchBox from './search-box';
 import playerService from '../services/player-service'
 import "./player-stats.css"
-// import { useAuth } from '../context/AuthContext';
 
 const PlayerStats = ({playerId}) => {
     const [playerStats, setPlayerStats] = useState([]);
@@ -53,12 +52,12 @@ const PlayerStats = ({playerId}) => {
                         <td>{SeasonStat.season}</td>
                         <td>
                           <Link to={"/club/" + SeasonStat._club_id}>
-                            {SeasonStat.club}
+                            <span>{SeasonStat.club}</span>
                           </Link>
                         </td>
                         <td>
                           <Link to={"/league/" + SeasonStat._league_id}>
-                            {SeasonStat.league}
+                            <span>{SeasonStat.league}</span>
                           </Link>
                         </td>
                         <td>{SeasonStat.appearances === "-" ? 0 : SeasonStat.appearances}</td>
