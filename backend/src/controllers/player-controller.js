@@ -35,11 +35,9 @@ exports.searchByPlayerName = async (req, res) => {
   const nameToSearch = req.query.name; 
   const currentPage = parseInt(req.query.currentPage) || 1;
   const pageLimit = parseInt(req.query.pageLimit) || 10; 
+  const skip = (currentPage - 1) * pageLimit;
   const sortColumn = req.query.sortColumn;
   const sortDirection = req.query.sortDirection;
-
-  
-  const skip = (currentPage - 1) * pageLimit;
   try {
     let players;
     let totalPlayerCount;

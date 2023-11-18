@@ -11,11 +11,13 @@ const ClubList = ({name}) => {
   const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [sortColumn, setSortColumn] = useState("name");
+  const [sortDirection, setSortDirection] = useState("");
 
   const fetchClubs = async () => {
     try {
       setLoading(true);
-      const response = await searchService.searchClubsByName(name,currentPage,10);
+      const response = await searchService.searchClubsByName(name,currentPage,10, sortColumn, sortDirection);
       const filteredClubs = response.clubs.filter(club => club["is-club"] === true);
       const filteredNationalTeams = response.clubs.filter(club => club["is-club"] === false);
       setClubs(filteredClubs);
@@ -41,11 +43,40 @@ const ClubList = ({name}) => {
   // Fetch players whenever currentPage or name changes
   useEffect(() => {
     fetchClubs();
-  }, [ currentPage]);
+  }, [ currentPage, sortColumn, sortDirection]);
   
   // Function to handle page change
-  const handlePageChange = (newPage) => {
+  const changePage = (newPage) => {
     setCurrentPage(newPage);
+  };
+  
+  // Function to handle page change
+  const changeSortColumn = (newColumn) => {
+    // const newDirection = (column === sortColumn && sortDirection === "ASC") ? "DESC" : "ASC";
+    let newDirection = "";
+    if (newColumn !== sortColumn){
+      newDirection = "ASC";
+    }
+    else{
+      if (sortDirection === ""){
+        newDirection = "ASC";
+      }
+      else if (sortDirection === "ASC"){
+        newDirection = "DESC";
+      }
+      else {
+        newDirection = "";
+      }
+    }
+    
+    setSortColumn(newColumn);
+    setSortDirection(newDirection);
+  };
+  
+  const renderSortDirectionIcon = (column) => {
+    if (sortColumn !== column || sortDirection === "") return null;
+    if (sortDirection === "ASC") return <span className='arrow'>&uarr;</span>; // Upward arrow for ascending
+    return <span className='arrow'>&darr;</span>; // Downward arrow for descending
   };
 
   if (loading) {
@@ -66,8 +97,12 @@ const ClubList = ({name}) => {
       <table>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Leagues</th>
+            <th>
+              <p onClick={() => changeSortColumn('name')}>Name</p> {renderSortDirectionIcon('name')}
+            </th>
+            <th>
+              <p>Leagues</p>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -95,7 +130,7 @@ const ClubList = ({name}) => {
       {/* Pagination controls */}
       <div>
         {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-          <button key={page} className="pagination-button" disabled={page === currentPage} onClick={() => handlePageChange(page)}>
+          <button key={page} className="pagination-button" disabled={page === currentPage} onClick={() => changePage(page)}>
             {page}
           </button>
         ))}

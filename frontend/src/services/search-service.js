@@ -20,7 +20,7 @@ const searchPlayersByName = async (q, currentPage, pageLimit, sortColumn, sortDi
   }
 };
 
-const searchClubsByName = async (q,  currentPage, pageLimit) => {
+const searchClubsByName = async (q,  currentPage, pageLimit, sortColumn, sortDirection) => {
   try {
     const response = await axios.get(baseUrl + '/public/club/search-clubs-by-name', 
     { 
@@ -28,7 +28,9 @@ const searchClubsByName = async (q,  currentPage, pageLimit) => {
       { 
         name: q,
         currentPage: currentPage,
-        pageLimit: pageLimit
+        pageLimit: pageLimit,
+        sortColumn: sortColumn,
+        sortDirection, sortDirection
       } 
     });
     return response.data;

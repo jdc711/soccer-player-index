@@ -93,14 +93,14 @@ const PlayerList = ({ name }) => {
       <table>
         <thead>
           <tr>
-            <th onClick={() => changeSortColumn('name')}>
-              Name {renderSortDirectionIcon('name')}
+            <th>
+              <p onClick={() => changeSortColumn('name')}>Name</p> {renderSortDirectionIcon('name')}
             </th>
-            <th onClick={() => changeSortColumn('nationality')}>
-              Nationality {renderSortDirectionIcon('nationality')}
+            <th>
+              <p onClick={() => changeSortColumn('nationality')}>Nationality</p> {renderSortDirectionIcon('nationality')}
             </th>
-            <th onClick={() => changeSortColumn('current-club')}>
-              Club {renderSortDirectionIcon('current-club')}
+            <th>
+              <p onClick={() => changeSortColumn('current-club')}>Club</p> {renderSortDirectionIcon('current-club')}
             </th>
           </tr>
         </thead>

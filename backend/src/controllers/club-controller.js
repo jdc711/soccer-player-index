@@ -17,11 +17,22 @@ exports.searchClubsByName = async (req, res) => {
   const currentPage = parseInt(req.query.currentPage) || 1;
   const pageLimit = parseInt(req.query.pageLimit) || 10; 
   const skip = (currentPage - 1) * pageLimit;
+  const sortColumn = req.query.sortColumn;
+  const sortDirection = req.query.sortDirection;
   try {
-    // Use a regular expression to search for a case-insensitive partial match
-    const clubs = await Club.find({ name: {$regex : nameToSearch,  $options: "i"}, "is-club":true }).skip(skip).limit(pageLimit);
-    const totalClubCount = await Club.countDocuments({ name: {$regex : nameToSearch,  $options: "i"},"is-club":true });
-
+    let clubs;
+    let totalClubCount;
+    if (sortDirection == ""){
+      clubs = await Club.find({ name: {$regex : nameToSearch,  $options: "i"}, "is-club":true }).skip(skip).limit(pageLimit);
+      totalClubCount = await Club.countDocuments({ name: {$regex : nameToSearch,  $options: "i"},"is-club":true });
+    }
+    else{
+      let sort = {};
+      sort[sortColumn] = sortDirection === 'DESC' ? -1 : 1;
+      clubs = await Club.find({ name: {$regex : nameToSearch,  $options: "i"}, "is-club":true }).skip(skip).limit(pageLimit).sort(sort);
+      totalClubCount = await Club.countDocuments({ name: {$regex : nameToSearch,  $options: "i"},"is-club":true });
+    }
+    
     res.json({
       totalClubCount: totalClubCount,
       totalPages: Math.ceil(totalClubCount / pageLimit),

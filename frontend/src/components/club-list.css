@@ -21,3 +21,17 @@ div.clubList table tr td:nth-child(1) {
 .clubList table tbody tr:nth-child(even) {
     background-color: #ffffff; /* Set the background color for even rows */
 }
+
+.clubList .arrow{
+    color: #fff;
+}
+
+.clubList th p:hover{
+    text-decoration: underline;
+}
+
+.clubList th p{
+    display: inline;
+    color: #fff;
+    cursor: pointer;
+}
