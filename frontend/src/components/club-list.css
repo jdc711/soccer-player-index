@@ -35,3 +35,12 @@ div.clubList table tr td:nth-child(1) {
     color: #fff;
     cursor: pointer;
 }
+
+.clubList td span{
+    cursor: pointer;
+}
+
+.clubList td span:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}

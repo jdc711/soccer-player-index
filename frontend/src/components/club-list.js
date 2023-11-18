@@ -110,7 +110,7 @@ const ClubList = ({name}) => {
             <tr key={Club._id}>
               <td>
                 <Link to={"/club/" + Club._id}>
-                  {Club.name}
+                  <span>{Club.name}</span>
                 </Link>
               </td>
               <td>

@@ -109,14 +109,14 @@ const PlayerList = ({ name }) => {
             <tr key={player._id}>
               <td>
                 <Link to={"/player/" + player._id}>
-                  {player.name}
+                  <span>{player.name}</span>
                 </Link>
               </td>
               <td>{player.nationality}</td>
               <td>
                 {player["current-club"] === "N/A" ? (player["current-club"]) : (
                   <Link to={"/club/" + player._current_club_id}>
-                    {player["current-club"]}
+                    <span>{player["current-club"]}</span>
                   </Link>
                 )}
               </td>
