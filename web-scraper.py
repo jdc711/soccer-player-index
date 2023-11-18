@@ -276,9 +276,9 @@ links = [
 # "https://www.whoscored.com/Players/93206/History/Raphaël-Varane",
 # "https://www.whoscored.com/Players/28550/History/Thiago-Silva",
 # "https://www.whoscored.com/Players/377168/History/Luis-Díaz",
-"https://www.whoscored.com/Players/109915/History/Sadio-Mané"
-"https://www.whoscored.com/Players/8040/History/Cesc-Fàbregas"
-"https://www.whoscored.com/Players/1320/History/Carles-Puyol",
+# "https://www.whoscored.com/Players/8040/History/Cesc-Fàbregas",
+# "https://www.whoscored.com/Players/109915/History/Sadio-Mané",
+# "https://www.whoscored.com/Players/1320/History/Carles-Puyol",
 "https://www.whoscored.com/Players/12712/History/Gerard-Piqué",
 "https://www.whoscored.com/Players/6319/History/David-Villa",
 "https://www.whoscored.com/Players/320834/History/Achraf-Hakimi",
@@ -297,7 +297,7 @@ links = [
 "https://www.whoscored.com/Players/370984/History/Khvicha-Kvaratskhelia",
 "https://www.whoscored.com/Players/283323/History/Joshua-Kimmich",
 "https://www.whoscored.com/Players/39722/History/David-Alaba",
-"https://www.whoscored.com/Players/136220/History/Yassine-Bounou"
+"https://www.whoscored.com/Players/136220/History/Yassine-Bounou",
 "https://www.whoscored.com/Players/353423/History/Aurélien-Tchouaméni",
 "https://www.whoscored.com/Players/303115/History/Théo-Hernández",
 "https://www.whoscored.com/Players/345319/History/Alexis-Mac-Allister",
@@ -306,66 +306,59 @@ links = [
 "https://www.whoscored.com/Players/104749/History/Riyad-Mahrez"
 ]
 
-def update_club_db(club_to_leagues, current_club, current_club_img_url, nationality):
+def add_club_to_db(club_name, league_name, nationality, club_img_url):
+    # adds club and its corresponding league to db
+    # if club doesnt exist in db, create new club document
+    # if league doesnt exist in db, create new league document
+    client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
+    db = client['soccer-player-index']  
+    club_collection = db['club']
+    league_collection = db['league'] 
+    league_document = league_collection.find_one({"name":league_name})
+    if league_document == None:
+        league_collection.insert_one(
+            {
+                "name":league_name,
+                "location": "TBD"
+            },  
+        )
+        league_document = league_collection.find_one({"name":league_name})
+    
+    
+    club_collection.update_one(
+        {"name": club_name},  # Query to find the document
+        {
+            "$set": {
+                "image-url": club_img_url,
+                "is-club": (nationality != club_name)
+            },
+            "$addToSet": {
+                "leagues": 
+                    {
+                        "name": league_document["name"],
+                        "_league_id": league_document["_id"]        
+                    } 
+            }
+        }, 
+        upsert=True  # Create a new document if one doesn't exist
+    )
+    
+    
+    
+
+def add_clubs_to_db(club_to_leagues, current_club, current_club_img_url, nationality):
     # takes a dictionary of club name --> list of leagues
     # for each club in dictionary:
         # if club does not exist in db, then add club to db along with the leagues it participates in
         # if club already exists in db, then add any missing leagues to the db
     
-    # MongoDB connection setup
-    client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
-    db = client['soccer-player-index']  
-    club_collection = db['club']
-    league_collection = db['league']  
-    
-    for club in club_to_leagues:
-        for league in club_to_leagues[club]:
-            
-            league_document = league_collection.find_one({"name":league})
-            if league_document == None:
-                league_collection.insert_one(
-                    {
-                        "name":league,
-                        "location": "TBD"
-                    },  
-                )
-                league_document = league_collection.find_one({"name":league})
-            if current_club == club:
-                print("club_img_url: ", current_club_img_url)
-                print("club: ", club)
-
-                club_collection.update_one(
-                    {"name": club},  # Query to find the document
-                    {
-                        "$set": {
-                            "image-url": current_club_img_url,
-                            "is-club": (nationality != club)
-                        },
-                        "$addToSet": {
-                            "leagues": 
-                                {
-                                    "name": league_document["name"],
-                                    "_league_id": league_document["_id"]        
-                                } 
-                        }
-                    }, 
-                    upsert=True  # Create a new document if one doesn't exist
-                )
+    for club_name in club_to_leagues:
+        for league_name in club_to_leagues[club_name]:
+            if club_name == current_club:
+                add_club_to_db(club_name, league_name, nationality, current_club_img_url)
             else:
-                club_collection.update_one(
-                    {"name": club},  # Query to find the document
-                    {
-                        "$set": {"is-club": (nationality != club)},
-                        "$addToSet": {
-                            "leagues": 
-                                {
-                                    "name": league_document["name"],
-                                    "_league_id": league_document["_id"]        
-                                } 
-                            }
-                        },  # Operation to add league if not exists
-                        upsert=True  # Create a new document if one doesn't exist
-                )
+                add_club_to_db(club_name, league_name, nationality, "")
+            
             
 def add_player_to_db(player_profile, clubs, player_img_url):
     # MongoDB connection setup
@@ -409,71 +402,86 @@ def add_player_to_db(player_profile, clubs, player_img_url):
         player_document = player_collection.find_one({"name": player_profile["name"]})
     return player_document["_id"]
     
-
-def add_player_season_to_db(player_profile, player_stats, player_id):
+def add_player_season_to_db(player_profile, season_stats):
     client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
     db = client['soccer-player-index']  
     player_stats_collection = db['player-stats'] 
     club_collection = db['club'] 
     league_collection = db['league'] 
-    
-    for season_stats in player_stats:
-        league_document = league_collection.find_one({"name": season_stats["league"]})
+    player_collection = db['player'] 
+
+    league_document = league_collection.find_one({"name": season_stats["league"]})
         
-        if league_document == None:
-            league_collection.insert_one(
-                {
-                    "name":season_stats["league"],
-                    "location": "TBD"
-                },  
-            )
-            league_document = league_collection.find_one({"name":season_stats["league"]})
+    if league_document == None:
+        league_collection.insert_one(
+            {
+                "name":season_stats["league"],
+                "location": "TBD"
+            },  
+        )
+        league_document = league_collection.find_one({"name":season_stats["league"]})
             
+    club_document = club_collection.find_one({"name": season_stats["club"]})
+    if club_document == None:
+        add_club_to_db(season_stats["club"], season_stats["league"], player_profile["Nationality"], "")
         club_document = club_collection.find_one({"name": season_stats["club"]})
-        player_stats_document = player_stats_collection.find_one({
+        
+    player_document = player_collection.find_one({"name": player_profile["name"]})
+    if player_document == None:
+        add_player_to_db(player_profile, [], "")
+        player_document = player_collection.find_one({"name": player_profile["name"]})
+    
+    player_id = player_document["_id"]
+    
+    player_stats_document = player_stats_collection.find_one({
             "name": player_profile["name"],
             "club": season_stats["club"],
             "season": season_stats["season"],
             "league": season_stats["league"]
-        })
-        if player_stats_document == None:
-            if club_document == None:
-                player_stats_collection.insert_one({
-                    "_player_id": player_id,
-                    "_club_id": "N/A",
-                    "_league_id": league_document["_id"],
-                    "name": player_profile["name"],
-                    "club": season_stats["club"],
-                    "season": season_stats["season"],
-                    "league": season_stats["league"],
-                    "appearances": season_stats["appearances"],
-                    "goals": season_stats["goals"],
-                    "assists": season_stats["assists"],
-                    "yellow-cards": season_stats["yellow-cards"],
-                    "red-cards": season_stats["red-cards"],
-                    "man-of-the-matches": season_stats["man-of-the-matches"],
-                    "average-match-rating": season_stats["average-match-rating"],
-                })
+    })
+    if player_stats_document == None:
+        if club_document == None:
+            player_stats_collection.insert_one({
+                "_player_id": player_id,
+                "_club_id": "N/A",
+                "_league_id": league_document["_id"],
+                "name": player_profile["name"],
+                "club": season_stats["club"],
+                "season": season_stats["season"],
+                "league": season_stats["league"],
+                "appearances": season_stats["appearances"],
+                "goals": season_stats["goals"],
+                "assists": season_stats["assists"],
+                "yellow-cards": season_stats["yellow-cards"],
+                "red-cards": season_stats["red-cards"],
+                "man-of-the-matches": season_stats["man-of-the-matches"],
+                "average-match-rating": season_stats["average-match-rating"],
+            })
             
-            else:
-                player_stats_collection.insert_one({
-                    "_player_id": player_id,
-                    "_club_id": club_document["_id"],
-                    "_league_id": league_document["_id"],
-                    "name": player_profile["name"],
-                    "club": season_stats["club"],
-                    "season": season_stats["season"],
-                    "league": season_stats["league"],
-                    "appearances": season_stats["appearances"],
-                    "goals": season_stats["goals"],
-                    "assists": season_stats["assists"],
-                    "yellow-cards": season_stats["yellow-cards"],
-                    "red-cards": season_stats["red-cards"],
-                    "man-of-the-matches": season_stats["man-of-the-matches"],
-                    "average-match-rating": season_stats["average-match-rating"],
-                })
+        else:
+            player_stats_collection.insert_one({
+                "_player_id": player_id,
+                "_club_id": club_document["_id"],
+                "_league_id": league_document["_id"],
+                "name": player_profile["name"],
+                "club": season_stats["club"],
+                "season": season_stats["season"],
+                "league": season_stats["league"],
+                "appearances": season_stats["appearances"],
+                "goals": season_stats["goals"],
+                "assists": season_stats["assists"],
+                "yellow-cards": season_stats["yellow-cards"],
+                "red-cards": season_stats["red-cards"],
+                "man-of-the-matches": season_stats["man-of-the-matches"],
+                "average-match-rating": season_stats["average-match-rating"],
+            })
+    
+
+def add_player_seasons_to_db(player_profile, player_stats):
+    for season_stats in player_stats:
+        add_player_season_to_db(player_profile,season_stats)
             
-def add_club_to_db(club, current_club_img_url, nationality):
+def add_club_to_db2(club, current_club_img_url, nationality):
     if club== "N/A": return
     client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
     db = client['soccer-player-index']  
@@ -498,28 +506,6 @@ def add_club_to_db(club, current_club_img_url, nationality):
             upsert=True  # Create a new document if one doesn't exist
         )
     
-    
-    
-for link in links:
-    player_profile, player_stats, player_img_url, current_club_img_url = scrape_player_page(link)
-    print("here1")
-    club_to_leagues = find_leagues_per_club(player_stats)
-    print("here2")
-
-    update_club_db(club_to_leagues, player_profile["current-club"], current_club_img_url, player_profile["nationality"]) 
-    print("here3")
-
-    clubs = []
-    for club in club_to_leagues:
-        clubs.append(club)
-    add_club_to_db(player_profile["current-club"], current_club_img_url, player_profile["nationality"])
-    print("here4")
-
-    player_id = add_player_to_db(player_profile, clubs, player_img_url)
-    add_player_season_to_db(player_profile, player_stats, player_id)
-    print("finished adding ", player_profile["name"])
-    print("here5")
-
 def add_league_to_club(club,league):
     client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
     db = client['soccer-player-index']  
@@ -547,7 +533,24 @@ def add_league_to_club(club,league):
     club_document = club_collection.find_one({"name":club})
     print("club after: ", club_document)
     
+    
 
+for link in links:
+    player_profile, player_stats, player_img_url, current_club_img_url = scrape_player_page(link)
+    print("here1")
+    club_to_leagues = find_leagues_per_club(player_stats)
+    print("here2")
 
+    add_clubs_to_db(club_to_leagues, player_profile["current-club"], current_club_img_url, player_profile["nationality"]) 
+    print("here3")
 
+    clubs = []
+    for club in club_to_leagues:
+        clubs.append(club)
+    add_club_to_db2(player_profile["current-club"], current_club_img_url, player_profile["nationality"])
+    print("here4")
 
+    add_player_to_db(player_profile, clubs, player_img_url)
+    add_player_seasons_to_db(player_profile, player_stats)
+    print("finished adding ", player_profile["name"])
+    print("here5")

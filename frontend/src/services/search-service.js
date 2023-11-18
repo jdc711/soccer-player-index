@@ -1,7 +1,7 @@
 import axios from 'axios';
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
-const searchPlayersByName = async (q, currentPage, pageLimit) => {
+const searchPlayersByName = async (q, currentPage, pageLimit, sortColumn, sortDirection) => {
   try {
     const response = await axios.get(baseUrl + '/public/player/search-players-by-name', 
     { 
@@ -9,7 +9,9 @@ const searchPlayersByName = async (q, currentPage, pageLimit) => {
         { 
           name: q,
           currentPage: currentPage,
-          pageLimit: pageLimit
+          pageLimit: pageLimit,
+          sortColumn: sortColumn,
+          sortDirection, sortDirection
         } 
     });
     return response.data;

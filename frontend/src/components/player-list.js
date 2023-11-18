@@ -9,11 +9,14 @@ const PlayerList = ({ name }) => {
   const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [sortColumn, setSortColumn] = useState("name");
+  const [sortDirection, setSortDirection] = useState("");
+
   
   const fetchPlayers = async () => {
     try {
       setLoading(true);
-      const response = await searchService.searchPlayersByName(name, currentPage, 10);
+      const response = await searchService.searchPlayersByName(name, currentPage, 10, sortColumn, sortDirection);
       setPlayers(response.players);
       setTotalPages(response.totalPages);
       setError('');
@@ -36,13 +39,42 @@ const PlayerList = ({ name }) => {
   // Fetch players whenever currentPage or name changes
   useEffect(() => {
     fetchPlayers();
-  }, [ currentPage]);
+  }, [ currentPage, sortColumn, sortDirection]);
   
-   // Function to handle page change
-   const handlePageChange = (newPage) => {
+  // Function to handle page change
+  const changePage = (newPage) => {
     setCurrentPage(newPage);
   };
-
+  
+  // Function to handle page change
+  const changeSortColumn = (newColumn) => {
+    // const newDirection = (column === sortColumn && sortDirection === "ASC") ? "DESC" : "ASC";
+    let newDirection = "";
+    if (newColumn !== sortColumn){
+      newDirection = "ASC";
+    }
+    else{
+      if (sortDirection === ""){
+        newDirection = "ASC";
+      }
+      else if (sortDirection === "ASC"){
+        newDirection = "DESC";
+      }
+      else {
+        newDirection = "";
+      }
+    }
+    
+    setSortColumn(newColumn);
+    setSortDirection(newDirection);
+  };
+  
+  const renderSortDirectionIcon = (column) => {
+    if (sortColumn !== column || sortDirection === "") return null;
+    if (sortDirection === "ASC") return <span className='arrow'>&uarr;</span>; // Upward arrow for ascending
+    return <span className='arrow'>&darr;</span>; // Downward arrow for descending
+  };
+  
   if (loading) {
     return <div>Loading players...</div>;
   }
@@ -61,9 +93,15 @@ const PlayerList = ({ name }) => {
       <table>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Nationality</th>
-            <th>Club</th>
+            <th onClick={() => changeSortColumn('name')}>
+              Name {renderSortDirectionIcon('name')}
+            </th>
+            <th onClick={() => changeSortColumn('nationality')}>
+              Nationality {renderSortDirectionIcon('nationality')}
+            </th>
+            <th onClick={() => changeSortColumn('club')}>
+              Club {renderSortDirectionIcon('club')}
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -89,7 +127,7 @@ const PlayerList = ({ name }) => {
       {/* Pagination controls */}
       <div>
         {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-          <button key={page} className="pagination-button" disabled={page === currentPage} onClick={() => handlePageChange(page)}>
+          <button key={page} className="pagination-button" disabled={page === currentPage} onClick={() => changePage(page)}>
             {page}
           </button>
         ))}

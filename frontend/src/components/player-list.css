@@ -27,3 +27,11 @@ div.playerList table tr td:nth-child(2) {
 .playerList table tbody tr:nth-child(even) {
     background-color: #ffffff; /* Set the background color for even rows */
 }
+
+.playerList th{
+    cursor: pointer;
+}
+
+.playerList .arrow{
+    color: #fff;
+}
