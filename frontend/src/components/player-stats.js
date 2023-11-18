@@ -7,12 +7,14 @@ import "./player-stats.css"
 const PlayerStats = ({playerId}) => {
     const [playerStats, setPlayerStats] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [sortColumn, setSortColumn] = useState("name");
+    const [sortDirection, setSortDirection] = useState("");
   
     useEffect(() => {
       const getPlayerStats = async () => {
         try {
           setLoading(true);
-          const playerStatsData = await playerService.getPlayerStats(playerId);
+          const playerStatsData = await playerService.getPlayerStats(playerId, sortColumn, sortDirection);
 
           setPlayerStats(playerStatsData);
         } catch (error) {
@@ -23,7 +25,34 @@ const PlayerStats = ({playerId}) => {
       };
   
       getPlayerStats();
-    }, [playerId]);
+    }, [playerId, sortColumn, sortDirection]);
+    
+    const changeSortColumn = (newColumn) => {
+      let newDirection = "";
+      if (newColumn !== sortColumn){
+        newDirection = "ASC";
+      }
+      else{
+        if (sortDirection === ""){
+          newDirection = "ASC";
+        }
+        else if (sortDirection === "ASC"){
+          newDirection = "DESC";
+        }
+        else {
+          newDirection = "";
+        }
+      }
+      
+      setSortColumn(newColumn);
+      setSortDirection(newDirection);
+    };
+    
+    const renderSortDirectionIcon = (column) => {
+      if (sortColumn !== column || sortDirection === "") return null;
+      if (sortDirection === "ASC") return <span className='arrow'>&uarr;</span>; // Upward arrow for ascending
+      return <span className='arrow'>&darr;</span>; // Downward arrow for descending
+    };
   
     if (loading) {
       return <div>Loading Player Stats...</div>;
@@ -34,16 +63,32 @@ const PlayerStats = ({playerId}) => {
         <table>
             <thead>
                 <tr>
-                    <th>Season</th>
+                    <th>
+                      <p onClick={() => changeSortColumn('season')}>Season</p> {renderSortDirectionIcon('season')}
+                    </th>
                     <th>Club</th>
                     <th>League</th>
-                    <th>Matches</th>
-                    <th>Goals</th>
-                    <th>Assists</th>
-                    <th>MOTM</th>
-                    <th>Avg Match Rating</th>
-                    <th>Yellow Cards</th>
-                    <th>Red Cards</th>
+                    <th>
+                      <p onClick={() => changeSortColumn('appearances')}>Matches</p> {renderSortDirectionIcon('appearances')}
+                    </th>
+                    <th>
+                      <p onClick={() => changeSortColumn('goals')}>Goals</p> {renderSortDirectionIcon('goals')}
+                    </th>
+                    <th>
+                      <p onClick={() => changeSortColumn('assists')}>Assists</p> {renderSortDirectionIcon('assists')}
+                    </th>
+                    <th>
+                      <p onClick={() => changeSortColumn("man-of-the-matches")}>MOTM</p> {renderSortDirectionIcon("man-of-the-matches")}
+                    </th>
+                    <th>
+                      <p onClick={() => changeSortColumn("average-match-rating")}>Avg Match Rating</p> {renderSortDirectionIcon("average-match-rating")}
+                    </th>
+                    <th>
+                      <p onClick={() => changeSortColumn("yellow-cards")}>Yellow Cards</p> {renderSortDirectionIcon("yellow-cards")}
+                    </th>
+                    <th>
+                      <p onClick={() => changeSortColumn("red-cards")}>Red Cards</p> {renderSortDirectionIcon("red-cards")}
+                    </th>
                 </tr>
             </thead>
             <tbody>

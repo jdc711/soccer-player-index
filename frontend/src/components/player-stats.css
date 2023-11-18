@@ -71,6 +71,20 @@ div.playerStats table tr td:nth-child(9) {
     background-color: #ffffff; /* Set the background color for even rows */
 }
 
+.playerStats .arrow{
+    color: #fff;
+}
+
+.playerStats th p:hover{
+    text-decoration: underline;
+}
+
+.playerStats th p{
+    display: inline;
+    color: #fff;
+    cursor: pointer;
+}
+
 .playerStats td span{
     cursor: pointer;
 }
@@ -79,3 +93,4 @@ div.playerStats table tr td:nth-child(9) {
     cursor: pointer;
     text-decoration: underline;
 }
+

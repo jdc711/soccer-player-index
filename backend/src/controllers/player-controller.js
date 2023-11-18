@@ -14,11 +14,23 @@ exports.getPlayerProfile = async (req, res) => {
 
 exports.getPlayerStats = async (req, res) => {
   const playerId = req.query.playerId; 
+  const sortColumn = req.query.sortColumn;
+  const sortDirection = req.query.sortDirection;
+  console.log("sortDirection: ", sortDirection);
   try {
-    const playerStats = await PlayerStats.find({_player_id: playerId});
+    let playerStats;
+    if (sortDirection == ""){
+      playerStats = await PlayerStats.find({_player_id: playerId});
+    }
+    else{
+      let sort = {};
+      sort[sortColumn] = sortDirection === 'DESC' ? -1 : 1;
+      playerStats = await PlayerStats.find({_player_id: playerId}).sort(sort);
+    }
     res.json(playerStats);     
-    } catch (err) {
-      res.status(500).send('Server Error');
+  } 
+  catch (err) {
+    res.status(500).send('Server Error');
   }
 };
 
@@ -38,6 +50,8 @@ exports.searchByPlayerName = async (req, res) => {
   const skip = (currentPage - 1) * pageLimit;
   const sortColumn = req.query.sortColumn;
   const sortDirection = req.query.sortDirection;
+  console.log("sortDirection: ", sortDirection);
+
   try {
     let players;
     let totalPlayerCount;
@@ -52,7 +66,6 @@ exports.searchByPlayerName = async (req, res) => {
       totalPlayerCount = await Player.countDocuments({ name: {$regex : nameToSearch,  $options: "i"} });
     }
    
-    console.log("players: ", players)
     res.json({
       totalPlayerCount: totalPlayerCount,
       totalPages: Math.ceil(totalPlayerCount / pageLimit),

@@ -11,10 +11,18 @@ const getPlayerProfile = async (playerId) => {
   }
 };
 
-const getPlayerStats = async (playerId) => {
+const getPlayerStats = async (playerId, sortColumn, sortDirection) => {
     try {
-      console.log("playerId: " , playerId)
-      const response = await axios.get(baseUrl + '/public/player/player-stats', { params: { playerId: playerId } });
+      const response = await axios.get(baseUrl + '/public/player/player-stats', 
+        { 
+          params: 
+            { 
+              playerId: playerId,
+              sortColumn: sortColumn,
+              sortDirection: sortDirection
+            } 
+        }
+      );
       return response.data;
     } catch (error) {
       throw error;

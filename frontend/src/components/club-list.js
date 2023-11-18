@@ -99,7 +99,7 @@ const ClubList = ({name}) => {
               <p onClick={() => changeSortColumn('name')}>Name</p> {renderSortDirectionIcon('name')}
             </th>
             <th>
-              <p>Leagues</p>
+              Leagues
             </th>
           </tr>
         </thead>
