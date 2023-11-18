@@ -99,8 +99,8 @@ const PlayerList = ({ name }) => {
             <th onClick={() => changeSortColumn('nationality')}>
               Nationality {renderSortDirectionIcon('nationality')}
             </th>
-            <th onClick={() => changeSortColumn('club')}>
-              Club {renderSortDirectionIcon('club')}
+            <th onClick={() => changeSortColumn('current-club')}>
+              Club {renderSortDirectionIcon('current-club')}
             </th>
           </tr>
         </thead>
