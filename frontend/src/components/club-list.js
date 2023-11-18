@@ -50,9 +50,7 @@ const ClubList = ({name}) => {
     setCurrentPage(newPage);
   };
   
-  // Function to handle page change
   const changeSortColumn = (newColumn) => {
-    // const newDirection = (column === sortColumn && sortDirection === "ASC") ? "DESC" : "ASC";
     let newDirection = "";
     if (newColumn !== sortColumn){
       newDirection = "ASC";
