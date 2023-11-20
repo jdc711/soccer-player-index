@@ -9,12 +9,12 @@ const PlayerStatsSchema = new mongoose.Schema({
   club: String,
   season: String,
   league: String,
-  appearances: String,
-  goals: String,
-  "yellow-cards": String,
-  "red-cards": String,
-  "man-of-the-matches": String,
-  "average-match-rating": String,
+  appearances: Number,
+  goals: Number,
+  "yellow-cards": Number,
+  "red-cards": Number,
+  "man-of-the-matches": Number,
+  "average-match-rating": Number,
 });
 
 module.exports = mongoose.model('PlayerStats', PlayerStatsSchema, 'player-stats');

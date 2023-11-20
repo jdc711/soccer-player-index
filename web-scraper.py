@@ -262,7 +262,6 @@ links = [
 # "https://www.whoscored.com/Players/80241/History/Antoine-Griezmann",
 # "https://www.whoscored.com/Players/402197/History/Pedri",
 # "https://www.whoscored.com/Players/344644/History/Federico-Valverde",
-# "https://www.whoscored.com/Players/395252/History/Jamal-Musiala",
 # "https://www.whoscored.com/Players/3859/History/Wayne-Rooney",
 # "https://www.whoscored.com/Players/299513/History/Ousmane-Dembélé",
 # "https://www.whoscored.com/Players/114075/History/N-Golo-Kanté",
@@ -279,25 +278,25 @@ links = [
 # "https://www.whoscored.com/Players/8040/History/Cesc-Fàbregas",
 # "https://www.whoscored.com/Players/109915/History/Sadio-Mané",
 # "https://www.whoscored.com/Players/1320/History/Carles-Puyol",
-"https://www.whoscored.com/Players/12712/History/Gerard-Piqué",
-"https://www.whoscored.com/Players/6319/History/David-Villa",
-"https://www.whoscored.com/Players/320834/History/Achraf-Hakimi",
-"https://www.whoscored.com/Players/102248/History/Emiliano-Martínez",
-"https://www.whoscored.com/Players/369430/History/Enzo-Fernández",
-"https://www.whoscored.com/Players/349207/History/Rafael-Leão",
-"https://www.whoscored.com/Players/331254/History/Phil-Foden",
-"https://www.whoscored.com/Players/395252/History/Jamal-Musiala",
-"https://www.whoscored.com/Players/24444/History/Olivier-Giroud",
-"https://www.whoscored.com/Players/402664/History/Josko-Gvardiol",
-"https://www.whoscored.com/Players/365409/History/Julián-Álvarez",
-"https://www.whoscored.com/Players/300945/History/Christopher-Nkunku",
-"https://www.whoscored.com/Players/114147/History/Alisson-Becker",
-"https://www.whoscored.com/Players/128967/History/João-Cancelo",
-"https://www.whoscored.com/Players/422937/History/Gavi",
-"https://www.whoscored.com/Players/370984/History/Khvicha-Kvaratskhelia",
-"https://www.whoscored.com/Players/283323/History/Joshua-Kimmich",
-"https://www.whoscored.com/Players/39722/History/David-Alaba",
-"https://www.whoscored.com/Players/136220/History/Yassine-Bounou",
+# "https://www.whoscored.com/Players/12712/History/Gerard-Piqué",
+# "https://www.whoscored.com/Players/6319/History/David-Villa",
+# "https://www.whoscored.com/Players/320834/History/Achraf-Hakimi",
+# "https://www.whoscored.com/Players/102248/History/Emiliano-Martínez",
+# "https://www.whoscored.com/Players/369430/History/Enzo-Fernández",
+# "https://www.whoscored.com/Players/349207/History/Rafael-Leão",
+# "https://www.whoscored.com/Players/331254/History/Phil-Foden",
+# "https://www.whoscored.com/Players/395252/History/Jamal-Musiala",
+# "https://www.whoscored.com/Players/24444/History/Olivier-Giroud",
+# "https://www.whoscored.com/Players/402664/History/Josko-Gvardiol",
+# "https://www.whoscored.com/Players/365409/History/Julián-Álvarez",
+# "https://www.whoscored.com/Players/300945/History/Christopher-Nkunku",
+# "https://www.whoscored.com/Players/114147/History/Alisson-Becker",
+# "https://www.whoscored.com/Players/128967/History/João-Cancelo",
+# "https://www.whoscored.com/Players/422937/History/Gavi",
+# "https://www.whoscored.com/Players/370984/History/Khvicha-Kvaratskhelia",
+# "https://www.whoscored.com/Players/283323/History/Joshua-Kimmich",
+# "https://www.whoscored.com/Players/39722/History/David-Alaba",
+# "https://www.whoscored.com/Players/136220/History/Yassine-Bounou",
 "https://www.whoscored.com/Players/353423/History/Aurélien-Tchouaméni",
 "https://www.whoscored.com/Players/303115/History/Théo-Hernández",
 "https://www.whoscored.com/Players/345319/History/Alexis-Mac-Allister",
@@ -370,15 +369,12 @@ def add_player_to_db(player_profile, clubs, player_img_url):
     player_document = player_collection.find_one({"name": player_profile["name"]})
     if player_document == None:
         if player_profile["current-club"] != "N/A":
-        
             player_collection.insert_one({
                 "_current_club_id": club_document["_id"],
                 "name": player_profile["name"],
                 "age": player_profile["age"],
                 "nationality": player_profile["nationality"],
                 "positions": player_profile["positions"],
-                "age": player_profile["age"],
-                "age": player_profile["age"],
                 "age": player_profile["age"],
                 "current-club": player_profile["current-club"],
                 "shirt-number": player_profile["shirt-number"],
@@ -393,14 +389,28 @@ def add_player_to_db(player_profile, clubs, player_img_url):
                 "nationality": player_profile["nationality"],
                 "positions": player_profile["positions"],
                 "age": player_profile["age"],
-                "age": player_profile["age"],
-                "age": player_profile["age"],
                 "current-club": player_profile["current-club"],
                 "shirt-number": player_profile["shirt-number"],
                 "club-history": clubs
             })  
         player_document = player_collection.find_one({"name": player_profile["name"]})
     return player_document["_id"]
+    
+def convertStrToInt(numAsStr):
+    try:
+        return int(numAsStr)
+    except ValueError:
+        if numAsStr == "-":
+            return 0
+        split1 = numAsStr.split('(')
+        num1 = int(split1[0])
+        num2 = int(split1[1][:-1])
+        return num1 + num2
+   
+def convertStrToFloat(numAsStr):
+    if numAsStr == "-": return 0
+    return float(numAsStr)
+        
     
 def add_player_season_to_db(player_profile, season_stats):
     client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
@@ -439,7 +449,9 @@ def add_player_season_to_db(player_profile, season_stats):
             "season": season_stats["season"],
             "league": season_stats["league"]
     })
+
     if player_stats_document == None:
+        
         if club_document == None:
             player_stats_collection.insert_one({
                 "_player_id": player_id,
@@ -449,13 +461,13 @@ def add_player_season_to_db(player_profile, season_stats):
                 "club": season_stats["club"],
                 "season": season_stats["season"],
                 "league": season_stats["league"],
-                "appearances": season_stats["appearances"],
-                "goals": season_stats["goals"],
-                "assists": season_stats["assists"],
-                "yellow-cards": season_stats["yellow-cards"],
-                "red-cards": season_stats["red-cards"],
-                "man-of-the-matches": season_stats["man-of-the-matches"],
-                "average-match-rating": season_stats["average-match-rating"],
+                "appearances": convertStrToInt(season_stats["appearances"]),
+                "goals": convertStrToInt(season_stats["goals"]),
+                "assists": convertStrToInt(season_stats["assists"]),
+                "yellow-cards": convertStrToInt(season_stats["yellow-cards"]),
+                "red-cards": convertStrToInt(season_stats["red-cards"]),
+                "man-of-the-matches": convertStrToInt(season_stats["man-of-the-matches"]),
+                "average-match-rating": convertStrToFloat(season_stats["average-match-rating"]),
             })
             
         else:
@@ -467,13 +479,13 @@ def add_player_season_to_db(player_profile, season_stats):
                 "club": season_stats["club"],
                 "season": season_stats["season"],
                 "league": season_stats["league"],
-                "appearances": season_stats["appearances"],
-                "goals": season_stats["goals"],
-                "assists": season_stats["assists"],
-                "yellow-cards": season_stats["yellow-cards"],
-                "red-cards": season_stats["red-cards"],
-                "man-of-the-matches": season_stats["man-of-the-matches"],
-                "average-match-rating": season_stats["average-match-rating"],
+                "appearances": convertStrToInt(season_stats["appearances"]),
+                "goals": convertStrToInt(season_stats["goals"]),
+                "assists": convertStrToInt(season_stats["assists"]),
+                "yellow-cards": convertStrToInt(season_stats["yellow-cards"]),
+                "red-cards": convertStrToInt(season_stats["red-cards"]),
+                "man-of-the-matches": convertStrToInt(season_stats["man-of-the-matches"]),
+                "average-match-rating": convertStrToFloat(season_stats["average-match-rating"]),
             })
     
 

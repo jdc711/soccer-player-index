@@ -105,13 +105,13 @@ const PlayerStats = ({playerId}) => {
                             <span>{SeasonStat.league}</span>
                           </Link>
                         </td>
-                        <td>{SeasonStat.appearances === "-" ? 0 : SeasonStat.appearances}</td>
-                        <td>{SeasonStat.goals === "-" ? 0 : SeasonStat.goals}</td>
-                        <td>{SeasonStat.assists === "-" ? 0 : SeasonStat.assists}</td>
-                        <td>{SeasonStat["man-of-the-matches"] === "-" ? 0 : SeasonStat["man-of-the-matches"]}</td>
-                        <td>{SeasonStat["average-match-rating"] === "-" ? 0 : SeasonStat["average-match-rating"]}</td>
-                        <td>{SeasonStat["yellow-cards"] === "-" ? 0 : SeasonStat["yellow-cards"]}</td>
-                        <td>{SeasonStat["red-cards"] === "-" ? 0 : SeasonStat["red-cards"]}</td>
+                        <td>{SeasonStat.appearances}</td>
+                        <td>{SeasonStat.goals}</td>
+                        <td>{SeasonStat.assists}</td>
+                        <td>{SeasonStat["man-of-the-matches"]}</td>
+                        <td>{SeasonStat["average-match-rating"]}</td>
+                        <td>{SeasonStat["yellow-cards"]}</td>
+                        <td>{SeasonStat["red-cards"]}</td>
                     </tr>
                 ))}
             </tbody>
