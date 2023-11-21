@@ -9,6 +9,4 @@ router.get('/all-players', playerController.getAllPlayers);
 router.get('/search-players-by-name', playerController.searchByPlayerName);
 
 
-// router.post('/', playerController.createPlayer);
-
 module.exports = router;

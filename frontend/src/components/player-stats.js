@@ -10,12 +10,17 @@ const PlayerStats = ({playerId}) => {
     const [sortColumn, setSortColumn] = useState("name");
     const [sortDirection, setSortDirection] = useState("");
     const [error, setError] = useState('');
+    const [selectedClubName, setSelectedClubName] = useState("All");
+    const [selectedClubId, setSelectedClubId] = useState(null);
+    const [playerProfile, setPlayerProfile] = useState(null);
 
     useEffect(() => {
       const getPlayerStats = async () => {
         try {
           setLoading(true);
-          const playerStatsData = await playerService.getPlayerStats(playerId, sortColumn, sortDirection);
+          const playerStatsData = await playerService.getPlayerStats(playerId, selectedClubId, sortColumn, sortDirection);
+          const playerProfileData = await playerService.getPlayerProfile(playerId);
+          setPlayerProfile(playerProfileData);
           setPlayerStats(playerStatsData);
           setError('');
         } catch (error) {
@@ -27,7 +32,7 @@ const PlayerStats = ({playerId}) => {
       };
   
       getPlayerStats();
-    }, [playerId, sortColumn, sortDirection]);
+    }, [playerId, sortColumn, sortDirection, selectedClubId]);
     
     const changeSortColumn = (newColumn) => {
       let newDirection = "";
@@ -66,6 +71,20 @@ const PlayerStats = ({playerId}) => {
     
     return (
       <div className='playerStats'>
+        <div className="clubListMenu">
+          <div key={""} onClick={() => {setSelectedClubName("All"); setSelectedClubId(null)}} className={`clubListMenuItem ${selectedClubName === "All" ? 'active' : ''}`}>
+            <span >
+              All
+            </span>
+          </div>
+            {playerProfile[0]["club-history"] && playerProfile[0]["club-history"].map(club => (
+              <div key={club._club_id} onClick={() => {setSelectedClubName(club.name); setSelectedClubId(club._club_id)}} className={`clubListMenuItem ${selectedClubName === club.name ? 'active' : ''}`}>
+                <span>
+                  {club.name}
+                </span>
+              </div>
+            ))}
+        </div>
         <table>
             <thead>
                 <tr>

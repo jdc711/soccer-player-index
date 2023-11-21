@@ -11,13 +11,14 @@ const getPlayerProfile = async (playerId) => {
   }
 };
 
-const getPlayerStats = async (playerId, sortColumn, sortDirection) => {
+const getPlayerStats = async (playerId, clubId, sortColumn, sortDirection) => {
     try {
       const response = await axios.get(baseUrl + '/public/player/player-stats', 
         { 
           params: 
             { 
               playerId: playerId,
+              clubId: clubId,
               sortColumn: sortColumn,
               sortDirection: sortDirection
             } 
@@ -36,8 +37,7 @@ const getAllPlayers = async () => {
     } catch (error) {
       throw error;
     }
-  };
-
+};
 
 export default {
   getPlayerProfile, getPlayerStats, getAllPlayers

@@ -55,6 +55,15 @@ const PlayerProfile = ({playerId}) => {
                         </Link>
                         <br></br>
                         Shirt Number: {playerProfile[0]["shirt-number"]}
+                        <br></br>
+                        Club History: {playerProfile[0]["club-history"].map((club, index) => (
+                          <span key={club._club_id}>
+                            <Link to={"/club/" + club._club_id}>
+                              {club.name}
+                            </Link>
+                            {index < playerProfile[0]["club-history"].length - 1 ? ', ' : ''}
+                          </span>
+                        ))}
                     </td>
                 </tr>
             </tbody>

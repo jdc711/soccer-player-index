@@ -14,20 +14,32 @@ exports.getPlayerProfile = async (req, res) => {
 
 exports.getPlayerStats = async (req, res) => {
   const playerId = req.query.playerId; 
+  const clubId = req.query.clubId; 
   const sortColumn = req.query.sortColumn;
   const sortDirection = req.query.sortDirection;
-  console.log("sortDirection: ", sortDirection);
   try {
     let playerStats;
-    if (sortDirection == ""){
-      playerStats = await PlayerStats.find({_player_id: playerId});
+    if (!clubId){
+      if (sortDirection == ""){
+        playerStats = await PlayerStats.find({_player_id: playerId});
+      }
+      else{
+        let sort = {};
+        sort[sortColumn] = sortDirection === 'DESC' ? -1 : 1;
+        playerStats = await PlayerStats.find({_player_id: playerId}).sort(sort);
+      }  
     }
     else{
-      let sort = {};
-      sort[sortColumn] = sortDirection === 'DESC' ? -1 : 1;
-      playerStats = await PlayerStats.find({_player_id: playerId}).sort(sort);
+      if (sortDirection == ""){
+        playerStats = await PlayerStats.find({_player_id: playerId, _club_id: clubId});
+      }
+      else{
+        let sort = {};
+        sort[sortColumn] = sortDirection === 'DESC' ? -1 : 1;
+        playerStats = await PlayerStats.find({_player_id: playerId, _club_id: clubId}).sort(sort);
+      }  
     }
-    res.json(playerStats);     
+    res.json(playerStats);  
   } 
   catch (err) {
     res.status(500).send('Server Error');
@@ -50,7 +62,6 @@ exports.searchByPlayerName = async (req, res) => {
   const skip = (currentPage - 1) * pageLimit;
   const sortColumn = req.query.sortColumn;
   const sortDirection = req.query.sortDirection;
-  console.log("sortDirection: ", sortDirection);
 
   try {
     let players;

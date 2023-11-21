@@ -94,3 +94,34 @@ div.playerStats table tr td:nth-child(9) {
     text-decoration: underline;
 }
 
+.playerStats .clubListMenu {
+    display: flex;
+    overflow-x: auto; /* for horizontal scrolling if there are many clubs */
+    white-space: nowrap; /* keeps the list in a single row */
+}
+  
+.playerStats .clubListMenu .clubListMenuItem {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+  
+.playerStats .clubListMenu .clubListMenuItem.active {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.87);
+    color:rgb(19, 20, 21);
+}
+
+.playerStats .clubListMenu .clubListMenuItem span {
+    color:#70757a;
+}
+
+.playerStats .clubListMenu .clubListMenuItem.active span {
+    color:black;
+}
+  
+.playerStats .clubListMenu .clubListMenuItem{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    padding-bottom: 10px;
+}

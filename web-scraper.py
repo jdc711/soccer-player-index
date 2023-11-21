@@ -43,7 +43,8 @@ league_abbreviation_to_name_map = {
     "IEU": "UEFA European Championship U21",
     "ACoN": "Africa Cup of Nations",
     "ICC": "FIFA Confederations Cup",
-    "WCQ": "World Cup Qualifiers"
+    "WCQ": "World Cup Qualifiers",
+    "ALP": "Argentine Primera División"
 }
 
 def team_abbreviation_to_name_map(name):
@@ -365,12 +366,25 @@ def add_player_to_db(player_profile, clubs, player_img_url):
     db = client['soccer-player-index']  
     player_collection = db['player'] 
     club_collection = db['club'] 
-    club_document = club_collection.find_one({"name": player_profile["current-club"]})
+    current_club_document = club_collection.find_one({"name": player_profile["current-club"]})
     player_document = player_collection.find_one({"name": player_profile["name"]})
+    clubObjectList = []
+    if player_profile["current-club"] != "N/A":
+        clubObjectList.append({
+            "name": current_club_document["name"],
+            "_club_id": current_club_document["_id"]
+        })
+    for club in clubs:
+        club_document = club_collection.find_one({"name": club})
+        if club_document["name"] != player_profile["current-club"]:
+            clubObjectList.append({
+                "name": club_document["name"],
+                "_club_id": club_document["_id"]
+            })
     if player_document == None:
         if player_profile["current-club"] != "N/A":
             player_collection.insert_one({
-                "_current_club_id": club_document["_id"],
+                "_current_club_id": current_club_document["_id"],
                 "name": player_profile["name"],
                 "age": player_profile["age"],
                 "nationality": player_profile["nationality"],
@@ -378,7 +392,7 @@ def add_player_to_db(player_profile, clubs, player_img_url):
                 "age": player_profile["age"],
                 "current-club": player_profile["current-club"],
                 "shirt-number": player_profile["shirt-number"],
-                "club-history": clubs,
+                "club-history": clubObjectList,
                 "image-url": player_img_url
             })  
         else:
@@ -391,7 +405,7 @@ def add_player_to_db(player_profile, clubs, player_img_url):
                 "age": player_profile["age"],
                 "current-club": player_profile["current-club"],
                 "shirt-number": player_profile["shirt-number"],
-                "club-history": clubs
+                "club-history": clubObjectList
             })  
         player_document = player_collection.find_one({"name": player_profile["name"]})
     return player_document["_id"]
