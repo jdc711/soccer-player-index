@@ -7,6 +7,7 @@ import "./club-profile.css"
 const ClubProfile = ({clubId}) => {
     const [clubProfile, setClubProfile] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
   
     useEffect(() => {
       const getClubProfile = async () => {
@@ -14,8 +15,10 @@ const ClubProfile = ({clubId}) => {
           setLoading(true);
           const clubProfileData = await clubService.getClubProfile(clubId);
           setClubProfile(clubProfileData);
+          setError('');
         } catch (error) {
           console.error(error);
+          setError("Failed to fetch club profile");
         } finally {
           setLoading(false);
         }
@@ -26,6 +29,10 @@ const ClubProfile = ({clubId}) => {
   
     if (loading) {
       return <div>Loading Club Profile...</div>;
+    }
+    
+    if (error) {
+      return <div>{error}</div>;
     }
     
     return (

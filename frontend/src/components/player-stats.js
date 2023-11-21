@@ -9,16 +9,18 @@ const PlayerStats = ({playerId}) => {
     const [loading, setLoading] = useState(true);
     const [sortColumn, setSortColumn] = useState("name");
     const [sortDirection, setSortDirection] = useState("");
-  
+    const [error, setError] = useState('');
+
     useEffect(() => {
       const getPlayerStats = async () => {
         try {
           setLoading(true);
           const playerStatsData = await playerService.getPlayerStats(playerId, sortColumn, sortDirection);
-
           setPlayerStats(playerStatsData);
+          setError('');
         } catch (error) {
           console.error(error);
+          setError("Failed to fetch player stats");
         } finally {
           setLoading(false);
         }
@@ -56,6 +58,10 @@ const PlayerStats = ({playerId}) => {
   
     if (loading) {
       return <div>Loading Player Stats...</div>;
+    }
+    
+    if (error) {
+      return <div>{error}</div>;
     }
     
     return (

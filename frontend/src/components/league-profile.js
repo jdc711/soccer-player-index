@@ -7,6 +7,7 @@ import "./league-profile.css"
 const LeagueProfile = ({leagueId}) => {
     const [leagueProfile, setLeagueProfile] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
   
     useEffect(() => {
       const getLeagueProfile = async () => {
@@ -14,8 +15,10 @@ const LeagueProfile = ({leagueId}) => {
           setLoading(true);
           const leagueProfileData = await leagueService.getLeagueProfile(leagueId);
           setLeagueProfile(leagueProfileData);
+          setError('');
         } catch (error) {
           console.error(error);
+          setError("Failed to fetch league profile");
         } finally {
           setLoading(false);
         }
@@ -28,8 +31,12 @@ const LeagueProfile = ({leagueId}) => {
       return <div>Loading League Profile...</div>;
     }
     
+    if (error) {
+      return <div>{error}</div>;
+    }
+    
     return (
-      <div className='clubProfile'>
+      <div className='leagueProfile'>
         <table>
             <tbody>
                 <tr>

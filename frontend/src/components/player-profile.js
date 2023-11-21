@@ -6,6 +6,8 @@ import "./player-profile.css"
 const PlayerProfile = ({playerId}) => {
     const [playerProfile, setPlayerProfile] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+
   
     useEffect(() => {
       const getPlayerProfile = async () => {
@@ -13,8 +15,10 @@ const PlayerProfile = ({playerId}) => {
           setLoading(true);
           const playerProfileData = await playerService.getPlayerProfile(playerId);
           setPlayerProfile(playerProfileData);
+          setError('');
         } catch (error) {
           console.error(error);
+          setError("Failed to fetch player profile");
         } finally {
           setLoading(false);
         }
@@ -25,6 +29,10 @@ const PlayerProfile = ({playerId}) => {
   
     if (loading) {
       return <div>Loading Player Profile...</div>;
+    }
+    
+    if (error) {
+      return <div>{error}</div>;
     }
     
     return (
