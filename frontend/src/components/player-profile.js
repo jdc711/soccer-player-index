@@ -43,7 +43,7 @@ const PlayerProfile = ({playerId}) => {
                         Positions: {playerProfile[0].positions}
                         <br></br>
                         <Link to={"/club/" + playerProfile[0]._current_club_id}>
-                          Club: {playerProfile[0]["current-club"]}
+                          Club: <span>{playerProfile[0]["current-club"]}</span>
                         </Link>
                         <br></br>
                         Shirt Number: {playerProfile[0]["shirt-number"]}

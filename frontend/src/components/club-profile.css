@@ -12,3 +12,6 @@ div.clubProfile table tr td:nth-child(1) {
 .clubProfile table th, .clubProfile table td {
     box-sizing: border-box;
 }
+.clubProfile td span:hover {
+    text-decoration: underline;
+}

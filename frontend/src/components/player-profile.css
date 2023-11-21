@@ -12,3 +12,7 @@ div.playerProfile table tr td:nth-child(1) {
 .playerProfile table th, .playerProfile table td {
     box-sizing: border-box;
 }
+
+.playerProfile td span:hover{
+    text-decoration: underline;
+}
