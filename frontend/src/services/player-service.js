@@ -1,7 +1,6 @@
 import axios from 'axios';
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
-
 const getPlayerProfile = async (playerId) => {
   try {
     const response = await axios.get(baseUrl + '/public/player/player-profile', { params: { playerId: playerId } });

@@ -24,19 +24,15 @@
 }
 
 .searchBox button {
-    /* background-color: #007bff; */
-    /* Blue background for the button */
     color: white;
     border: none;
     padding: 5px 10px; /* Reduced padding */
     font-size: 10px; /* Smaller font size */
     border-radius: 4px;
     cursor: pointer;
-    /* Cursor changes to pointer on hover */
     outline: none;
     position: absolute; /* Absolute positioning for the button */
     right: 5px; /* Positioned to the right inside the input */
-    
     background-image: url('../assets/right-arrow.png'); /* Path to your image */
     background-size: cover; /* Or 'contain', depending on your image */
     background-position: center;
@@ -46,8 +42,3 @@
     height: 30px; /* Adjust based on your image size */
     text-indent: -9999px; /* Hide the text */
 }
-
-
-/* .searchBox button:hover {
-    
-} */

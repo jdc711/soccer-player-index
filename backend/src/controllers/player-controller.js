@@ -1,7 +1,6 @@
 const Player = require('../models/player');
 const PlayerStats = require('../models/player-stats');
 
-
 exports.getPlayerProfile = async (req, res) => {
   const playerId = req.query.playerId; 
   try {

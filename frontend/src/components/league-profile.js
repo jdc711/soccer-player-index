@@ -54,13 +54,3 @@ const LeagueProfile = ({leagueId}) => {
 };
 
 export default LeagueProfile;
-
-
-
-
-
-
-
-
-
-

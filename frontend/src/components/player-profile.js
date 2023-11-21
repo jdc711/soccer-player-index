@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import SearchBox from './search-box';
 import playerService from '../services/player-service'
 import "./player-profile.css"
 const PlayerProfile = ({playerId}) => {
@@ -73,13 +72,3 @@ const PlayerProfile = ({playerId}) => {
 };
 
 export default PlayerProfile;
-
-
-
-
-
-
-
-
-
-

@@ -45,7 +45,6 @@ const ClubList = ({name}) => {
     fetchClubs();
   }, [ currentPage, sortColumn, sortDirection]);
   
-  // Function to handle page change
   const changePage = (newPage) => {
     setCurrentPage(newPage);
   };
@@ -73,8 +72,8 @@ const ClubList = ({name}) => {
   
   const renderSortDirectionIcon = (column) => {
     if (sortColumn !== column || sortDirection === "") return null;
-    if (sortDirection === "ASC") return <span className='arrow'>&uarr;</span>; // Upward arrow for ascending
-    return <span className='arrow'>&darr;</span>; // Downward arrow for descending
+    if (sortDirection === "ASC") return <span className='arrow'>&uarr;</span>;
+    return <span className='arrow'>&darr;</span>;
   };
 
   if (loading) {
@@ -125,7 +124,6 @@ const ClubList = ({name}) => {
           ))}
         </tbody>
       </table>
-      {/* Pagination controls */}
       <div>
         {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
           <button key={page} className="pagination-button" disabled={page === currentPage} onClick={() => changePage(page)}>

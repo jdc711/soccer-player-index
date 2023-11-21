@@ -57,8 +57,8 @@ const PlayerStats = ({playerId}) => {
     
     const renderSortDirectionIcon = (column) => {
       if (sortColumn !== column || sortDirection === "") return null;
-      if (sortDirection === "ASC") return <span className='arrow'>&uarr;</span>; // Upward arrow for ascending
-      return <span className='arrow'>&darr;</span>; // Downward arrow for descending
+      if (sortDirection === "ASC") return <span className='arrow'>&uarr;</span>;
+      return <span className='arrow'>&darr;</span>;
     };
   
     if (loading) {
@@ -146,13 +146,3 @@ const PlayerStats = ({playerId}) => {
 };
 
 export default PlayerStats;
-
-
-
-
-
-
-
-
-
-

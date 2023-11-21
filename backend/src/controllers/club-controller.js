@@ -1,6 +1,4 @@
-const { ObjectId } = require('mongodb');
 const Club = require('../models/club');
-const League = require('../models/league');
 exports.getClubProfile = async (req, res) => {
   const clubId = req.query.clubId; 
 

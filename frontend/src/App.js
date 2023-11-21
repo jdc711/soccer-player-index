@@ -1,4 +1,3 @@
-// import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import HomePage from './pages/home';
 import LeaguePage from './pages/league';
@@ -30,4 +29,3 @@ function App() {
 }
 
 export default App;
-

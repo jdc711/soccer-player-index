@@ -63,13 +63,3 @@ const ClubProfile = ({clubId}) => {
 };
 
 export default ClubProfile;
-
-
-
-
-
-
-
-
-
-
