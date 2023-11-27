@@ -7,6 +7,7 @@ const NavBar = () => {
         <nav>
             {/* Navigation links to switch between routes */}
             <Link to="/">Home</Link>
+            <Link to="/top-performers">Top Performers</Link>
             <SearchBox />      
            
         </nav>

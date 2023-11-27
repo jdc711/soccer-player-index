@@ -6,8 +6,8 @@ import PlayerPage from './pages/player';
 import SearchResultsPage from './pages/search-results'
 import LoginPage from './pages/user/login';
 import RegisterPage from './pages/user/register';
+import TopPerformersPage from './pages/top-performers';
 import NavBar from './components/nav-bar'
-
 import './App.css';
 
 function App() {
@@ -23,6 +23,7 @@ function App() {
         <Route path="/search-results" element={<SearchResultsPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/top-performers" element={<TopPerformersPage />} />
       </Routes>
     </Router>
   );

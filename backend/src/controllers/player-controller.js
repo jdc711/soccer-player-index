@@ -88,3 +88,52 @@ exports.searchByPlayerName = async (req, res) => {
   }
 };
 
+exports.getTopGoalScorersStats = async (req, res) => {
+  const leagueIds = req.query.leagueIds; 
+  const clubIds = req.query.clubIds; 
+  const season = req.query.season;
+  const seasons = season.split("/");
+  const isClub = req.query.isClub;
+
+  try {
+    let topGoalScorersStats = await PlayerStats.aggregate([
+      { $match: { 
+        /* your query conditions here */ 
+          "_club_id": { "$in": clubIds },
+          "_league_id": { "$in": leagueIds },
+          "season": { "$in": seasons },
+        } 
+      },
+      { 
+        $lookup: {
+          from: 'clubs', // the name of the collection in MongoDB
+          localField: '_club_id', // field from the player-stats collection
+          foreignField: '_id', // field from the clubs collection
+          as: 'club_info' // array field added to player-stats documents
+        }
+      },
+      { $unwind: '$club_info' }, // converts club_info from array (with one object) into object
+      { 
+        $addFields: {
+          'is-club': '$club_info.is-club' // Add the is-club field from club_info to the document
+        } 
+      },
+      { $match: { 'is-club': isClub } }, 
+      { $sort: { 'goals': -1 } }, // Sorting by goals in descending order
+      { 
+        $project: {
+          'club_info': 0 // Exclude the club_info field
+          // All other fields from player-stats will be included automatically
+        } 
+      }
+    ]);
+   
+    console.log("topGoalScorersStats: ", topGoalScorersStats)
+    res.json({
+      topGoalScorersStats: topGoalScorersStats
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+};

@@ -44,7 +44,8 @@ league_abbreviation_to_name_map = {
     "ACoN": "Africa Cup of Nations",
     "ICC": "FIFA Confederations Cup",
     "WCQ": "World Cup Qualifiers",
-    "ALP": "Argentine Primera División"
+    "ALP": "Argentine Primera Division",
+    "Pro League": "Saudi Pro League",
 }
 
 def team_abbreviation_to_name_map(name):

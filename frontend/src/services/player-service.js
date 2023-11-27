@@ -28,6 +28,25 @@ const getPlayerStats = async (playerId, clubId, sortColumn, sortDirection) => {
       throw error;
     }
   };
+  
+const getTopGoalScorersStats = async (leagueIds, clubIds, season, isClub) => {
+  try {
+    const response = await axios.get(baseUrl + '/public/player/top-player-stats/goals', 
+      { 
+        params: 
+          { 
+            leagueIds: leagueIds,
+            clubIds: clubIds,
+            season: season,
+            isClub: isClub
+          } 
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 const getAllPlayers = async () => {
     try {
@@ -39,5 +58,5 @@ const getAllPlayers = async () => {
 };
 
 export default {
-  getPlayerProfile, getPlayerStats, getAllPlayers
+  getPlayerProfile, getPlayerStats, getAllPlayers, getTopGoalScorersStats
 };
