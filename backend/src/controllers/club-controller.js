@@ -1,4 +1,6 @@
 const Club = require('../models/club');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
 exports.getClubProfile = async (req, res) => {
   const clubId = req.query.clubId; 
@@ -49,10 +51,11 @@ exports.getAllClubs = async (req, res) => {
   if (!leagueIds){
     leagueIds = [];
   }
+  else {
+    leagueIds = leagueIds.map(id => new ObjectId(id));
+  }
   const isClub = req.query.isClub;
   
-  console.log("getAllClubs (backend) leagueIds: ", leagueIds);
-
   let matchCondition;
   if (leagueIds.length === 0 && isClub === "All"){
 
