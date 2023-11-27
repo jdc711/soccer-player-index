@@ -8,24 +8,29 @@ import "./dropdown-menu.css"
 const DropDownMenu = () => {
     return (
         <div className='dropDownMenu'>
-            <Dropdown title="Dropdown Menu 1">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+            <Dropdown title="Dropdown Menu 3" category="season">
             </Dropdown>
-            <Dropdown title="Dropdown Menu 2">
-                <a href="#">Link A</a>
-                <a href="#">Link B</a>
+            <Dropdown title="Dropdown Menu 2" category="leagues">
             </Dropdown>
-            <Dropdown title="Dropdown Menu 3">
-                <a href="#">Option 1</a>
-                <a href="#">Option 2</a>
+            <Dropdown title="Dropdown Menu 1" category="clubs">
             </Dropdown>
-            <Dropdown title="Dropdown Menu 4">
-                <a href="#">Item 1</a>
-                <a href="#">Item 2</a>
-                <a href="#">Item 3</a>
-            </Dropdown>
+            <form>
+                <label>
+                    <input type="radio" name="option" value="club">
+                        Club Teams
+                    </input>
+                </label>
+                <label>
+                    <input type="radio" name="option" value="national">
+                        National Teams
+                    </input>
+                </label>
+                <label>
+                    <input type="radio" name="option" value="both" checked>
+                        Both
+                    </input>
+                </label>
+            </form>
         </div>
     );
 };

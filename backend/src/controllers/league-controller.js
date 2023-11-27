@@ -10,3 +10,22 @@ exports.getLeagueProfile = async (req, res) => {
     res.status(500).send('Server Error');
   }
 };
+
+exports.getAllLeagues = async (req, res) => {
+  const isClubCompetition = req.query.isClubCompetition; 
+  
+  try {
+    let sort = {};
+    sort["name"] = 1;
+    let leagues;
+    if (isClubCompetition === "Both"){
+      leagues = await League.find({}).sort(sort);
+    }
+    else{
+      leagues = await League.find({"is-club-competition": isClubCompetition}).sort(sort);
+    }
+    res.json(leagues);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+}

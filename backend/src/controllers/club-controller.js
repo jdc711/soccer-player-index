@@ -1,4 +1,5 @@
 const Club = require('../models/club');
+
 exports.getClubProfile = async (req, res) => {
   const clubId = req.query.clubId; 
 
@@ -42,3 +43,42 @@ exports.searchClubsByName = async (req, res) => {
     res.status(500).send('Server Error');
   }
 };
+
+exports.getAllClubs = async (req, res) => {
+  const leagueIds = req.query.leagueIds; 
+  const isClub = req.query.isClub;
+  let matchCondition;
+  if (leagueIds.length === 0 && isClub === "Both"){
+    matchCondition = {};
+  }
+  else if (leagueIds.length === 0){
+    matchCondition = { "is-club": isClub };
+  }
+  else if (isClub === "Both"){
+    matchCondition = { 
+      "leagues": {
+        "$elemMatch": {
+          "_league_id": { "$in": leagueIds }
+        }
+      } 
+    };
+  }
+  else{
+    matchCondition = { 
+      "is-club": isClub,
+      "leagues": {
+        "$elemMatch": {
+          "_league_id": { "$in": leagueIds }
+        }
+      } 
+    };
+  }
+
+  try {
+    const clubs = await Club.find(matchCondition);
+    res.json(clubs);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+};
+

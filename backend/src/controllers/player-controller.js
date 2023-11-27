@@ -92,21 +92,75 @@ exports.getTopGoalScorersStats = async (req, res) => {
   const leagueIds = req.query.leagueIds; 
   const clubIds = req.query.clubIds; 
   const season = req.query.season;
-  const seasons = season.split("/");
   const isClub = req.query.isClub;
+  // console.log("leagueIds: ", leagueIds);
+  // console.log("clubIds: ", clubIds);
+  // console.log("season: ", season);
+  // console.log("isClub: ", isClub);
+  
+  // isClub = true;
+  let matchCondition;
+  if (leagueIds.length === 0 && clubIds.length === 0 && season === "All" ){
+    matchCondition = {};
+  }
+  else if (leagueIds.length === 0 && clubIds.length === 0){
+    let seasons = season.split("/");
+    seasons.push(season);
+    matchCondition = { 
+      "season": { "$in": seasons },
+    };
+  }
+  else if (leagueIds.length === 0 && season === "All"){
+    matchCondition = { 
+      "_club_id": { "$in": clubIds },      
+    };
+  }
+  else if (clubIds.length === 0 && season === "All"){
+    matchCondition = { 
+      "_league_id": { "$in": leagueIds },
+    };
+  }
+  else if (leagueIds.length === 0){
+    let seasons = season.split("/");
+    seasons.push(season);
+    matchCondition = { 
+      "_club_id": { "$in": clubIds },     
+      "season": { "$in": seasons },
+    };
+  }
+  else if (clubIds.length === 0){
+    let seasons = season.split("/");
+    seasons.push(season);
+    matchCondition = { 
+      "_league_id": { "$in": leagueIds },     
+      "season": { "$in": seasons },
+    };
+  }
+  else if (season === "All"){
+    matchCondition = { 
+      "_league_id": { "$in": leagueIds },  
+      "_club_id": { "$in": clubIds },     
+    };
+  }
+  else {
+    let seasons = season.split("/");
+    seasons.push(season);
+    matchCondition = { 
+      "_league_id": { "$in": leagueIds },     
+      "season": { "$in": seasons },
+      "_club_id": { "$in": clubIds },      
+    };
+  }
 
   try {
     let topGoalScorersStats = await PlayerStats.aggregate([
-      { $match: { 
+      { $match: 
         /* your query conditions here */ 
-          "_club_id": { "$in": clubIds },
-          "_league_id": { "$in": leagueIds },
-          "season": { "$in": seasons },
-        } 
+        matchCondition
       },
       { 
         $lookup: {
-          from: 'clubs', // the name of the collection in MongoDB
+          from: 'club', // the name of the collection in MongoDB
           localField: '_club_id', // field from the player-stats collection
           foreignField: '_id', // field from the clubs collection
           as: 'club_info' // array field added to player-stats documents

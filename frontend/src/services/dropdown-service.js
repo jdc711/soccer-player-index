@@ -10,15 +10,6 @@ const getLeagueProfile = async (leagueId) => {
   }
 };
 
-const getAllLeagues = async (isClubCompetition) => {
-  try {
-    const response = await axios.get(baseUrl + '/public/league/all-leagues', { params: { isClubCompetition: isClubCompetition } });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
-
 export default {
-  getLeagueProfile, getAllLeagues
+  getLeagueProfile
 };
