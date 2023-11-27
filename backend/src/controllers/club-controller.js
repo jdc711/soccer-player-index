@@ -45,16 +45,23 @@ exports.searchClubsByName = async (req, res) => {
 };
 
 exports.getAllClubs = async (req, res) => {
-  const leagueIds = req.query.leagueIds; 
+  let leagueIds = req.query.leagueIds; 
+  if (!leagueIds){
+    leagueIds = [];
+  }
   const isClub = req.query.isClub;
+  
+  console.log("getAllClubs (backend) leagueIds: ", leagueIds);
+
   let matchCondition;
-  if (leagueIds.length === 0 && isClub === "Both"){
+  if (leagueIds.length === 0 && isClub === "All"){
+
     matchCondition = {};
   }
   else if (leagueIds.length === 0){
     matchCondition = { "is-club": isClub };
   }
-  else if (isClub === "Both"){
+  else if (isClub === "All"){
     matchCondition = { 
       "leagues": {
         "$elemMatch": {
@@ -62,6 +69,7 @@ exports.getAllClubs = async (req, res) => {
         }
       } 
     };
+
   }
   else{
     matchCondition = { 
@@ -72,6 +80,7 @@ exports.getAllClubs = async (req, res) => {
         }
       } 
     };
+
   }
 
   try {

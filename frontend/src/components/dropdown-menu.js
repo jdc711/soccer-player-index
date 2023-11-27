@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBox from './search-box';
 import Dropdown from './dropdown';
@@ -6,31 +6,31 @@ import "./dropdown-menu.css"
 
 
 const DropDownMenu = () => {
+    const [isClub, setIsClub] = useState("All");
+    const [leagueIds, setLeagueIds] = useState([]);
+    
     return (
-        <div className='dropDownMenu'>
-            <Dropdown title="Dropdown Menu 3" category="season">
+        <div className='dropdownMenu'>
+            <Dropdown category="seasons" isClub={isClub} leagueIds={[]}>
             </Dropdown>
-            <Dropdown title="Dropdown Menu 2" category="leagues">
+            <Dropdown category="leagues" isClub={isClub} leagueIds={[]}>
             </Dropdown>
-            <Dropdown title="Dropdown Menu 1" category="clubs">
+            <Dropdown category="clubs" isClub={isClub} leagueIds={leagueIds}>
             </Dropdown>
-            <form>
+            {/* <form>
                 <label>
-                    <input type="radio" name="option" value="club">
-                        Club Teams
-                    </input>
+                    Club Teams
+                    <input type="radio" name="option" value="club" onClick={() => setIsClub(true)}></input>
                 </label>
                 <label>
-                    <input type="radio" name="option" value="national">
-                        National Teams
-                    </input>
+                    National Teams
+                    <input type="radio" name="option" value="national" onClick={() => setIsClub(false)}></input>
                 </label>
                 <label>
-                    <input type="radio" name="option" value="both" checked>
-                        Both
-                    </input>
+                    All
+                    <input type="radio" name="option" value="All" onClick={() => setIsClub('All')} checked></input>
                 </label>
-            </form>
+            </form> */}
         </div>
     );
 };

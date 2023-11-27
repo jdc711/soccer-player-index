@@ -10,9 +10,9 @@ const getClubProfile = async (clubId) => {
   }
 };
 
-const getAllClubs = async(leagueIds, isClub) => {
+const getAllClubs = async(isClub, leagueIds) => {
   try {
-    const response = await axios.get(baseUrl + '/public/league/all-clubs', { params: { leagueIds: leagueIds, isClub: isClub } });
+    const response = await axios.get(baseUrl + '/public/club/all-clubs', { params: { leagueIds: leagueIds, isClub: isClub } });
     return response.data;
   } catch (error) {
     throw error;

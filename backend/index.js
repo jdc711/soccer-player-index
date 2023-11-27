@@ -15,6 +15,8 @@ app.use(express.json());
 app.use('/public/player', require('./src/routes/player-routes'));
 app.use('/public/club', require('./src/routes/club-routes'));
 app.use('/public/league', require('./src/routes/league-routes'));
+app.use('/public/season', require('./src/routes/season-routes'));
+
 
 // Database Connection
 db = require('./src/db/db');

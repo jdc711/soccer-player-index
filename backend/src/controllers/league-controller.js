@@ -13,12 +13,12 @@ exports.getLeagueProfile = async (req, res) => {
 
 exports.getAllLeagues = async (req, res) => {
   const isClubCompetition = req.query.isClubCompetition; 
-  
+
   try {
     let sort = {};
     sort["name"] = 1;
     let leagues;
-    if (isClubCompetition === "Both"){
+    if (isClubCompetition === "All"){
       leagues = await League.find({}).sort(sort);
     }
     else{
