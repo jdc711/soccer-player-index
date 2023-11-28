@@ -22,7 +22,7 @@ const DropDownMenu = ({onLeagueChange, onSeasonChange, onClubChange, onIsClubCha
     
     const handleLeagueChange = (leagues) => {
         setSelectedLeagues(leagues);
-        // pass leagues back up to top-goal-scorers.js
+        // pass leagues back up to top-performers.js
         onLeagueChange(leagues);
     };
     
@@ -41,13 +41,13 @@ const DropDownMenu = ({onLeagueChange, onSeasonChange, onClubChange, onIsClubCha
     
     const handleSeasonChange = (seasons) => {
         setSelectedSeasons(seasons);
-        // pass seasons back up to top-goal-scorers.js
+        // pass seasons back up to top-performers.js
         onSeasonChange(seasons);
     };
     
     const handleClubChange = (clubs) => {
         setSelectedClubs(clubs);
-        // pass clubs back up to top-goal-scorers.js
+        // pass clubs back up to top-performers.js
         onClubChange(clubs);
     };
     

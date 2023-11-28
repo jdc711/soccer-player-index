@@ -13,10 +13,6 @@ const TopGoalScorersList = ({selectedLeagues, selectedClubs, selectedSeasons, is
     
     const getTopGoalScorers = async () => {
       try {
-          // console.log("selectedLeagues: ", selectedLeagues);
-          // console.log("selectedClubs: ", selectedClubs);
-          // console.log("selectedSeasons: ", selectedSeasons);
-          // console.log("isClub: ", isClub);
           setLoading(true);
           const response = await playerService.getTopGoalScorersStats(selectedLeagues, selectedClubs, selectedSeasons, isClub, currentPage, 10);
           setTopGoalScorers(response.topGoalScorersStats);
@@ -34,13 +30,6 @@ const TopGoalScorersList = ({selectedLeagues, selectedClubs, selectedSeasons, is
     useEffect(() => {
       getTopGoalScorers();
     }, [currentPage]);
-    
-    // useEffect(() => {
-    //   if (currentPage === 1){
-    //     getTopGoalScorers();
-    //   }
-    //   setCurrentPage(1);
-    // }, [selectedLeagues, selectedClubs, selectedSeasons, isClub]);
     
     useEffect(()=>{
       if (currentPage === 1){
