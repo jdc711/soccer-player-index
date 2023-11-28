@@ -89,16 +89,22 @@ exports.searchByPlayerName = async (req, res) => {
 };
 
 exports.getTopGoalScorersStats = async (req, res) => {
-  const leagueIds = req.query.leagueIds; 
-  const clubIds = req.query.clubIds; 
+  let leagueIds = req.query.leagueIds; 
+  if (!leagueIds){
+    leagueIds = [];
+  }
+  let clubIds = req.query.clubIds; 
+  if (!clubIds){
+    clubIds = [];
+  }
   const season = req.query.season;
   const isClub = req.query.isClub;
-  // console.log("leagueIds: ", leagueIds);
-  // console.log("clubIds: ", clubIds);
-  // console.log("season: ", season);
-  // console.log("isClub: ", isClub);
+
+  // console.log("backend leagueIds: ", leagueIds);
+  // console.log("backend clubIds: ", clubIds);
+  // console.log("backend season: ", season);
+  // console.log("backend isClub: ", isClub);
   
-  // isClub = true;
   let matchCondition;
   if (leagueIds.length === 0 && clubIds.length === 0 && season === "All" ){
     matchCondition = {};
@@ -151,6 +157,15 @@ exports.getTopGoalScorersStats = async (req, res) => {
       "_club_id": { "$in": clubIds },      
     };
   }
+  
+  let isClubMatchCondition;
+  if (isClub === "All"){
+    isClubMatchCondition = {};
+  }
+  else{
+    let isClubBoolean = isClub === "true";
+    isClubMatchCondition = { 'is-club': isClubBoolean };
+  }
 
   try {
     let topGoalScorersStats = await PlayerStats.aggregate([
@@ -172,7 +187,7 @@ exports.getTopGoalScorersStats = async (req, res) => {
           'is-club': '$club_info.is-club' // Add the is-club field from club_info to the document
         } 
       },
-      { $match: { 'is-club': isClub } }, 
+      { $match: isClubMatchCondition }, 
       { $sort: { 'goals': -1 } }, // Sorting by goals in descending order
       { 
         $project: {
@@ -182,10 +197,7 @@ exports.getTopGoalScorersStats = async (req, res) => {
       }
     ]);
    
-    console.log("topGoalScorersStats: ", topGoalScorersStats)
-    res.json({
-      topGoalScorersStats: topGoalScorersStats
-    });
+    res.json(topGoalScorersStats);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

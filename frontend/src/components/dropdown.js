@@ -4,7 +4,7 @@ import clubService from '../services/club-service';
 import leagueService from '../services/league-service';
 
 
-const Dropdown = ({ category, isClub, leagueIds, onLeagueChange }) => { 
+const Dropdown = ({ category, isClub, leagueIds, onLeagueChange, onSeasonChange, onClubChange }) => { 
     const [clubs, setClubs] = useState([]);
     const [seasons, setSeasons] = useState([]);   
     const [leagues, setLeagues] = useState([]);
@@ -83,12 +83,35 @@ const Dropdown = ({ category, isClub, leagueIds, onLeagueChange }) => {
     
     const handleSelectionChange = e => {
         const value = e.target.value;
-        if (category === 'seasons') setSelectedSeason(value);
+        if (category === 'seasons') {
+            setSelectedSeason(value);
+            if (onSeasonChange) onSeasonChange(value)
+        }
         else if (category === 'leagues') {
             setSelectedLeague(value);
-            if (onLeagueChange) onLeagueChange(value); // Call the callback function
+            if (onLeagueChange){    
+                if (value === "All"){
+                    onLeagueChange([]); // Call the callback function
+                }
+                else if (value === "Europe"){
+                    onLeagueChange(['654d5c42b322ad18b6591b69', '654d5c33b322ad18b6591b4d', '654d5b642cf103575690b75a', '654d573d1ea4cdf49dec12b1', '654ad4dfab855d69f23058c8', '654ad489ab855d69f23058c7', '654ad0caab855d69f23058c5', '654ad078ab855d69f23058c3','654acfbaab855d69f23058c2','654acf96ab855d69f23058c1', '654acf73ab855d69f23058c0','654acf40ab855d69f23058bf','654ace44ab855d69f23058be','654d733b540628e170d5e1f2', '654d734c540628e170d5e217', '654d734c540628e170d5e218', '654d73bd540628e170d5e2f2', '654d9911962959b8477b2160', '65582aabdeb70a898c3e77bb']);
+                }
+                else{
+                    onLeagueChange([value]); // Call the callback function
+                }
+            }
         }
-        else setSelectedClub(value);
+        else {
+            setSelectedClub(value);
+            if (onClubChange) {
+                if (value === "All"){
+                    onClubChange([])
+                }
+                else{
+                    onClubChange([value])
+                }        
+            }
+        }
     };
     
     if (loading) {

@@ -3,62 +3,58 @@ import { Link } from 'react-router-dom';
 import SearchBox from './search-box';
 import Dropdown from './dropdown';
 import "./dropdown-menu.css"
+import playerService from '../services/player-service';
 
 
-const DropDownMenu = () => {
+const DropDownMenu = ({onLeagueChange, onSeasonChange, onClubChange, onIsClubChange}) => {
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [topGoalScorers, setTopGoalScorers] = useState([]);
+
     // variable state passed to children
     const [isClub, setIsClub] = useState("All");
     const [leagueIds, setLeagueIds] = useState([]);
     
     // variable state passed up from children
-    const [selectedLeague, setSelectedLeague] = useState("All");
-    const [selectedClub, setSelectedClub] = useState("All");
-    const [selectedSeason, setSelectedSeason] = useState("All");
-
-    const handleLeagueChange = (league) => {
-        setSelectedLeague(league);
+    const [selectedLeagues, setSelectedLeagues] = useState([]);
+    const [selectedClubs, setSelectedClubs] = useState([]);
+    const [selectedSeasons, setSelectedSeasons] = useState("All");
+    
+    const handleLeagueChange = (leagues) => {
+        setSelectedLeagues(leagues);
+        // pass leagues back up to top-goal-scorers.js
+        onLeagueChange(leagues);
     };
     
     useEffect(() => {
         const setLeague = async () => {
-            if (selectedLeague === "All"){
+            if (selectedLeagues === "All"){
                 setLeagueIds([]);
             }
-            else if (selectedLeague === "Europe"){
-                setLeagueIds(['654d5c42b322ad18b6591b69', '654d5c33b322ad18b6591b4d', '654d5b642cf103575690b75a', '654d573d1ea4cdf49dec12b1', '654ad4dfab855d69f23058c8', '654ad489ab855d69f23058c7', '654ad0caab855d69f23058c5', '654ad078ab855d69f23058c3','654acfbaab855d69f23058c2','654acf96ab855d69f23058c1', '654acf73ab855d69f23058c0','654acf40ab855d69f23058bf','654ace44ab855d69f23058be','654d733b540628e170d5e1f2', '654d734c540628e170d5e217', '654d734c540628e170d5e218', '654d73bd540628e170d5e2f2', '654d9911962959b8477b2160', '65582aabdeb70a898c3e77bb', ]);
-            }
             else{
-                setLeagueIds([selectedLeague]);
+                setLeagueIds(selectedLeagues);
             }
         };
 
         setLeague();
-    }, [selectedLeague]);
+    }, [selectedLeagues]);
     
-    const handleSeasonChange = (season) => {
-        setSelectedSeason(season);
+    const handleSeasonChange = (seasons) => {
+        setSelectedSeasons(seasons);
+        // pass seasons back up to top-goal-scorers.js
+        onSeasonChange(seasons);
     };
     
-    const handleClubChange = (club) => {
-        setSelectedClub(club);
+    const handleClubChange = (clubs) => {
+        setSelectedClubs(clubs);
+        // pass clubs back up to top-goal-scorers.js
+        onClubChange(clubs);
     };
     
-    useEffect(() => {
-        const setLeague = async () => {
-            if (selectedLeague === "All"){
-                setLeagueIds([]);
-            }
-            else if (selectedLeague === "Europe"){
-                setLeagueIds(['654d5c42b322ad18b6591b69', '654d5c33b322ad18b6591b4d', '654d5b642cf103575690b75a', '654d573d1ea4cdf49dec12b1', '654ad4dfab855d69f23058c8', '654ad489ab855d69f23058c7', '654ad0caab855d69f23058c5', '654ad078ab855d69f23058c3','654acfbaab855d69f23058c2','654acf96ab855d69f23058c1', '654acf73ab855d69f23058c0','654acf40ab855d69f23058bf','654ace44ab855d69f23058be','654d733b540628e170d5e1f2', '654d734c540628e170d5e217', '654d734c540628e170d5e218', '654d73bd540628e170d5e2f2', '654d9911962959b8477b2160', '65582aabdeb70a898c3e77bb', ]);
-            }
-            else{
-                setLeagueIds([selectedLeague]);
-            }
-        };
-
-        setLeague();
-    }, [selectedLeague, selectedClub, selectedSeason]);
-    
+    const handleIsClubChange = (isClub) => {
+        setIsClub(isClub);
+        onIsClubChange(isClub);
+    }
     
     return (
         <div className='dropdownMenu'>
@@ -71,15 +67,15 @@ const DropDownMenu = () => {
             <form>
                 <label>
                     Club Teams
-                    <input type="radio" name="option" value="club" onClick={() => setIsClub(true)}></input>
+                    <input type="radio" name="option" value="club" onClick={() => handleIsClubChange(true)}></input>
                 </label>
                 <label>
                     National Teams
-                    <input type="radio" name="option" value="national" onClick={() => setIsClub(false)}></input>
+                    <input type="radio" name="option" value="national" onClick={() => handleIsClubChange(false)}></input>
                 </label>
                 <label>
                     All
-                    <input type="radio" name="option" value="All" onClick={() => setIsClub('All')} defaultChecked></input>
+                    <input type="radio" name="option" value="All" onClick={() => handleIsClubChange('All')} defaultChecked></input>
                 </label>
             </form>
         </div>
