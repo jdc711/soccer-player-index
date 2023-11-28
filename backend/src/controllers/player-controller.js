@@ -1,5 +1,7 @@
 const Player = require('../models/player');
 const PlayerStats = require('../models/player-stats');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
 exports.getPlayerProfile = async (req, res) => {
   const playerId = req.query.playerId; 
@@ -93,17 +95,23 @@ exports.getTopGoalScorersStats = async (req, res) => {
   if (!leagueIds){
     leagueIds = [];
   }
+  else{
+    leagueIds = leagueIds.map(id => typeof id === 'string' ? new ObjectId(id) : id);
+  }
   let clubIds = req.query.clubIds; 
   if (!clubIds){
     clubIds = [];
   }
+  else{
+    clubIds = clubIds.map(id => typeof id === 'string' ? new ObjectId(id) : id);
+  }
   const season = req.query.season;
   const isClub = req.query.isClub;
 
-  // console.log("backend leagueIds: ", leagueIds);
-  // console.log("backend clubIds: ", clubIds);
-  // console.log("backend season: ", season);
-  // console.log("backend isClub: ", isClub);
+  console.log("backend leagueIds: ", leagueIds);
+  console.log("backend clubIds: ", clubIds);
+  console.log("backend season: ", season);
+  console.log("backend isClub: ", isClub);
   
   let matchCondition;
   if (leagueIds.length === 0 && clubIds.length === 0 && season === "All" ){
@@ -166,6 +174,10 @@ exports.getTopGoalScorersStats = async (req, res) => {
     let isClubBoolean = isClub === "true";
     isClubMatchCondition = { 'is-club': isClubBoolean };
   }
+  
+  console.log("backend matchCondition: ",matchCondition );
+  console.log("backend isClubMatchCondition: ",isClubMatchCondition );
+
 
   try {
     let topGoalScorersStats = await PlayerStats.aggregate([
@@ -196,6 +208,8 @@ exports.getTopGoalScorersStats = async (req, res) => {
         } 
       }
     ]);
+    
+    console.log("backend topGoalScorersStats: ", topGoalScorersStats)
    
     res.json(topGoalScorersStats);
   } catch (err) {

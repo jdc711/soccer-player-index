@@ -12,10 +12,10 @@ const TopGoalScorersList = ({selectedLeagues, selectedClubs, selectedSeasons, is
     useEffect(() => {
       const getTopGoalScorers = async () => {
           try {
-              // console.log("selectedLeagues: ", selectedLeagues);
-              // console.log("selectedClubs: ", selectedClubs);
-              // console.log("selectedSeasons: ", selectedSeasons);
-              // console.log("isClub: ", isClub);
+              console.log("selectedLeagues: ", selectedLeagues);
+              console.log("selectedClubs: ", selectedClubs);
+              console.log("selectedSeasons: ", selectedSeasons);
+              console.log("isClub: ", isClub);
               setLoading(true);
               const topGoalScorersData = await playerService.getTopGoalScorersStats(selectedLeagues, selectedClubs, selectedSeasons, isClub);
               setTopGoalScorers(topGoalScorersData);
