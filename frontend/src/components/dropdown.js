@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import seasonService from '../services/season-service';
 import clubService from '../services/club-service';
 import leagueService from '../services/league-service';
-
+import "./dropdown.css"
 
 const Dropdown = ({ category, isClub, leagueIds, onLeagueChange, onSeasonChange, onClubChange }) => { 
     // the values for each dropdown
