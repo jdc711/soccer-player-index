@@ -23,7 +23,7 @@ exports.searchClubsByName = async (req, res) => {
   try {
     let clubs;
     let totalClubCount;
-    if (sortDirection == ""){
+    if (sortDirection === ""){
       clubs = await Club.find({ name: {$regex : nameToSearch,  $options: "i"}, "is-club":true }).skip(skip).limit(pageLimit);
       totalClubCount = await Club.countDocuments({ name: {$regex : nameToSearch,  $options: "i"},"is-club":true });
     }

@@ -21,7 +21,7 @@ exports.getPlayerStats = async (req, res) => {
   try {
     let playerStats;
     if (!clubId){
-      if (sortDirection == ""){
+      if (sortDirection === ""){
         playerStats = await PlayerStats.find({_player_id: playerId});
       }
       else{
@@ -31,7 +31,7 @@ exports.getPlayerStats = async (req, res) => {
       }  
     }
     else{
-      if (sortDirection == ""){
+      if (sortDirection === ""){
         playerStats = await PlayerStats.find({_player_id: playerId, _club_id: clubId});
       }
       else{
@@ -67,7 +67,7 @@ exports.searchByPlayerName = async (req, res) => {
   try {
     let players;
     let totalPlayerCount;
-    if (sortDirection == ""){
+    if (sortDirection === ""){
       players = await Player.find({ name: {$regex : nameToSearch,  $options: "i"} }).skip(skip).limit(pageLimit);
       totalPlayerCount = await Player.countDocuments({ name: {$regex : nameToSearch,  $options: "i"} });
     }

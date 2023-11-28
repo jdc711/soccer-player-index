@@ -30,7 +30,7 @@ const PlayerList = ({ name }) => {
 
   // Reset current page when name changes
   useEffect(() => {
-    if (currentPage == 1){
+    if (currentPage === 1){
       fetchPlayers();
     }
     setCurrentPage(1);
