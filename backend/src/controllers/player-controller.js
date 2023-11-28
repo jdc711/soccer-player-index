@@ -243,9 +243,13 @@ exports.getTopGoalScorersStats = async (req, res) => {
       }
     ]);
     
-    totalCount = totalCount[0]["totalCount"];
-    console.log("totalCount: ", totalCount);
-    
+    if (totalCount.length === 0){
+      totalCount = 0;
+    }
+    else{
+      totalCount = totalCount[0]["totalCount"];
+    }
+        
     res.json({
       topGoalScorersStats: topGoalScorersStats,
       totalCount: totalCount,

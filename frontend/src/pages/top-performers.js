@@ -11,6 +11,7 @@ const TopPerformersPage = () => {
     const [selectedClubs, setSelectedClubs] = useState([]);
     const [selectedSeasons, setSelectedSeasons] = useState("All");
     const [isClub, setIsClub] = useState("All");
+    const [submitStatus, setSubmitStatus] = useState(false);
 
     
     const handleLeagueChange = (league) => {
@@ -29,10 +30,15 @@ const TopPerformersPage = () => {
         setIsClub(isClub);
     };
     
+    const handleOnSubmit = () => {
+    
+        setSubmitStatus(!submitStatus);
+    };
+    
     return (
         <div>
-            <DropDownMenu onLeagueChange={handleLeagueChange} onSeasonChange={handleSeasonChange} onClubChange={handleClubChange} onIsClubChange={handleIsClubChange} />     
-            <TopGoalScorersList selectedLeagues={selectedLeagues} selectedClubs={selectedClubs} selectedSeasons={selectedSeasons} isClub={isClub} />
+            <DropDownMenu onLeagueChange={handleLeagueChange} onSeasonChange={handleSeasonChange} onClubChange={handleClubChange} onIsClubChange={handleIsClubChange} onSubmit={handleOnSubmit} />     
+            <TopGoalScorersList selectedLeagues={selectedLeagues} selectedClubs={selectedClubs} selectedSeasons={selectedSeasons} isClub={isClub} submitStatus = {submitStatus}/>
         </div>
     );
 };

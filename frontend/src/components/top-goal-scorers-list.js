@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBox from './search-box';
 import playerService from '../services/player-service'
-import "./player-stats.css"
+import "./top-goal-scorers-list.css"
 
-const TopGoalScorersList = ({selectedLeagues, selectedClubs, selectedSeasons, isClub}) => {
+const TopGoalScorersList = ({selectedLeagues, selectedClubs, selectedSeasons, isClub, submitStatus}) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [topGoalScorers, setTopGoalScorers] = useState([]);
@@ -35,13 +35,19 @@ const TopGoalScorersList = ({selectedLeagues, selectedClubs, selectedSeasons, is
       getTopGoalScorers();
     }, [currentPage]);
     
-    // set page to 1 when filter changes
-    useEffect(() => {
+    // useEffect(() => {
+    //   if (currentPage === 1){
+    //     getTopGoalScorers();
+    //   }
+    //   setCurrentPage(1);
+    // }, [selectedLeagues, selectedClubs, selectedSeasons, isClub]);
+    
+    useEffect(()=>{
       if (currentPage === 1){
         getTopGoalScorers();
       }
       setCurrentPage(1);
-    }, [selectedLeagues, selectedClubs, selectedSeasons, isClub]);
+    }, [submitStatus])
   
     const changePage = (newPage) => {
       setCurrentPage(newPage);
@@ -100,7 +106,7 @@ const TopGoalScorersList = ({selectedLeagues, selectedClubs, selectedSeasons, is
             {page}
           </button>
         ))}
-      </div>
+        </div>
       </div>
     );
 };

@@ -6,7 +6,7 @@ import "./dropdown-menu.css"
 import playerService from '../services/player-service';
 
 
-const DropDownMenu = ({onLeagueChange, onSeasonChange, onClubChange, onIsClubChange}) => {
+const DropDownMenu = ({onLeagueChange, onSeasonChange, onClubChange, onIsClubChange, onSubmit}) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [topGoalScorers, setTopGoalScorers] = useState([]);
@@ -56,6 +56,10 @@ const DropDownMenu = ({onLeagueChange, onSeasonChange, onClubChange, onIsClubCha
         onIsClubChange(isClub);
     }
     
+    const onClickSubmit = () => {
+        onSubmit();
+    };
+    
     return (
         <div className='dropdownMenu'>
             <Dropdown category="seasons" isClub={isClub} leagueIds={[]} onLeagueChange={null} onSeasonChange={handleSeasonChange} onClubChange={null}>
@@ -78,6 +82,7 @@ const DropDownMenu = ({onLeagueChange, onSeasonChange, onClubChange, onIsClubCha
                     <input type="radio" name="option" value="All" onClick={() => handleIsClubChange('All')} defaultChecked></input>
                 </label>
             </form>
+            <button className="submitBtn" onClick={onClickSubmit}>Submit</button>
         </div>
     );
 };

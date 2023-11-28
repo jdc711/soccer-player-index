@@ -114,6 +114,19 @@ const Dropdown = ({ category, isClub, leagueIds, onLeagueChange, onSeasonChange,
         }
     };
     
+    const renderHeader = () => {
+        if (category === "seasons"){
+            return <span>Season</span>
+        }
+        else if (category === "leagues"){
+            return <span>League</span>
+        }
+        else {
+            return <span>Club</span>
+        }
+    
+    }
+    
     if (loading) {
         return <div>Loading Clubs...</div>;
     }
@@ -123,7 +136,8 @@ const Dropdown = ({ category, isClub, leagueIds, onLeagueChange, onSeasonChange,
     }
     
     return (
-         <div className='dropdown'>
+        <div className='dropdown'>
+            {renderHeader()}
             <select value={getSelectedValue()} onChange={handleSelectionChange}>
                 {renderDropdownItems()}
             </select>
