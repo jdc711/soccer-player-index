@@ -23,5 +23,13 @@ div.topPerformersList table tr td:nth-child(4) {
 }
 
 
+.topPerformersList td span{
+    cursor: pointer;
+}
+
+.topPerformersList td span:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
 
 
