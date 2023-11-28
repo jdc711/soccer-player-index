@@ -2,20 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBox from './search-box';
 import playerService from '../services/player-service'
-import "./top-goal-scorers-list.css"
+import "./top-performers-list.css"
 
-const TopGoalScorersList = ({selectedLeagues, selectedClubs, selectedSeasons, isClub, submitStatus}) => {
+const TopPerformersList = ({selectedLeagues, selectedClubs, selectedSeasons, isClub, submitStatus, category}) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const [topGoalScorers, setTopGoalScorers] = useState([]);
+    const [topPerformers, setTopPerformers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     
-    const getTopGoalScorers = async () => {
+    const getTopPerformers = async () => {
       try {
           setLoading(true);
-          const response = await playerService.getTopGoalScorersStats(selectedLeagues, selectedClubs, selectedSeasons, isClub, currentPage, 10);
-          setTopGoalScorers(response.topGoalScorersStats);
+          let response;
+          
+          response = await playerService.getTopPerformersStats(selectedLeagues, selectedClubs, selectedSeasons, isClub, currentPage, 10, category);
+          setTopPerformers(response.topGoalScorersStats);
           setTotalPages(response.totalPages);
 
           setError('');
@@ -28,12 +30,12 @@ const TopGoalScorersList = ({selectedLeagues, selectedClubs, selectedSeasons, is
     };
     
     useEffect(() => {
-      getTopGoalScorers();
+      getTopPerformers();
     }, [currentPage]);
     
     useEffect(()=>{
       if (currentPage === 1){
-        getTopGoalScorers();
+        getTopPerformers();
       }
       setCurrentPage(1);
     }, [submitStatus])
@@ -50,9 +52,39 @@ const TopGoalScorersList = ({selectedLeagues, selectedClubs, selectedSeasons, is
       return <div>{error}</div>;
     }
     
+    const renderHeader = () => {
+      if (category === "goals"){
+        return <h1>Top Goalscorers</h1>;
+      }
+      else if (category === "assists"){
+        return <h1>Top Assisters</h1>;
+      }
+      else if (category === "man-of-the-matches"){
+        return <h1>Most Man of the Matches</h1>;
+      }
+      else {
+        return <h1>Highest Avg Match Rating</h1>;
+      }
+    };
+    
+    const renderLastColumn = () => {
+      if (category === "goals"){
+        return <th>Goals</th>;
+      }
+      else if (category === "assists"){
+        return <th>Assists</th>;
+      }
+      else if (category === "man-of-the-matches"){
+        return <th>MOTM</th>;
+      }
+      else {
+        return <th>Avg Match Rating</th>;
+      }
+    };
+    
     return (
-      <div className='topGoalScorersList'>
-        <h1>Top Goalscorers</h1>
+      <div className='topPerformersList'>
+        {renderHeader()}
         <table>
             <thead>
                 <tr>
@@ -60,11 +92,11 @@ const TopGoalScorersList = ({selectedLeagues, selectedClubs, selectedSeasons, is
                     <th>Season</th>
                     <th>League</th>
                     <th>Team</th>
-                    <th>Goals</th>
+                    {renderLastColumn()}
                 </tr>
             </thead>
             <tbody>
-                {topGoalScorers.map((SeasonStat) => (
+                {topPerformers.map((SeasonStat) => (
                     <tr key={SeasonStat._id}>
                         <td>
                           <Link to={"/player/" + SeasonStat._player_id}>
@@ -84,7 +116,10 @@ const TopGoalScorersList = ({selectedLeagues, selectedClubs, selectedSeasons, is
                             <span>{SeasonStat.club}</span>
                           </Link>
                         </td>
-                        <td>{SeasonStat.goals}</td>
+                        {category === "goals" && <td>{SeasonStat.goals}</td>}
+                        {category === "assists" && <td>{SeasonStat.assists}</td>}
+                        {category === "man-of-the-matches" && <td>{SeasonStat["man-of-the-matches"]}</td>}
+                        {category === "average-match-rating" && <td>{SeasonStat["average-match-rating"]}</td>}                    
                     </tr>
                 ))}
             </tbody>
@@ -100,4 +135,4 @@ const TopGoalScorersList = ({selectedLeagues, selectedClubs, selectedSeasons, is
     );
 };
 
-export default TopGoalScorersList;
+export default TopPerformersList;

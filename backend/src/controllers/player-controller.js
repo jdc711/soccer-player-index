@@ -90,11 +90,12 @@ exports.searchByPlayerName = async (req, res) => {
   }
 };
 
-exports.getTopGoalScorersStats = async (req, res) => {
+exports.getTopPerformersStats = async (req, res) => {
   let leagueIds = req.query.leagueIds;
   const season = req.query.season;
   const isClub = req.query.isClub;
   let clubIds = req.query.clubIds; 
+  const category = req.query.category;
   const currentPage = parseInt(req.query.currentPage) || 1;
   const pageLimit = parseInt(req.query.pageLimit) || 10; 
   const skip = (currentPage - 1) * pageLimit;
@@ -112,12 +113,19 @@ exports.getTopGoalScorersStats = async (req, res) => {
     clubIds = clubIds.map(id => typeof id === 'string' ? new ObjectId(id) : id);
   }
   
-
-  // console.log("backend leagueIds: ", leagueIds);
-  // console.log("backend clubIds: ", clubIds);
-  // console.log("backend season: ", season);
-  // console.log("backend isClub: ", isClub);
-  
+  let sortCondition;
+  if (category === "goals"){
+    sortCondition = { "goals": -1 };
+  }
+  else if (category === "assists"){
+    sortCondition = { "assists": -1 };
+  }
+  else if (category === "man-of-the-matches"){
+    sortCondition = { "man-of-the-matches": -1 };
+  }
+  else {
+    sortCondition = { "average-match-rating": -1 };
+  }
   let matchCondition;
   if (leagueIds.length === 0 && clubIds.length === 0 && season === "All" ){
     matchCondition = {};
@@ -201,7 +209,7 @@ exports.getTopGoalScorersStats = async (req, res) => {
         } 
       },
       { $match: isClubMatchCondition }, 
-      { $sort: { 'goals': -1 } }, // Sorting by goals in descending order
+      { $sort: sortCondition }, // Sorting by goals in descending order
       { 
         $project: {
           'club_info': 0 // Exclude the club_info field
@@ -231,7 +239,7 @@ exports.getTopGoalScorersStats = async (req, res) => {
         } 
       },
       { $match: isClubMatchCondition }, 
-      { $sort: { 'goals': -1 } }, // Sorting by goals in descending order
+      { $sort: sortCondition }, // Sorting by goals in descending order
       { 
         $project: {
           'club_info': 0 // Exclude the club_info field

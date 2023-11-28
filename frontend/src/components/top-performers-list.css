@@ -1,0 +1,27 @@
+/* Width for first column */
+div.topPerformersList table tr th:nth-child(1),
+div.topPerformersList table tr td:nth-child(1) {
+    width: 200px;
+}
+
+/* Width for first column */
+div.topPerformersList table tr th:nth-child(2),
+div.topPerformersList table tr td:nth-child(2) {
+    width: 150px;
+}
+
+/* Width for first column */
+div.topPerformersList table tr th:nth-child(3),
+div.topPerformersList table tr td:nth-child(3) {
+    width: 200px;
+}
+
+/* Width for first column */
+div.topPerformersList table tr th:nth-child(4),
+div.topPerformersList table tr td:nth-child(4) {
+    width: 200px;
+}
+
+
+
+

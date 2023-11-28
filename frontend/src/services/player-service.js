@@ -29,9 +29,71 @@ const getPlayerStats = async (playerId, clubId, sortColumn, sortDirection) => {
     }
   };
   
-const getTopGoalScorersStats = async (leagueIds, clubIds, season, isClub, currentPage, pageLimit) => {
+// const getTopAssistersStats = async (leagueIds, clubIds, season, isClub, currentPage, pageLimit) => {
+//   try {
+//     const response = await axios.get(baseUrl + '/public/player/top-player-stats/assists', 
+//       { 
+//         params: 
+//           { 
+//             leagueIds: leagueIds,
+//             clubIds: clubIds,
+//             season: season,
+//             isClub: isClub,
+//             currentPage: currentPage,
+//             pageLimit: pageLimit
+//           } 
+//       }
+//     );
+//     return response.data;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
+
+// const getTopMotmsStats = async (leagueIds, clubIds, season, isClub, currentPage, pageLimit) => {
+//   try {
+//     const response = await axios.get(baseUrl + '/public/player/top-player-stats/man-of-the-matches', 
+//       { 
+//         params: 
+//           { 
+//             leagueIds: leagueIds,
+//             clubIds: clubIds,
+//             season: season,
+//             isClub: isClub,
+//             currentPage: currentPage,
+//             pageLimit: pageLimit
+//           } 
+//       }
+//     );
+//     return response.data;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
+
+// const getAvgMatchRatingsStats = async (leagueIds, clubIds, season, isClub, currentPage, pageLimit) => {
+//   try {
+//     const response = await axios.get(baseUrl + '/public/player/top-player-stats/average-match-rating', 
+//       { 
+//         params: 
+//           { 
+//             leagueIds: leagueIds,
+//             clubIds: clubIds,
+//             season: season,
+//             isClub: isClub,
+//             currentPage: currentPage,
+//             pageLimit: pageLimit
+//           } 
+//       }
+//     );
+//     return response.data;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
+const getTopPerformersStats = async (leagueIds, clubIds, season, isClub, currentPage, pageLimit, category) => {
   try {
-    const response = await axios.get(baseUrl + '/public/player/top-player-stats/goals', 
+    const response = await axios.get(baseUrl + '/public/player/top-player-stats', 
       { 
         params: 
           { 
@@ -40,7 +102,8 @@ const getTopGoalScorersStats = async (leagueIds, clubIds, season, isClub, curren
             season: season,
             isClub: isClub,
             currentPage: currentPage,
-            pageLimit: pageLimit
+            pageLimit: pageLimit,
+            category: category
           } 
       }
     );
@@ -60,5 +123,5 @@ const getAllPlayers = async () => {
 };
 
 export default {
-  getPlayerProfile, getPlayerStats, getAllPlayers, getTopGoalScorersStats
+  getPlayerProfile, getPlayerStats, getAllPlayers, getTopPerformersStats: getTopPerformersStats
 };

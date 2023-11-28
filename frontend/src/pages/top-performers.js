@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PlayerList  from '../components/player-list'
 import ClubList  from '../components/club-list'
 import DropDownMenu from '../components/dropdown-menu';
-import TopGoalScorersList from '../components/top-goal-scorers-list';
+import TopPerformersList from '../components/top-performers-list';
 
 const TopPerformersPage = () => {
 
@@ -38,7 +38,11 @@ const TopPerformersPage = () => {
     return (
         <div>
             <DropDownMenu onLeagueChange={handleLeagueChange} onSeasonChange={handleSeasonChange} onClubChange={handleClubChange} onIsClubChange={handleIsClubChange} onSubmit={handleOnSubmit} />     
-            <TopGoalScorersList selectedLeagues={selectedLeagues} selectedClubs={selectedClubs} selectedSeasons={selectedSeasons} isClub={isClub} submitStatus = {submitStatus}/>
+            <TopPerformersList selectedLeagues={selectedLeagues} selectedClubs={selectedClubs} selectedSeasons={selectedSeasons} isClub={isClub} submitStatus = {submitStatus} category="goals"/>
+            <TopPerformersList selectedLeagues={selectedLeagues} selectedClubs={selectedClubs} selectedSeasons={selectedSeasons} isClub={isClub} submitStatus = {submitStatus} category="assists"/>
+            <TopPerformersList selectedLeagues={selectedLeagues} selectedClubs={selectedClubs} selectedSeasons={selectedSeasons} isClub={isClub} submitStatus = {submitStatus} category="man-of-the-matches"/>
+            <TopPerformersList selectedLeagues={selectedLeagues} selectedClubs={selectedClubs} selectedSeasons={selectedSeasons} isClub={isClub} submitStatus = {submitStatus} category="average-match-rating"/>
+
         </div>
     );
 };

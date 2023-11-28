@@ -11,6 +11,7 @@ const PlayerStatsSchema = new mongoose.Schema({
   league: String,
   appearances: Number,
   goals: Number,
+  assists: Number,
   "yellow-cards": Number,
   "red-cards": Number,
   "man-of-the-matches": Number,
