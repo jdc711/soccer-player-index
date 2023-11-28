@@ -74,14 +74,14 @@ exports.searchByPlayerName = async (req, res) => {
     else{
       let sort = {};
       sort[sortColumn] = sortDirection === 'DESC' ? -1 : 1;
-      players = await Player.find({ name: {$regex : nameToSearch,  $options: "i"} }).skip(skip).limit(pageLimit).sort(sort); ;
+      players = await Player.find({ name: {$regex : nameToSearch,  $options: "i"} }).skip(skip).limit(pageLimit).sort(sort);
       totalPlayerCount = await Player.countDocuments({ name: {$regex : nameToSearch,  $options: "i"} });
     }
    
     res.json({
       totalPlayerCount: totalPlayerCount,
       totalPages: Math.ceil(totalPlayerCount / pageLimit),
-      currentPage:currentPage,
+      currentPage: currentPage,
       players: players
     });
   } catch (err) {
@@ -91,27 +91,32 @@ exports.searchByPlayerName = async (req, res) => {
 };
 
 exports.getTopGoalScorersStats = async (req, res) => {
-  let leagueIds = req.query.leagueIds; 
+  let leagueIds = req.query.leagueIds;
+  const season = req.query.season;
+  const isClub = req.query.isClub;
+  let clubIds = req.query.clubIds; 
+  const currentPage = parseInt(req.query.currentPage) || 1;
+  const pageLimit = parseInt(req.query.pageLimit) || 10; 
+  const skip = (currentPage - 1) * pageLimit;
+  
   if (!leagueIds){
     leagueIds = [];
   }
   else{
     leagueIds = leagueIds.map(id => typeof id === 'string' ? new ObjectId(id) : id);
   }
-  let clubIds = req.query.clubIds; 
   if (!clubIds){
     clubIds = [];
   }
   else{
     clubIds = clubIds.map(id => typeof id === 'string' ? new ObjectId(id) : id);
   }
-  const season = req.query.season;
-  const isClub = req.query.isClub;
+  
 
-  console.log("backend leagueIds: ", leagueIds);
-  console.log("backend clubIds: ", clubIds);
-  console.log("backend season: ", season);
-  console.log("backend isClub: ", isClub);
+  // console.log("backend leagueIds: ", leagueIds);
+  // console.log("backend clubIds: ", clubIds);
+  // console.log("backend season: ", season);
+  // console.log("backend isClub: ", isClub);
   
   let matchCondition;
   if (leagueIds.length === 0 && clubIds.length === 0 && season === "All" ){
@@ -174,10 +179,6 @@ exports.getTopGoalScorersStats = async (req, res) => {
     let isClubBoolean = isClub === "true";
     isClubMatchCondition = { 'is-club': isClubBoolean };
   }
-  
-  console.log("backend matchCondition: ",matchCondition );
-  console.log("backend isClubMatchCondition: ",isClubMatchCondition );
-
 
   try {
     let topGoalScorersStats = await PlayerStats.aggregate([
@@ -206,12 +207,51 @@ exports.getTopGoalScorersStats = async (req, res) => {
           'club_info': 0 // Exclude the club_info field
           // All other fields from player-stats will be included automatically
         } 
+      },
+    ]).skip(skip).limit(pageLimit);
+    
+    console.log("backend topGoalScorersStats: ", topGoalScorersStats)
+    let totalCount = await PlayerStats.aggregate([
+      { $match: 
+        /* your query conditions here */ 
+        matchCondition
+      },
+      { 
+        $lookup: {
+          from: 'club', // the name of the collection in MongoDB
+          localField: '_club_id', // field from the player-stats collection
+          foreignField: '_id', // field from the clubs collection
+          as: 'club_info' // array field added to player-stats documents
+        }
+      },
+      { $unwind: '$club_info' }, // converts club_info from array (with one object) into object
+      { 
+        $addFields: {
+          'is-club': '$club_info.is-club' // Add the is-club field from club_info to the document
+        } 
+      },
+      { $match: isClubMatchCondition }, 
+      { $sort: { 'goals': -1 } }, // Sorting by goals in descending order
+      { 
+        $project: {
+          'club_info': 0 // Exclude the club_info field
+          // All other fields from player-stats will be included automatically
+        } 
+      },
+      {
+        $count: "totalCount"
       }
     ]);
     
-    console.log("backend topGoalScorersStats: ", topGoalScorersStats)
-   
-    res.json(topGoalScorersStats);
+    totalCount = totalCount[0]["totalCount"];
+    console.log("totalCount: ", totalCount);
+    
+    res.json({
+      topGoalScorersStats: topGoalScorersStats,
+      totalCount: totalCount,
+      totalPages: Math.ceil(totalCount / pageLimit),
+      currentPage: currentPage,
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

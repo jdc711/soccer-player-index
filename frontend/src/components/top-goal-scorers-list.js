@@ -8,28 +8,44 @@ const TopGoalScorersList = ({selectedLeagues, selectedClubs, selectedSeasons, is
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [topGoalScorers, setTopGoalScorers] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    
+    const getTopGoalScorers = async () => {
+      try {
+          // console.log("selectedLeagues: ", selectedLeagues);
+          // console.log("selectedClubs: ", selectedClubs);
+          // console.log("selectedSeasons: ", selectedSeasons);
+          // console.log("isClub: ", isClub);
+          setLoading(true);
+          const response = await playerService.getTopGoalScorersStats(selectedLeagues, selectedClubs, selectedSeasons, isClub, currentPage, 10);
+          setTopGoalScorers(response.topGoalScorersStats);
+          setTotalPages(response.totalPages);
 
+          setError('');
+        } catch (error) {
+          console.error(error);
+          setError("Failed to fetch top goal scorers");
+        } finally {
+          setLoading(false);
+        }
+    };
+    
     useEffect(() => {
-      const getTopGoalScorers = async () => {
-          try {
-              console.log("selectedLeagues: ", selectedLeagues);
-              console.log("selectedClubs: ", selectedClubs);
-              console.log("selectedSeasons: ", selectedSeasons);
-              console.log("isClub: ", isClub);
-              setLoading(true);
-              const topGoalScorersData = await playerService.getTopGoalScorersStats(selectedLeagues, selectedClubs, selectedSeasons, isClub);
-              setTopGoalScorers(topGoalScorersData);
-              setError('');
-            } catch (error) {
-              console.error(error);
-              setError("Failed to fetch top goal scorers");
-            } finally {
-              setLoading(false);
-            }
-      };
-
       getTopGoalScorers();
-  }, [selectedLeagues, selectedClubs, selectedSeasons, isClub]);
+    }, [currentPage]);
+    
+    // set page to 1 when filter changes
+    useEffect(() => {
+      if (currentPage === 1){
+        getTopGoalScorers();
+      }
+      setCurrentPage(1);
+    }, [selectedLeagues, selectedClubs, selectedSeasons, isClub]);
+  
+    const changePage = (newPage) => {
+      setCurrentPage(newPage);
+    };
   
     if (loading) {
       return <div>Loading Top Goal Scorers...</div>;
@@ -41,6 +57,7 @@ const TopGoalScorersList = ({selectedLeagues, selectedClubs, selectedSeasons, is
     
     return (
       <div className='topGoalScorersList'>
+        <h1>Top Goalscorers</h1>
         <table>
             <thead>
                 <tr>
@@ -69,7 +86,7 @@ const TopGoalScorersList = ({selectedLeagues, selectedClubs, selectedSeasons, is
                         </td>
                         <td>
                           <Link to={"/club/" + SeasonStat._club_id}>
-                            <span>{SeasonStat.league}</span>
+                            <span>{SeasonStat.club}</span>
                           </Link>
                         </td>
                         <td>{SeasonStat.goals}</td>
@@ -77,6 +94,13 @@ const TopGoalScorersList = ({selectedLeagues, selectedClubs, selectedSeasons, is
                 ))}
             </tbody>
         </table>
+        <div>
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+          <button key={page} className="pagination-button" disabled={page === currentPage} onClick={() => changePage(page)}>
+            {page}
+          </button>
+        ))}
+      </div>
       </div>
     );
 };

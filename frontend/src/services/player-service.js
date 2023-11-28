@@ -29,7 +29,7 @@ const getPlayerStats = async (playerId, clubId, sortColumn, sortDirection) => {
     }
   };
   
-const getTopGoalScorersStats = async (leagueIds, clubIds, season, isClub) => {
+const getTopGoalScorersStats = async (leagueIds, clubIds, season, isClub, currentPage, pageLimit) => {
   try {
     const response = await axios.get(baseUrl + '/public/player/top-player-stats/goals', 
       { 
@@ -38,7 +38,9 @@ const getTopGoalScorersStats = async (leagueIds, clubIds, season, isClub) => {
             leagueIds: leagueIds,
             clubIds: clubIds,
             season: season,
-            isClub: isClub
+            isClub: isClub,
+            currentPage: currentPage,
+            pageLimit: pageLimit
           } 
       }
     );
