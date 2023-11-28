@@ -82,7 +82,7 @@ const DropDownMenu = ({onLeagueChange, onSeasonChange, onClubChange, onIsClubCha
                     <input type="radio" name="option" value="All" onClick={() => handleIsClubChange('All')} defaultChecked></input>
                 </label>
             </form>
-            <button className="submitBtn" onClick={onClickSubmit}>Submit</button>
+            <button className="submitBtn" onClick={onClickSubmit}>Apply Filter</button>
         </div>
     );
 };
