@@ -1,5 +1,13 @@
 {
     "name": "soccer-player-index",
     "version": "1.0.0",
-    "private": true
+    "private": true,
+    "engines": {
+      "node": "16.16.0"
+    },
+    "scripts": {
+      "start": "node backend/index.js",
+      "postinstall": "npm install --prefix frontend && npm run build --prefix frontend"
+    }
 }
+  
