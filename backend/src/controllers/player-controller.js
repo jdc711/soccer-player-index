@@ -218,7 +218,6 @@ exports.getTopPerformersStats = async (req, res) => {
       },
     ]).skip(skip).limit(pageLimit);
     
-    console.log("backend topGoalScorersStats: ", topGoalScorersStats)
     let totalCount = await PlayerStats.aggregate([
       { $match: 
         /* your query conditions here */ 
