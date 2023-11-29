@@ -17,6 +17,5 @@ def clearCollection(collection_name):
     
     collection.delete_many({})
 
-# clearCollection("club")
 # clearCollection("player")
 # clearCollection("player-stats")

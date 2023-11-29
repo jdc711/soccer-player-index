@@ -45,7 +45,18 @@ const TopPerformersList = ({selectedLeagues, selectedClubs, selectedSeasons, isC
     };
   
     if (loading) {
-      return <div>Loading Top Goal Scorers...</div>;
+      if (category === "goals"){
+        return <div className='topPerformersList loading'>Loading Top Goal Scorers...</div>;
+      }
+      else if (category === "assists"){
+        return <div className='topPerformersList loading'>Loading Top Assisters...</div>;
+      }
+      else if (category === "man-of-the-matches"){
+        return <div className='topPerformersList loading'>Loading Most Man of the Matches...</div>;
+      }
+      else {
+        return <div className='topPerformersList loading'>Loading Highest Avg Ratings...</div>;
+      }
     }
     
     if (error) {

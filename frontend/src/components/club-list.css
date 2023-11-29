@@ -44,3 +44,12 @@ div.clubList table tr td:nth-child(1) {
     cursor: pointer;
     text-decoration: underline;
 }
+
+.clubList{
+    min-height: 550px;
+}
+
+.clubList.loading{
+    padding-top: 10px; 
+    margin-top: 20px; 
+}

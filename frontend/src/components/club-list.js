@@ -77,7 +77,7 @@ const ClubList = ({name}) => {
   };
 
   if (loading) {
-    return <div>Loading Clubs...</div>;
+    return <div className='clubList loading'>Loading Clubs...</div>;
   }
   
   if (error) {

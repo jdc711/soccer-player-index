@@ -96,9 +96,9 @@ exports.getTopPerformersStats = async (req, res) => {
   const isClub = req.query.isClub;
   let clubIds = req.query.clubIds; 
   const category = req.query.category;
-  const currentPage = parseInt(req.query.currentPage) || 1;
+  let currentPage = parseInt(req.query.currentPage) || 1;
   const pageLimit = parseInt(req.query.pageLimit) || 10; 
-  const skip = (currentPage - 1) * pageLimit;
+  let skip = (currentPage - 1) * pageLimit;
   
   if (!leagueIds){
     leagueIds = [];
@@ -189,65 +189,15 @@ exports.getTopPerformersStats = async (req, res) => {
   }
 
   try {
-    let topGoalScorersStats = await PlayerStats.aggregate([
-      { $match: 
-        /* your query conditions here */ 
-        matchCondition
-      },
-      { 
-        $lookup: {
-          from: 'club', // the name of the collection in MongoDB
-          localField: '_club_id', // field from the player-stats collection
-          foreignField: '_id', // field from the clubs collection
-          as: 'club_info' // array field added to player-stats documents
-        }
-      },
-      { $unwind: '$club_info' }, // converts club_info from array (with one object) into object
-      { 
-        $addFields: {
-          'is-club': '$club_info.is-club' // Add the is-club field from club_info to the document
-        } 
-      },
-      { $match: isClubMatchCondition }, 
-      { $sort: sortCondition }, // Sorting by goals in descending order
-      { 
-        $project: {
-          'club_info': 0 // Exclude the club_info field
-          // All other fields from player-stats will be included automatically
-        } 
-      },
-    ]).skip(skip).limit(pageLimit);
-    
     let totalCount = await PlayerStats.aggregate([
-      { $match: 
-        /* your query conditions here */ 
-        matchCondition
-      },
-      { 
-        $lookup: {
-          from: 'club', // the name of the collection in MongoDB
-          localField: '_club_id', // field from the player-stats collection
-          foreignField: '_id', // field from the clubs collection
-          as: 'club_info' // array field added to player-stats documents
-        }
-      },
-      { $unwind: '$club_info' }, // converts club_info from array (with one object) into object
-      { 
-        $addFields: {
-          'is-club': '$club_info.is-club' // Add the is-club field from club_info to the document
-        } 
-      },
+      { $match: matchCondition },
+      { $lookup: { from: 'club', localField: '_club_id', foreignField: '_id', as: 'club_info' } },
+      { $unwind: '$club_info' },
+      { $addFields: { 'is-club': '$club_info.is-club'} },
       { $match: isClubMatchCondition }, 
-      { $sort: sortCondition }, // Sorting by goals in descending order
-      { 
-        $project: {
-          'club_info': 0 // Exclude the club_info field
-          // All other fields from player-stats will be included automatically
-        } 
-      },
-      {
-        $count: "totalCount"
-      }
+      { $sort: sortCondition },
+      { $project: { 'club_info': 0 } },
+      { $count: "totalCount" }
     ]);
     
     if (totalCount.length === 0){
@@ -256,7 +206,34 @@ exports.getTopPerformersStats = async (req, res) => {
     else{
       totalCount = totalCount[0]["totalCount"];
     }
-        
+    
+    // Ensure totalCount does not exceed 100
+    totalCount = Math.min(totalCount, 100);
+
+    // Calculate totalPages based on the new totalCount
+    let totalPages = Math.ceil(totalCount / pageLimit);
+
+    // Adjust currentPage if necessary
+    if (currentPage > totalPages) {
+      // max function used in the case totalPages = 0
+      currentPage = Math.max(1,totalPages);
+    }
+
+    // Calculate skip based on the adjusted currentPage
+    skip = (currentPage - 1) * pageLimit;
+    
+    
+  
+    let topGoalScorersStats = await PlayerStats.aggregate([
+      { $match: matchCondition },
+      { $lookup: { from: 'club', localField: '_club_id', foreignField: '_id', as: 'club_info' } },
+      { $unwind: '$club_info' },
+      { $addFields: { 'is-club': '$club_info.is-club' } },
+      { $match: isClubMatchCondition }, 
+      { $sort: sortCondition },
+      { $project: { 'club_info': 0 } },
+    ]).skip(skip).limit(pageLimit);
+      
     res.json({
       topGoalScorersStats: topGoalScorersStats,
       totalCount: totalCount,

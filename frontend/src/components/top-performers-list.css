@@ -40,4 +40,11 @@ div.topPerformersList table tr td:nth-child(4) {
     text-decoration: underline;
 }
 
+.topPerformersList{
+    min-height: 450px;
+}
 
+.topPerformersList.loading{
+    padding-top: 10px; 
+    margin-top: 20px; 
+}

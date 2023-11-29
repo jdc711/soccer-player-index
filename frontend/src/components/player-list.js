@@ -73,7 +73,7 @@ const PlayerList = ({ name }) => {
   };
   
   if (loading) {
-    return <div>Loading players...</div>;
+    return <div className='playerList loading'>Loading players...</div>;
   }
   
   if (error) {
