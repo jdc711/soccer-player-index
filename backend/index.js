@@ -23,6 +23,4 @@ db = require('./src/db/db');
 db();
 
 const PORT = process.env.PORT || 5000;
-const HOST = process.env.HOST || "locahost";
-
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
