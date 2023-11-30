@@ -87,6 +87,7 @@ const PlayerList = ({ name }) => {
   return (
     <div className='playerList'>
       <h1>Players</h1>
+      <div className='table-container'>
       <table>
         <thead>
           <tr>
@@ -121,6 +122,7 @@ const PlayerList = ({ name }) => {
           ))}
         </tbody>
       </table>
+      </div>
       <div>
         {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
           <button key={page} className="pagination-button" disabled={page === currentPage} onClick={() => changePage(page)}>

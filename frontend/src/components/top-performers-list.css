@@ -48,3 +48,34 @@ div.topPerformersList table tr td:nth-child(4) {
     padding-top: 10px; 
     margin-top: 20px; 
 }
+
+.topPerformersList table {
+    width: 100%;
+    table-layout: auto;
+    /* overflow-x: auto; */
+}
+
+.topPerformersList .table-container {
+    overflow-x: auto; /* Enable horizontal scrolling */
+}
+
+.topPerformersList {
+    font-size: 13px;
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .topPerformersList {
+        font-size: 16px;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  
+}

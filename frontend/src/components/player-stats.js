@@ -62,7 +62,7 @@ const PlayerStats = ({playerId}) => {
     };
   
     if (loading) {
-      return <div>Loading Player Stats...</div>;
+      return <div className='playerStats loading'>Loading Player Stats...</div>;
     }
     
     if (error) {
@@ -85,6 +85,7 @@ const PlayerStats = ({playerId}) => {
               </div>
             ))}
         </div>
+        <div className='table-container'>
         <table>
             <thead>
                 <tr>
@@ -141,6 +142,7 @@ const PlayerStats = ({playerId}) => {
                 ))}
             </tbody>
         </table>
+        </div>
       </div>
     );
 };

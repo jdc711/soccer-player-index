@@ -91,6 +91,7 @@ const ClubList = ({name}) => {
   return (
     <div className='clubList'>      
       <h1>Clubs</h1>
+      <div className='table-container'>
       <table>
         <thead>
           <tr>
@@ -124,6 +125,7 @@ const ClubList = ({name}) => {
           ))}
         </tbody>
       </table>
+      </div>
       <div>
         {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
           <button key={page} className="pagination-button" disabled={page === currentPage} onClick={() => changePage(page)}>

@@ -12,3 +12,24 @@ div.leagueProfile table tr td:nth-child(1) {
 .leagueProfile table th, .leagueProfile table td {
     box-sizing: border-box;
 }
+
+.leagueProfile{
+    font-size: 13px;
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .leagueProfile{
+        font-size: 16px;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  
+}

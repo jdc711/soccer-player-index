@@ -96,6 +96,7 @@ const TopPerformersList = ({selectedLeagues, selectedClubs, selectedSeasons, isC
     return (
       <div className='topPerformersList'>
         {renderHeader()}
+        <div className='table-container'>
         <table>
             <thead>
                 <tr>
@@ -135,6 +136,7 @@ const TopPerformersList = ({selectedLeagues, selectedClubs, selectedSeasons, isC
                 ))}
             </tbody>
         </table>
+        </div>
         <div>
         {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
           <button key={page} className="pagination-button" disabled={page === currentPage} onClick={() => changePage(page)}>

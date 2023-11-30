@@ -1,55 +1,97 @@
-/* Width for first column */
-div.clubList table tr th:nth-child(1),
-div.clubList table tr td:nth-child(1) {
-    width: 250px;
-}
-
-.clubList table {
-    width: 100%; /* Or any specific width */
-    table-layout: fixed;
-}
-
-.clubList table th, .clubList table td {
+.clubList table th,
+.clubList table td {
     box-sizing: border-box;
 }
 
 /* Add alternating row colors */
 .clubList table tbody tr:nth-child(odd) {
-    background-color: #f2f2f2; /* Set the background color for odd rows */
+    background-color: #f2f2f2;
+    /* Set the background color for odd rows */
 }
 
 .clubList table tbody tr:nth-child(even) {
-    background-color: #ffffff; /* Set the background color for even rows */
+    background-color: #ffffff;
+    /* Set the background color for even rows */
 }
 
-.clubList .arrow{
+.clubList .arrow {
     color: #fff;
 }
 
-.clubList th p:hover{
+.clubList th p:hover {
     text-decoration: underline;
 }
 
-.clubList th p{
+.clubList th p {
     display: inline;
     color: #fff;
     cursor: pointer;
 }
 
-.clubList td span{
+.clubList td span {
     cursor: pointer;
 }
 
-.clubList td span:hover{
+.clubList td span:hover {
     cursor: pointer;
     text-decoration: underline;
 }
 
-.clubList{
-    min-height: 550px;
+.clubList table {
+    table-layout: auto;
+    width: 100%;
 }
 
-.clubList.loading{
-    padding-top: 10px; 
-    margin-top: 20px; 
+.clubList .table-container {
+    overflow-x: auto; /* Enable horizontal scrolling */
 }
+
+.clubList h1{
+    margin-left: 10px;
+}
+
+/* Width for first column */
+div.clubList table tr th:nth-child(1),
+div.clubList table tr td:nth-child(1) {
+    width: 150px;
+}
+
+.clubList{
+    min-height: 450px;
+    font-size: 13px;
+}
+
+.clubList.loading {
+    padding-top: 10px;
+    margin-top: 20px;
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    /* .clubList table {
+        table-layout: fixed; 
+    } */
+    
+    .clubList{
+        font-size: 16px;
+    }
+
+    /* Width for first column */
+    div.clubList table tr th:nth-child(1),
+    div.clubList table tr td:nth-child(1) {
+        width: 250px;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+    /* Width for first column */
+    div.clubList table tr th:nth-child(1),
+    div.clubList table tr td:nth-child(1) {
+        width: 250px;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}

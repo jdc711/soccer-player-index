@@ -1,127 +1,275 @@
-/* Width for first column */
-div.playerStats table tr th:nth-child(1),
-div.playerStats table tr td:nth-child(1) {
-    width: 150px;
+.playerStats{
+    font-size: 13px;
+    min-height: 450px;
 }
 
-/* Width for first column */
-div.playerStats table tr th:nth-child(2),
-div.playerStats table tr td:nth-child(2) {
-    width: 200px;
-}
-
-/* Width for first column */
-div.playerStats table tr th:nth-child(3),
-div.playerStats table tr td:nth-child(3) {
-    width: 340px;
-}
-
-/* Width for first column */
-div.playerStats table tr th:nth-child(4),
-div.playerStats table tr td:nth-child(4) {
-    width: 100px;
-}
-
-/* Width for first column */
-div.playerStats table tr th:nth-child(5),
-div.playerStats table tr td:nth-child(5) {
-    width: 100px;
-}
-
-
-/* Width for first column */
-div.playerStats table tr th:nth-child(6),
-div.playerStats table tr td:nth-child(6) {
-    width: 100px;
-}
-
-/* Width for first column */
-div.playerStats table tr th:nth-child(7),
-div.playerStats table tr td:nth-child(7) {
-    width: 100px;
-}
-
-/* Width for first column */
-div.playerStats table tr th:nth-child(8),
-div.playerStats table tr td:nth-child(8) {
-    width: 130px;
-}
-
-/* Width for first column */
-div.playerStats table tr th:nth-child(9),
-div.playerStats table tr td:nth-child(9) {
-    width: 100px;
+.playerStats.loading{
+    padding-top: 10px; 
+    margin-top: 20px; 
 }
 
 .playerStats table {
-    width: 100%; /* Or any specific width */
-    table-layout: fixed;
+    width: 100%;
+    table-layout: auto;
+    /* overflow-x: auto; */
 }
 
-.playerStats table th, .playerStats table td {
+.playerStats .table-container {
+    overflow-x: auto; /* Enable horizontal scrolling */
+}
+
+.playerStats table th,
+.playerStats table td {
     box-sizing: border-box;
 }
 
 /* Add alternating row colors */
 .playerStats table tbody tr:nth-child(odd) {
-    background-color: #f2f2f2; /* Set the background color for odd rows */
+    background-color: #f2f2f2;
+    /* Set the background color for odd rows */
 }
 
 .playerStats table tbody tr:nth-child(even) {
-    background-color: #ffffff; /* Set the background color for even rows */
+    background-color: #ffffff;
+    /* Set the background color for even rows */
 }
 
-.playerStats .arrow{
+.playerStats .arrow {
     color: #fff;
 }
 
-.playerStats th p:hover{
+.playerStats th p:hover {
     text-decoration: underline;
 }
 
-.playerStats th p{
+.playerStats th p {
     display: inline;
     color: #fff;
     cursor: pointer;
 }
 
-.playerStats td span{
+.playerStats td span {
     cursor: pointer;
 }
 
-.playerStats td span:hover{
+.playerStats td span:hover {
     cursor: pointer;
     text-decoration: underline;
 }
 
 .playerStats .clubListMenu {
     display: flex;
-    overflow-x: auto; /* for horizontal scrolling if there are many clubs */
-    white-space: nowrap; /* keeps the list in a single row */
+    overflow-x: auto;
+    /* for horizontal scrolling if there are many clubs */
+    white-space: nowrap;
+    /* keeps the list in a single row */
 }
-  
+
 .playerStats .clubListMenu .clubListMenuItem {
     border: none;
     background: none;
     cursor: pointer;
 }
-  
+
 .playerStats .clubListMenu .clubListMenuItem.active {
     border-bottom: 1px solid rgba(0, 0, 0, 0.87);
-    color:rgb(19, 20, 21);
+    color: rgb(19, 20, 21);
 }
 
 .playerStats .clubListMenu .clubListMenuItem span {
-    color:#70757a;
+    color: #70757a;
 }
 
 .playerStats .clubListMenu .clubListMenuItem.active span {
-    color:black;
+    color: black;
 }
-  
-.playerStats .clubListMenu .clubListMenuItem{
+
+.playerStats .clubListMenu .clubListMenuItem {
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 20px;
     padding-bottom: 10px;
 }
+
+ /* Width for first column */
+ div.playerStats table tr th:nth-child(1),
+ div.playerStats table tr td:nth-child(1) {
+     width: 50px;
+ }
+
+ /* Width for first column */
+ div.playerStats table tr th:nth-child(2),
+ div.playerStats table tr td:nth-child(2) {
+     width: 50px;
+ }
+
+ /* Width for first column */
+ div.playerStats table tr th:nth-child(3),
+ div.playerStats table tr td:nth-child(3) {
+     width: 50px;
+ }
+
+ /* Width for first column */
+ div.playerStats table tr th:nth-child(4),
+ div.playerStats table tr td:nth-child(4) {
+     width: 50px;
+ }
+
+ /* Width for first column */
+ div.playerStats table tr th:nth-child(5),
+ div.playerStats table tr td:nth-child(5) {
+     width: 30px;
+ }
+
+
+ /* Width for first column */
+ div.playerStats table tr th:nth-child(6),
+ div.playerStats table tr td:nth-child(6) {
+     width: 50px;
+ }
+
+ /* Width for first column */
+ div.playerStats table tr th:nth-child(7),
+ div.playerStats table tr td:nth-child(7) {
+     width: 50px;
+ }
+
+ /* Width for first column */
+ div.playerStats table tr th:nth-child(8),
+ div.playerStats table tr td:nth-child(8) {
+     width: 50px;
+ }
+
+ /* Width for first column */
+ div.playerStats table tr th:nth-child(9),
+ div.playerStats table tr td:nth-child(9) {
+     width: 50px;
+ }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .playerStats{
+        font-size: 16px;
+    }
+    
+    /* .playerStats table {
+        table-layout: fixed;
+    } */
+    
+    /* Width for first column */
+    div.playerStats table tr th:nth-child(1),
+    div.playerStats table tr td:nth-child(1) {
+        width: 100px;
+    }
+
+    /* Width for first column */
+    div.playerStats table tr th:nth-child(2),
+    div.playerStats table tr td:nth-child(2) {
+        width: 100px;
+    }
+
+    /* Width for first column */
+    div.playerStats table tr th:nth-child(3),
+    div.playerStats table tr td:nth-child(3) {
+        width: 100px;
+    }
+
+    /* Width for first column */
+    div.playerStats table tr th:nth-child(4),
+    div.playerStats table tr td:nth-child(4) {
+        width: 100px;
+    }
+
+    /* Width for first column */
+    div.playerStats table tr th:nth-child(5),
+    div.playerStats table tr td:nth-child(5) {
+        width: 100px;
+    }
+
+
+    /* Width for first column */
+    div.playerStats table tr th:nth-child(6),
+    div.playerStats table tr td:nth-child(6) {
+        width: 100px;
+    }
+
+    /* Width for first column */
+    div.playerStats table tr th:nth-child(7),
+    div.playerStats table tr td:nth-child(7) {
+        width: 100px;
+    }
+
+    /* Width for first column */
+    div.playerStats table tr th:nth-child(8),
+    div.playerStats table tr td:nth-child(8) {
+        width: 130px;
+    }
+
+    /* Width for first column */
+    div.playerStats table tr th:nth-child(9),
+    div.playerStats table tr td:nth-child(9) {
+        width: 100px;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+    /* Width for first column */
+    div.playerStats table tr th:nth-child(1),
+    div.playerStats table tr td:nth-child(1) {
+        width: 150px;
+    }
+
+    /* Width for first column */
+    div.playerStats table tr th:nth-child(2),
+    div.playerStats table tr td:nth-child(2) {
+        width: 150px;
+    }
+
+    /* Width for first column */
+    div.playerStats table tr th:nth-child(3),
+    div.playerStats table tr td:nth-child(3) {
+        width: 340px;
+    }
+
+    /* Width for first column */
+    div.playerStats table tr th:nth-child(4),
+    div.playerStats table tr td:nth-child(4) {
+        width: 100px;
+    }
+
+    /* Width for first column */
+    div.playerStats table tr th:nth-child(5),
+    div.playerStats table tr td:nth-child(5) {
+        width: 100px;
+    }
+
+
+    /* Width for first column */
+    div.playerStats table tr th:nth-child(6),
+    div.playerStats table tr td:nth-child(6) {
+        width: 100px;
+    }
+
+    /* Width for first column */
+    div.playerStats table tr th:nth-child(7),
+    div.playerStats table tr td:nth-child(7) {
+        width: 100px;
+    }
+
+    /* Width for first column */
+    div.playerStats table tr th:nth-child(8),
+    div.playerStats table tr td:nth-child(8) {
+        width: 130px;
+    }
+
+    /* Width for first column */
+    div.playerStats table tr th:nth-child(9),
+    div.playerStats table tr td:nth-child(9) {
+        width: 100px;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {}

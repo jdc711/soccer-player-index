@@ -1,61 +1,121 @@
-/* Width for first column */
-div.playerList table tr th:nth-child(1),
-div.playerList table tr td:nth-child(1) {
-    width: 250px;
-}
-
-/* Width for second column */
-div.playerList table tr th:nth-child(2),
-div.playerList table tr td:nth-child(2) {
-    width: 250px; /* Adjust the width as needed */
-}
-
-.playerList table {
-    width: 100%; /* Or any specific width */
-    table-layout: fixed;
-}
-
-.playerList table th, .playerList table td {
+.playerList table th,
+.playerList table td {
     box-sizing: border-box;
 }
 
 /* Add alternating row colors */
 .playerList table tbody tr:nth-child(odd) {
-    background-color: #f2f2f2; /* Set the background color for odd rows */
+    background-color: #f2f2f2;
+    /* Set the background color for odd rows */
 }
 
 .playerList table tbody tr:nth-child(even) {
-    background-color: #ffffff; /* Set the background color for even rows */
+    background-color: #ffffff;
+    /* Set the background color for even rows */
 }
 
-.playerList .arrow{
+.playerList .arrow {
     color: #fff;
 }
 
-.playerList th p:hover{
+.playerList th p:hover {
     text-decoration: underline;
 }
 
-.playerList th p{
+.playerList th p {
     display: inline;
     color: #fff;
     cursor: pointer;
 }
 
-.playerList td span{
+.playerList td span {
     cursor: pointer;
 }
 
-.playerList td span:hover{
+.playerList td span:hover {
     cursor: pointer;
     text-decoration: underline;
 }
 
+.playerList table {
+    table-layout: auto;
+    width: 100%;
+}
+
+.playerList .table-container {
+    overflow-x: auto; /* Enable horizontal scrolling */
+}
+
+.playerList h1{
+    margin-left: 10px;
+}
+
+/* Width for first column */
+div.playerList table tr th:nth-child(1),
+div.playerList table tr td:nth-child(1) {
+    width: 200px;
+}
+
+/* Width for second column */
+div.playerList table tr th:nth-child(2),
+div.playerList table tr td:nth-child(2) {
+    width: 150px;
+    /* Adjust the width as needed */
+}
+
 .playerList{
-    min-height: 550px;
+    min-height: 450px;
+    font-size: 13px;
 }
 
 .playerList.loading{
     padding-top: 10px; 
     margin-top: 20px; 
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    /* .playerList table {
+        table-layout: fixed; 
+    } */
+    
+    .playerList{
+        font-size: 16px;
+    }
+
+    /* Width for first column */
+    div.playerList table tr th:nth-child(1),
+    div.playerList table tr td:nth-child(1) {
+        width: 250px;
+    }
+
+    /* Width for second column */
+    div.playerList table tr th:nth-child(2),
+    div.playerList table tr td:nth-child(2) {
+        width: 200px;
+        /* Adjust the width as needed */
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+    /* Width for first column */
+    div.playerList table tr th:nth-child(1),
+    div.playerList table tr td:nth-child(1) {
+        width: 250px;
+    }
+
+    /* Width for second column */
+    div.playerList table tr th:nth-child(2),
+    div.playerList table tr td:nth-child(2) {
+        width: 250px;
+        /* Adjust the width as needed */
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+
+
 }
