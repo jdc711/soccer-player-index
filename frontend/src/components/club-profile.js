@@ -47,14 +47,14 @@ const ClubProfile = ({clubId}) => {
                         Name: {clubProfile[0].name}
                         <br></br>
                         Leagues: {clubProfile[0]["league_info"].map((league, index) => (
-                          <>
-                            <span key={league._id}>
+                          <React.Fragment key={index + '-' + league._id}>
+                            <span>
                               <Link to={"/league/" + league._id}>
                                 {league.name}
                               </Link>
                             </span>
                             {index < clubProfile[0]["league_info"].length - 1 ? ', ' : ''}
-                          </>
+                          </React.Fragment>
                         ))}
                     </td>
                 </tr>

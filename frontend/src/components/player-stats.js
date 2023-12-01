@@ -78,8 +78,8 @@ const PlayerStats = ({playerId}) => {
               All
             </span>
           </div>
-            {playerProfile[0]["club_info"] && playerProfile[0]["club_info"].map(club => (
-              <div key={club._id} onClick={() => {setSelectedClubName(club.name); setSelectedClubId(club._id)}} className={`clubListMenuItem ${selectedClubName === club.name ? 'active' : ''}`}>
+            {playerProfile[0]["club_info"] && playerProfile[0]["club_info"].map((club, index) => (
+              <div key={index + '-' + club._id} onClick={() => {setSelectedClubName(club.name); setSelectedClubId(club._id)}} className={`clubListMenuItem ${selectedClubName === club.name ? 'active' : ''}`}>
                 <span>
                   {club.name}
                 </span>
@@ -119,8 +119,8 @@ const PlayerStats = ({playerId}) => {
                 </tr>
             </thead>
             <tbody>
-                {playerStats.map((SeasonStat) => (
-                    <tr key={SeasonStat._id}>
+                {playerStats.map((SeasonStat, index) => (
+                    <tr key={index + '-' + SeasonStat._id}>
                         <td>{SeasonStat.season}</td>
                         <td>
                           <Link to={"/club/" + SeasonStat._club_id}>
