@@ -113,12 +113,14 @@ const ClubList = ({name}) => {
               </td>
               <td>
                 {Club["league_info"].map((league, index) => (
-                  <span key={Club._id + '-' + league._id}>
-                    <Link to={"/league/" + league._id}>
-                      {league.name}
-                    </Link>
+                  <React.Fragment key={Club._id + '-' + league._id}>
+                    <span>
+                      <Link to={"/league/" + league._id}>
+                        {league.name}
+                      </Link>
+                    </span>
                     {index < Club["league_info"].length - 1 ? ', ' : ''}
-                  </span>
+                  </React.Fragment>
                 ))}
               </td>
             </tr>
