@@ -1,0 +1,34 @@
+
+.clubMenu {
+    display: flex;
+    overflow-x: auto;
+    /* for horizontal scrolling if there are many clubs */
+    white-space: nowrap;
+    /* keeps the list in a single row */
+}
+
+.clubMenu .clubListMenuItem {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.clubMenu .clubListMenuItem.active {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.87);
+    color: rgb(19, 20, 21);
+}
+
+.clubMenu .clubListMenuItem span {
+    color: #70757a;
+}
+
+.clubMenu .clubListMenuItem.active span {
+    color: black;
+}
+
+.clubMenu .clubListMenuItem {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    padding-bottom: 10px;
+}

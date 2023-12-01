@@ -1,27 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import SearchBox from './search-box';
 import playerService from '../services/player-service'
 import "./player-stats.css"
 
-const PlayerStats = ({playerId}) => {
+const PlayerStats = ({playerId, selectedClubId}) => {
     const [playerStats, setPlayerStats] = useState([]);
     const [loading, setLoading] = useState(true);
     const [sortColumn, setSortColumn] = useState("name");
     const [sortDirection, setSortDirection] = useState("");
     const [error, setError] = useState('');
-    const [selectedClubName, setSelectedClubName] = useState("All");
-    const [selectedClubId, setSelectedClubId] = useState(null);
-    const [playerProfile, setPlayerProfile] = useState(null);
-
-
+    
     useEffect(() => {
       const getPlayerStats = async () => {
         try {
           setLoading(true);
           const playerStatsData = await playerService.getPlayerStats(playerId, selectedClubId, sortColumn, sortDirection);
-          const playerProfileData = await playerService.getPlayerProfile(playerId);
-          setPlayerProfile(playerProfileData);
           setPlayerStats(playerStatsData);
           setError('');
         } catch (error) {
@@ -72,20 +65,6 @@ const PlayerStats = ({playerId}) => {
     
     return (
       <div className='playerStats'>
-        <div className="clubListMenu">
-          <div key={""} onClick={() => {setSelectedClubName("All"); setSelectedClubId(null)}} className={`clubListMenuItem ${selectedClubName === "All" ? 'active' : ''}`}>
-            <span >
-              All
-            </span>
-          </div>
-            {playerProfile[0]["club_info"] && playerProfile[0]["club_info"].map((club, index) => (
-              <div key={index + '-' + club._id} onClick={() => {setSelectedClubName(club.name); setSelectedClubId(club._id)}} className={`clubListMenuItem ${selectedClubName === club.name ? 'active' : ''}`}>
-                <span>
-                  {club.name}
-                </span>
-              </div>
-            ))}
-        </div>
         <div className='table-container'>
         <table>
             <thead>
