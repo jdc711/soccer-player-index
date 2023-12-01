@@ -405,13 +405,22 @@ def add_club_to_db(club_name, league_name, nationality, club_img_url):
         league_document = league_collection.find_one({"name":league_name})
     
     
+    setCondition = None
+    if club_img_url == "":
+        setCondition = {
+            "is-club": (nationality != club_name)
+        }
+    else:
+        setCondition = {
+            "image-url": club_img_url,
+            "is-club": (nationality != club_name)
+        }
+    
+    
     club_collection.update_one(
         {"name": club_name},  # Query to find the document
         {
-            "$set": {
-                "image-url": club_img_url,
-                "is-club": (nationality != club_name)
-            },
+            "$set": setCondition,
             "$addToSet": {
                 "leagues": 
                     {
