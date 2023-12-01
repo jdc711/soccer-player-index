@@ -7,7 +7,6 @@ const PlayerSchema = new mongoose.Schema({
   age: Number,
   nationality: String,
   positions: String,
-  // "current-club": String,
   "shirt-number": Number,
   "club-history": Array,
   "_club_ids": Array,

@@ -6,7 +6,6 @@ exports.getClubProfile = async (req, res) => {
   let clubId = req.query.clubId; 
   clubId = new ObjectId(clubId);
   try {
-    // const clubProfile = await Club.find({_id: clubId});
     const clubProfile = await Club.aggregate([
       { $match: {_id: clubId} },
       { $lookup: { from: 'league', localField: '_league_ids', foreignField: '_id', as: 'league_info' } },
@@ -30,9 +29,6 @@ exports.searchClubsByName = async (req, res) => {
     let totalClubCount;
     let matchCondition = { name: {$regex : nameToSearch,  $options: "i"}, "is-club":true };
     if (sortDirection === ""){
-      // clubs = await Club.find({ name: {$regex : nameToSearch,  $options: "i"}, "is-club":true }).skip(skip).limit(pageLimit);
-      // totalClubCount = await Club.countDocuments({ name: {$regex : nameToSearch,  $options: "i"},"is-club":true });
-
       clubs = await Club.aggregate([
         { $match: matchCondition },
         { $lookup: { from: 'league', localField: '_league_ids', foreignField: '_id', as: 'league_info' } }, 
@@ -43,14 +39,11 @@ exports.searchClubsByName = async (req, res) => {
     else{
       let sort = {};
       sort[sortColumn] = sortDirection === 'DESC' ? -1 : 1;
-      // clubs = await Club.find({ name: {$regex : nameToSearch,  $options: "i"}, "is-club":true }).skip(skip).limit(pageLimit).sort(sort);
-      // totalClubCount = await Club.countDocuments({ name: {$regex : nameToSearch,  $options: "i"},"is-club":true });
-      
+
       clubs = await Club.aggregate([
         { $match: matchCondition },
         { $lookup: { from: 'league', localField: '_league_ids', foreignField: '_id', as: 'league_info' } },
       ]).sort(sort).skip(skip).limit(pageLimit);
-      
       
       totalClubCount = await Club.countDocuments(matchCondition);
     }
@@ -86,13 +79,6 @@ exports.getAllClubs = async (req, res) => {
     matchCondition = { "is-club": isClub };
   }
   else if (isClub === "All"){
-    // matchCondition = { 
-    //   "leagues": {
-    //     "$elemMatch": {
-    //       "_league_id": { "$in": leagueIds }
-    //     }
-    //   } 
-    // };
     
     matchCondition = {
       "_league_ids": {"$in": leagueIds}
@@ -100,30 +86,19 @@ exports.getAllClubs = async (req, res) => {
 
   }
   else{
-    // matchCondition = { 
-    //   "is-club": isClub,
-    //   "leagues": {
-    //     "$elemMatch": {
-    //       "_league_id": { "$in": leagueIds }
-    //     }
-    //   } 
-    // };
     
     matchCondition = {
       "is-club": isClub,
       "_league_ids": {"$in": leagueIds}
     };
-
   }
 
   try {
-    // const clubs = await Club.find(matchCondition);
     const clubs = await Club.aggregate([
       { $match: matchCondition },
       { $lookup: { from: 'league', localField: '_league_ids', foreignField: '_id', as: 'league_info' } },
     ]);
     
-
     res.json(clubs);
   } catch (err) {
     res.status(500).send('Server Error');

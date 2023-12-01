@@ -23,7 +23,6 @@ const getPlayerStats = async (playerId, clubId, sortColumn, sortDirection) => {
             } 
         }
       );
-      console.log("response.data: ", response.data)
       return response.data;
     } catch (error) {
       throw error;

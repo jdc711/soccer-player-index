@@ -13,7 +13,6 @@ const TopPerformersPage = () => {
     const [isClub, setIsClub] = useState("All");
     const [submitStatus, setSubmitStatus] = useState(false);
 
-    
     const handleLeagueChange = (league) => {
         setSelectedLeagues(league);
     };

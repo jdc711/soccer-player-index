@@ -37,7 +37,6 @@ exports.getPlayerStats = async (req, res) => {
     let playerStats;
     if (!clubId){
       if (sortDirection === ""){
-        // playerStats = await PlayerStats.find({_player_id: playerId});
         playerStats = await PlayerStats.aggregate([
           { $match: {_player_id: playerId} },
           { $lookup: { from: 'club', localField: '_club_id', foreignField: '_id', as: 'club_info' } },
@@ -48,7 +47,6 @@ exports.getPlayerStats = async (req, res) => {
       else{
         let sort = {};
         sort[sortColumn] = sortDirection === 'DESC' ? -1 : 1;
-        // playerStats = await PlayerStats.find({_player_id: playerId}).sort(sort);
         playerStats = await PlayerStats.aggregate([
           { $match: {_player_id: playerId} },
           { $sort: sort }, 
@@ -60,7 +58,6 @@ exports.getPlayerStats = async (req, res) => {
     }
     else{
       if (sortDirection === ""){
-        // playerStats = await PlayerStats.find({_player_id: playerId, _club_id: clubId});
         playerStats = await PlayerStats.aggregate([
           { $match: {_player_id: playerId, _club_id: clubId} },
           { $lookup: { from: 'club', localField: '_club_id', foreignField: '_id', as: 'club_info' } },
@@ -71,7 +68,6 @@ exports.getPlayerStats = async (req, res) => {
       else{
         let sort = {};
         sort[sortColumn] = sortDirection === 'DESC' ? -1 : 1;
-        // playerStats = await PlayerStats.find({_player_id: playerId, _club_id: clubId}).sort(sort);
         playerStats = await PlayerStats.aggregate([
           { $match: {_player_id: playerId, _club_id: clubId} },
           { $sort: sort },
@@ -81,7 +77,6 @@ exports.getPlayerStats = async (req, res) => {
         ]);
       }  
     }
-    console.log("RESPONSE: ", playerStats);
     res.json(playerStats);  
   } 
   catch (err) {
@@ -111,7 +106,6 @@ exports.searchByPlayerName = async (req, res) => {
     let totalPlayerCount;
     let matchCondition = { name: {$regex : nameToSearch,  $options: "i"} };
     if (sortDirection === ""){
-      // players = await Player.find(matchCondition).skip(skip).limit(pageLimit);
       players = await Player.aggregate([
         { $match: matchCondition },
         { $lookup: { from: 'club', localField: '_club_ids', foreignField: '_id', as: 'club_info' } },
@@ -123,7 +117,6 @@ exports.searchByPlayerName = async (req, res) => {
     else{
       let sort = {};
       sort[sortColumn] = sortDirection === 'DESC' ? -1 : 1;
-      // players = await Player.find(matchCondition).skip(skip).limit(pageLimit).sort(sort);
       players = await Player.aggregate([
         { $match: matchCondition },
         { $lookup: { from: 'club', localField: '_club_ids', foreignField: '_id', as: 'club_info' } },
@@ -276,8 +269,6 @@ exports.getTopPerformersStats = async (req, res) => {
     // Calculate skip based on the adjusted currentPage
     skip = (currentPage - 1) * pageLimit;
     
-    
-  
     let topGoalScorersStats = await PlayerStats.aggregate([
       { $match: matchCondition },
       { $lookup: { from: 'club', localField: '_club_id', foreignField: '_id', as: 'club_info' } },
