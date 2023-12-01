@@ -14,6 +14,7 @@ const PlayerStats = ({playerId}) => {
     const [selectedClubId, setSelectedClubId] = useState(null);
     const [playerProfile, setPlayerProfile] = useState(null);
 
+
     useEffect(() => {
       const getPlayerStats = async () => {
         try {
@@ -77,8 +78,8 @@ const PlayerStats = ({playerId}) => {
               All
             </span>
           </div>
-            {playerProfile[0]["club-history"] && playerProfile[0]["club-history"].map(club => (
-              <div key={club._club_id} onClick={() => {setSelectedClubName(club.name); setSelectedClubId(club._club_id)}} className={`clubListMenuItem ${selectedClubName === club.name ? 'active' : ''}`}>
+            {playerProfile[0]["club_info"] && playerProfile[0]["club_info"].map(club => (
+              <div key={club._id} onClick={() => {setSelectedClubName(club.name); setSelectedClubId(club._id)}} className={`clubListMenuItem ${selectedClubName === club.name ? 'active' : ''}`}>
                 <span>
                   {club.name}
                 </span>
@@ -123,12 +124,12 @@ const PlayerStats = ({playerId}) => {
                         <td>{SeasonStat.season}</td>
                         <td>
                           <Link to={"/club/" + SeasonStat._club_id}>
-                            <span>{SeasonStat.club}</span>
+                            <span>{SeasonStat["club_info"][0].name}</span>
                           </Link>
                         </td>
                         <td>
                           <Link to={"/league/" + SeasonStat._league_id}>
-                            <span>{SeasonStat.league}</span>
+                            <span>{SeasonStat["league_info"][0].name}</span>
                           </Link>
                         </td>
                         <td>{SeasonStat.appearances}</td>

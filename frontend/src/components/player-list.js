@@ -112,9 +112,9 @@ const PlayerList = ({ name }) => {
               </td>
               <td>{player.nationality}</td>
               <td>
-                {player["current-club"] === "N/A" ? (player["current-club"]) : (
+                {player["_current_club_id"] === undefined ? ("N/A") : (
                   <Link to={"/club/" + player._current_club_id}>
-                    <span>{player["current-club"]}</span>
+                    <span>{player["current_club_info"][0].name}</span>
                   </Link>
                 )}
               </td>

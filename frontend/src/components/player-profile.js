@@ -49,21 +49,24 @@ const PlayerProfile = ({playerId}) => {
                         <br></br>
                         Positions: {playerProfile[0].positions}
                         <br></br>
-                        <Link to={"/club/" + playerProfile[0]._current_club_id}>
-                          Club: <span>{playerProfile[0]["current-club"]}</span>
-                        </Link>
+                        Club: 
+                        {playerProfile[0]["_current_club_id"] === undefined ? (" N/A") : (
+                          <Link to={"/club/" + playerProfile[0]._current_club_id}>
+                            <span> {playerProfile[0]["current_club_info"][0].name}</span>
+                          </Link>
+                        )}
                         <br></br>
                         Shirt Number: {playerProfile[0]["shirt-number"]}
                         <br></br>
-                        Club History: {playerProfile[0]["club-history"].map((club, index) => (
+                        Club History: {playerProfile[0]["club_info"].map((club, index) => (
                           // Using React Fragment <>...</> to wrap multiple elements
                           <>
-                            <span key={club._club_id}>
-                              <Link to={"/club/" + club._club_id}>
+                            <span key={playerProfile[0]._id + '-' + club._id}>
+                              <Link to={"/club/" + club._id}>
                                 {club.name}
                               </Link>
                             </span>
-                            {index < playerProfile[0]["club-history"].length - 1 ? ', ' : ''}
+                            {index < playerProfile[0]["club_info"].length - 1 ? ', ' : ''}
                           </>
                         ))}
                     </td>

@@ -4,9 +4,18 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 
 exports.getPlayerProfile = async (req, res) => {
-  const playerId = req.query.playerId; 
+  let playerId = req.query.playerId; 
+  playerId = new ObjectId(playerId);
   try {
-    const playerProfile = await Player.find({_id: playerId});
+    let playerProfile = await Player.aggregate([
+      { $match: {_id: playerId} },
+      { $lookup: { from: 'club', localField: '_club_ids', foreignField: '_id', as: 'club_info' } },
+      { $lookup: { from: 'club', localField: '_current_club_id', foreignField: '_id', as: 'current_club_info' } },
+    ]);
+    // Sort the club_info array in the application code
+    if (playerProfile.length > 0) {
+      playerProfile[0].club_info.sort((a, b) => a.name.localeCompare(b.name));
+    }
     res.json(playerProfile);
   } catch (err) {
     res.status(500).send('Server Error');
@@ -14,32 +23,65 @@ exports.getPlayerProfile = async (req, res) => {
 };
 
 exports.getPlayerStats = async (req, res) => {
-  const playerId = req.query.playerId; 
-  const clubId = req.query.clubId; 
+  let playerId = req.query.playerId; 
+  let clubId = req.query.clubId; 
+
+  playerId = new ObjectId(playerId)
+  if (clubId){
+    clubId = new ObjectId(clubId);
+  }
+
   const sortColumn = req.query.sortColumn;
   const sortDirection = req.query.sortDirection;
   try {
     let playerStats;
     if (!clubId){
       if (sortDirection === ""){
-        playerStats = await PlayerStats.find({_player_id: playerId});
+        // playerStats = await PlayerStats.find({_player_id: playerId});
+        playerStats = await PlayerStats.aggregate([
+          { $match: {_player_id: playerId} },
+          { $lookup: { from: 'club', localField: '_club_id', foreignField: '_id', as: 'club_info' } },
+          { $lookup: { from: 'league', localField: '_league_id', foreignField: '_id', as: 'league_info' } },
+          { $lookup: { from: 'player', localField: '_player_id', foreignField: '_id', as: 'player_info' } },
+        ]);
       }
       else{
         let sort = {};
         sort[sortColumn] = sortDirection === 'DESC' ? -1 : 1;
-        playerStats = await PlayerStats.find({_player_id: playerId}).sort(sort);
+        // playerStats = await PlayerStats.find({_player_id: playerId}).sort(sort);
+        playerStats = await PlayerStats.aggregate([
+          { $match: {_player_id: playerId} },
+          { $sort: sort }, 
+          { $lookup: { from: 'club', localField: '_club_id', foreignField: '_id', as: 'club_info' } },
+          { $lookup: { from: 'league', localField: '_league_id', foreignField: '_id', as: 'league_info' } },
+          { $lookup: { from: 'player', localField: '_player_id', foreignField: '_id', as: 'player_info' } },
+        ]);
       }  
     }
     else{
       if (sortDirection === ""){
-        playerStats = await PlayerStats.find({_player_id: playerId, _club_id: clubId});
+        // playerStats = await PlayerStats.find({_player_id: playerId, _club_id: clubId});
+        playerStats = await PlayerStats.aggregate([
+          { $match: {_player_id: playerId, _club_id: clubId} },
+          { $lookup: { from: 'club', localField: '_club_id', foreignField: '_id', as: 'club_info' } },
+          { $lookup: { from: 'league', localField: '_league_id', foreignField: '_id', as: 'league_info' } },
+          { $lookup: { from: 'player', localField: '_player_id', foreignField: '_id', as: 'player_info' } },
+        ]);
       }
       else{
         let sort = {};
         sort[sortColumn] = sortDirection === 'DESC' ? -1 : 1;
-        playerStats = await PlayerStats.find({_player_id: playerId, _club_id: clubId}).sort(sort);
+        // playerStats = await PlayerStats.find({_player_id: playerId, _club_id: clubId}).sort(sort);
+        playerStats = await PlayerStats.aggregate([
+          { $match: {_player_id: playerId, _club_id: clubId} },
+          { $sort: sort },
+          { $lookup: { from: 'club', localField: '_club_id', foreignField: '_id', as: 'club_info' } },
+          { $lookup: { from: 'league', localField: '_league_id', foreignField: '_id', as: 'league_info' } },
+          { $lookup: { from: 'player', localField: '_player_id', foreignField: '_id', as: 'player_info' } },
+        ]);
       }  
     }
+    console.log("RESPONSE: ", playerStats);
     res.json(playerStats);  
   } 
   catch (err) {
@@ -67,17 +109,29 @@ exports.searchByPlayerName = async (req, res) => {
   try {
     let players;
     let totalPlayerCount;
+    let matchCondition = { name: {$regex : nameToSearch,  $options: "i"} };
     if (sortDirection === ""){
-      players = await Player.find({ name: {$regex : nameToSearch,  $options: "i"} }).skip(skip).limit(pageLimit);
-      totalPlayerCount = await Player.countDocuments({ name: {$regex : nameToSearch,  $options: "i"} });
+      // players = await Player.find(matchCondition).skip(skip).limit(pageLimit);
+      players = await Player.aggregate([
+        { $match: matchCondition },
+        { $lookup: { from: 'club', localField: '_club_ids', foreignField: '_id', as: 'club_info' } },
+        { $lookup: { from: 'club', localField: '_current_club_id', foreignField: '_id', as: 'current_club_info' } },
+      ]).skip(skip).limit(pageLimit);
+      
+      totalPlayerCount = await Player.countDocuments(matchCondition);
     }
     else{
       let sort = {};
       sort[sortColumn] = sortDirection === 'DESC' ? -1 : 1;
-      players = await Player.find({ name: {$regex : nameToSearch,  $options: "i"} }).skip(skip).limit(pageLimit).sort(sort);
-      totalPlayerCount = await Player.countDocuments({ name: {$regex : nameToSearch,  $options: "i"} });
+      // players = await Player.find(matchCondition).skip(skip).limit(pageLimit).sort(sort);
+      players = await Player.aggregate([
+        { $match: matchCondition },
+        { $lookup: { from: 'club', localField: '_club_ids', foreignField: '_id', as: 'club_info' } },
+        { $lookup: { from: 'club', localField: '_current_club_id', foreignField: '_id', as: 'current_club_info' } },
+      ]).sort(sort).skip(skip).limit(pageLimit);
+      
+      totalPlayerCount = await Player.countDocuments(matchCondition);
     }
-   
     res.json({
       totalPlayerCount: totalPlayerCount,
       totalPages: Math.ceil(totalPlayerCount / pageLimit),

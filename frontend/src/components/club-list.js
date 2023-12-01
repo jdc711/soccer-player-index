@@ -112,12 +112,12 @@ const ClubList = ({name}) => {
                 </Link>
               </td>
               <td>
-                {Club.leagues.map((league, index) => (
-                  <span key={Club._id + '-' + league._league_id}>
-                    <Link to={"/league/" + league._league_id}>
+                {Club["league_info"].map((league, index) => (
+                  <span key={Club._id + '-' + league._id}>
+                    <Link to={"/league/" + league._id}>
                       {league.name}
                     </Link>
-                    {index < Club.leagues.length - 1 ? ', ' : ''}
+                    {index < Club["league_info"].length - 1 ? ', ' : ''}
                   </span>
                 ))}
               </td>

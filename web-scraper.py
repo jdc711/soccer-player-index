@@ -80,6 +80,8 @@ def replaceSpecialLetters(name):
     for i in range(len(name)):
         if name[i] == 'é':
             name = name[:i] + 'e' + name[i+1:]
+        elif name[i] == 'É':
+            name = name[:i] + 'É' + name[i+1:]
         elif name[i] == 'ë':
             name = name[:i] + 'e' + name[i+1:]
         elif name[i] == 'á':

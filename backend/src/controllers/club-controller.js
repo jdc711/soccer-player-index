@@ -3,10 +3,15 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 
 exports.getClubProfile = async (req, res) => {
-  const clubId = req.query.clubId; 
-
+  let clubId = req.query.clubId; 
+  clubId = new ObjectId(clubId);
   try {
-    const clubProfile = await Club.find({_id: clubId});
+    // const clubProfile = await Club.find({_id: clubId});
+    const clubProfile = await Club.aggregate([
+      { $match: {_id: clubId} },
+      { $lookup: { from: 'league', localField: '_league_ids', foreignField: '_id', as: 'league_info' } },
+    ]);
+    
     res.json(clubProfile);
   } catch (err) {
     res.status(500).send('Server Error');
@@ -23,17 +28,33 @@ exports.searchClubsByName = async (req, res) => {
   try {
     let clubs;
     let totalClubCount;
+    let matchCondition = { name: {$regex : nameToSearch,  $options: "i"}, "is-club":true };
     if (sortDirection === ""){
-      clubs = await Club.find({ name: {$regex : nameToSearch,  $options: "i"}, "is-club":true }).skip(skip).limit(pageLimit);
-      totalClubCount = await Club.countDocuments({ name: {$regex : nameToSearch,  $options: "i"},"is-club":true });
+      // clubs = await Club.find({ name: {$regex : nameToSearch,  $options: "i"}, "is-club":true }).skip(skip).limit(pageLimit);
+      // totalClubCount = await Club.countDocuments({ name: {$regex : nameToSearch,  $options: "i"},"is-club":true });
+
+      clubs = await Club.aggregate([
+        { $match: matchCondition },
+        { $lookup: { from: 'league', localField: '_league_ids', foreignField: '_id', as: 'league_info' } }, 
+      ]).skip(skip).limit(pageLimit);
+      
+      totalClubCount = await Club.countDocuments(matchCondition);
     }
     else{
       let sort = {};
       sort[sortColumn] = sortDirection === 'DESC' ? -1 : 1;
-      clubs = await Club.find({ name: {$regex : nameToSearch,  $options: "i"}, "is-club":true }).skip(skip).limit(pageLimit).sort(sort);
-      totalClubCount = await Club.countDocuments({ name: {$regex : nameToSearch,  $options: "i"},"is-club":true });
+      // clubs = await Club.find({ name: {$regex : nameToSearch,  $options: "i"}, "is-club":true }).skip(skip).limit(pageLimit).sort(sort);
+      // totalClubCount = await Club.countDocuments({ name: {$regex : nameToSearch,  $options: "i"},"is-club":true });
+      
+      clubs = await Club.aggregate([
+        { $match: matchCondition },
+        { $lookup: { from: 'league', localField: '_league_ids', foreignField: '_id', as: 'league_info' } },
+      ]).sort(sort).skip(skip).limit(pageLimit);
+      
+      
+      totalClubCount = await Club.countDocuments(matchCondition);
     }
-    
+
     res.json({
       totalClubCount: totalClubCount,
       totalPages: Math.ceil(totalClubCount / pageLimit),
@@ -65,29 +86,44 @@ exports.getAllClubs = async (req, res) => {
     matchCondition = { "is-club": isClub };
   }
   else if (isClub === "All"){
-    matchCondition = { 
-      "leagues": {
-        "$elemMatch": {
-          "_league_id": { "$in": leagueIds }
-        }
-      } 
+    // matchCondition = { 
+    //   "leagues": {
+    //     "$elemMatch": {
+    //       "_league_id": { "$in": leagueIds }
+    //     }
+    //   } 
+    // };
+    
+    matchCondition = {
+      "_league_ids": {"$in": leagueIds}
     };
 
   }
   else{
-    matchCondition = { 
+    // matchCondition = { 
+    //   "is-club": isClub,
+    //   "leagues": {
+    //     "$elemMatch": {
+    //       "_league_id": { "$in": leagueIds }
+    //     }
+    //   } 
+    // };
+    
+    matchCondition = {
       "is-club": isClub,
-      "leagues": {
-        "$elemMatch": {
-          "_league_id": { "$in": leagueIds }
-        }
-      } 
+      "_league_ids": {"$in": leagueIds}
     };
 
   }
 
   try {
-    const clubs = await Club.find(matchCondition);
+    // const clubs = await Club.find(matchCondition);
+    const clubs = await Club.aggregate([
+      { $match: matchCondition },
+      { $lookup: { from: 'league', localField: '_league_ids', foreignField: '_id', as: 'league_info' } },
+    ]);
+    
+
     res.json(clubs);
   } catch (err) {
     res.status(500).send('Server Error');

@@ -46,13 +46,15 @@ const ClubProfile = ({clubId}) => {
                     <td>
                         Name: {clubProfile[0].name}
                         <br></br>
-                        Leagues: {clubProfile[0].leagues.map((league, index) => (
-                          <span key={league._league_id}>
-                            <Link to={"/league/" + league._league_id}>
-                              {league.name}
-                            </Link>
-                            {index < clubProfile[0].leagues.length - 1 ? ', ' : ''}
-                          </span>
+                        Leagues: {clubProfile[0]["league_info"].map((league, index) => (
+                          <>
+                            <span key={league._id}>
+                              <Link to={"/league/" + league._id}>
+                                {league.name}
+                              </Link>
+                            </span>
+                            {index < clubProfile[0]["league_info"].length - 1 ? ', ' : ''}
+                          </>
                         ))}
                     </td>
                 </tr>
