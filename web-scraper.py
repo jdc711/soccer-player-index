@@ -46,7 +46,11 @@ league_abbreviation_to_name_map = {
     "WCQ": "World Cup Qualifiers",
     "ALP": "Argentine Primera Division",
     "Pro League": "Saudi Pro League",
-    "RPL": "Russian Premier League"
+    "RPL": "Russian Premier League",
+    "CSL": "Chinese Super League",
+    "BJL": "Belgian Pro League",
+    "QSL": "Qatar Stars League",
+    "IACL": "AFC Champions League"
 }
 
 def team_abbreviation_to_name_map(name):
@@ -62,6 +66,8 @@ def team_abbreviation_to_name_map(name):
         return "Atletico Madrid"
     elif name == "RBL":
         return "RB Leipzig"
+    elif name == "Derby":
+        return "Derby County F.C."
     else:
         return name
 
@@ -345,35 +351,35 @@ links = [
 # "https://www.whoscored.com/Players/91961/History/Marco-Verratti",
 # "https://www.whoscored.com/Players/25604/History/Hugo-Lloris",
 "https://www.whoscored.com/Players/343346/History/Mason-Mount",
-"https://www.whoscored.com/Players/115726/History/Andy-Robertson",
-"https://www.whoscored.com/Players/13754/History/Manuel-Neuer",
-"https://www.whoscored.com/Players/65901/History/Keylor-Navas",
-"https://www.whoscored.com/Players/29463/History/Willian",
-"https://www.whoscored.com/Players/24328/History/Edinson-Cavani",
-"https://www.whoscored.com/Players/235755/History/Diogo-Jota",
-"https://www.whoscored.com/Players/106981/History/Jamie-Vardy",
-"https://www.whoscored.com/Players/69778/History/Kyle-Walker",
-"https://www.whoscored.com/Players/337879/History/Éder-Militão",
-"https://www.whoscored.com/Players/317804/History/Richarlison",
-"https://www.whoscored.com/Players/321390/History/Édouard-Mendy",
-"https://www.whoscored.com/Players/296337/History/Ferland-Mendy",
-"https://www.whoscored.com/Players/105962/History/Benjamin-Mendy",
-"https://www.whoscored.com/Players/320374/History/Matthijs-de-Ligt",
-"https://www.whoscored.com/Players/370912/History/Kim-Min-Jae",
-"https://www.whoscored.com/Players/22732/History/Ivan-Rakitic",
-"https://www.whoscored.com/Players/70524/History/Ivan-Perisic",
-"https://www.whoscored.com/Players/323663/History/Cristian-Romero",
-"https://www.whoscored.com/Players/14199/History/Claudio-Bravo",
-"https://www.whoscored.com/Players/115916/History/Fabinho",
-"https://www.whoscored.com/Players/20664/History/Leonardo-Bonucci",
-"https://www.whoscored.com/Players/9991/History/Giorgio-Chiellini",
-"https://www.whoscored.com/Players/101374/History/John-Stones",
-"https://www.whoscored.com/Players/25165/History/Carlos-Vela",
-"https://www.whoscored.com/Players/367780/History/Lee-Kang-In",
-"https://www.whoscored.com/Players/90880/History/Kalidou-Koulibaly",
-"https://www.whoscored.com/Players/24248/History/Diego-Costa",
-"https://www.whoscored.com/Players/301019/History/Jules-Koundé",
-"https://www.whoscored.com/Players/327721/History/Dayot-Upamecano",
+# "https://www.whoscored.com/Players/115726/History/Andy-Robertson",
+# "https://www.whoscored.com/Players/13754/History/Manuel-Neuer",
+# "https://www.whoscored.com/Players/65901/History/Keylor-Navas",
+# "https://www.whoscored.com/Players/29463/History/Willian",
+# "https://www.whoscored.com/Players/24328/History/Edinson-Cavani",
+# "https://www.whoscored.com/Players/235755/History/Diogo-Jota",
+# "https://www.whoscored.com/Players/106981/History/Jamie-Vardy",
+# "https://www.whoscored.com/Players/69778/History/Kyle-Walker",
+# "https://www.whoscored.com/Players/337879/History/Éder-Militão",
+# "https://www.whoscored.com/Players/317804/History/Richarlison",
+# "https://www.whoscored.com/Players/321390/History/Édouard-Mendy",
+# "https://www.whoscored.com/Players/296337/History/Ferland-Mendy",
+# "https://www.whoscored.com/Players/105962/History/Benjamin-Mendy",
+# "https://www.whoscored.com/Players/320374/History/Matthijs-de-Ligt",
+# "https://www.whoscored.com/Players/370912/History/Kim-Min-Jae",
+# "https://www.whoscored.com/Players/22732/History/Ivan-Rakitic",
+# "https://www.whoscored.com/Players/70524/History/Ivan-Perisic",
+# "https://www.whoscored.com/Players/323663/History/Cristian-Romero",
+# "https://www.whoscored.com/Players/14199/History/Claudio-Bravo",
+# "https://www.whoscored.com/Players/115916/History/Fabinho",
+# "https://www.whoscored.com/Players/20664/History/Leonardo-Bonucci",
+# "https://www.whoscored.com/Players/9991/History/Giorgio-Chiellini",
+# "https://www.whoscored.com/Players/101374/History/John-Stones",
+# "https://www.whoscored.com/Players/25165/History/Carlos-Vela",
+# "https://www.whoscored.com/Players/367780/History/Lee-Kang-In",
+# "https://www.whoscored.com/Players/90880/History/Kalidou-Koulibaly",
+# "https://www.whoscored.com/Players/24248/History/Diego-Costa",
+# "https://www.whoscored.com/Players/301019/History/Jules-Koundé",
+# "https://www.whoscored.com/Players/327721/History/Dayot-Upamecano",
 "https://www.whoscored.com/Players/27586/History/David-Luiz",
 "https://www.whoscored.com/Players/122366/History/Anthony-Martial",
 "https://www.whoscored.com/Players/367782/History/Mason-Greenwood",
@@ -390,6 +396,8 @@ def add_club_to_db(club_name, league_name, nationality, club_img_url):
     # adds club and its corresponding league to db
     # if club doesnt exist in db, create new club document
     # if league doesnt exist in db, create new league document
+    league_name = replaceSpecialLetters(league_name)
+    club_name = replaceSpecialLetters(club_name)
     client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
     db = client['soccer-player-index']  
     club_collection = db['club']
