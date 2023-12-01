@@ -1,10 +1,10 @@
 
 .clubMenu {
     display: flex;
+    position: relative;
     overflow-x: auto;
-    /* for horizontal scrolling if there are many clubs */
     white-space: nowrap;
-    /* keeps the list in a single row */
+    margin-bottom: 20px;
 }
 
 .clubMenu .clubListMenuItem {
@@ -14,8 +14,18 @@
 }
 
 .clubMenu .clubListMenuItem.active {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.87);
     color: rgb(19, 20, 21);
+    position: relative; /* Needed to position the underline */
+}
+
+.underline {
+    height: 2px;
+    background-color: black;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0; /* Initial width */
+    transition: all 0.3s ease; /* Smooth transition for moving and resizing */
 }
 
 .clubMenu .clubListMenuItem span {
@@ -28,7 +38,7 @@
 
 .clubMenu .clubListMenuItem {
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding: 20px;
-    padding-bottom: 10px;
+    padding-bottom: 0px;
 }
