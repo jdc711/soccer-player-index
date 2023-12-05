@@ -50,26 +50,71 @@ league_abbreviation_to_name_map = {
     "CSL": "Chinese Super League",
     "BJL": "Belgian Pro League",
     "QSL": "Qatar Stars League",
-    "IACL": "AFC Champions League"
+    "IACL": "AFC Champions League",
+    "TS":"Super Lig"
 }
 
-def team_abbreviation_to_name_map(name):
-    if name == "Man City":
-        return "Manchester City"
-    elif name == "Man Utd":
-        return "Manchester United"
-    elif name == "Bayern":
-        return "Bayern Munich"
-    elif name == "PSG":
-        return "Paris Saint-Germain"
-    elif name == "Atletico":
-        return "Atletico Madrid"
-    elif name == "RBL":
-        return "RB Leipzig"
-    elif name == "Derby":
-        return "Derby County F.C."
-    else:
-        return name
+team_abbreviation_to_name_dict = {
+    "Man City": "Manchester City",
+    "Man Utd": "Manchester United",
+    "Bayern": "Bayern Munich",
+    "PSG": "Paris Saint-Germain",
+    "Atletico": "Atletico Madrid",
+    "RBL": "RB Leipzig",
+    "Derby": "Derby County F.C.",
+    "Monaco": "AS Monaco",
+    "Leverkusen": "Bayer Leverkusen",
+    "Atletico MG": "Atletico Mineiro",
+    "Porto": "FC Porto",
+    "Wolfsburg": "VfL Wolfsburg",
+    "Genk": "KRC Genk",
+    "Lille": "LOSC Lille",
+    "Borussia M.Gladbach": "Borussia Mönchengladbach",
+    "Inter": "Inter Milan",
+    "Reading": "Reading FC",
+    "WBA": "West Bromwich Albion",
+    "Espanyol": "RCD Espanyol",
+    "West Ham": "West Ham United",
+    "USA": "United States",
+    "Hoffenheim": "TSG Hoffenheim",
+    "Schalke":"Schalke 04",
+    "Hull": "Hull City A.F.C.",
+    "Corinthians":"Sport Club Corinthians Paulista",
+    "Anzhi": "FC Anzhi Makhachkala",
+    "Vancouver":"Vancouver Whitecaps FC",
+    "Sheff Wed":"Sheffield Wednesday FC",
+    "Rotherham":"Rotherham United",
+    "Wigan": "Wigan Athletic F.C.",
+    "Shakhtar": "FC Shakhtar Donetsk"
+}
+
+# def team_abbreviation_to_name_map(name):
+#     if name == "Man City":
+#         return "Manchester City"
+#     elif name == "Man Utd":
+#         return "Manchester United"
+#     elif name == "Bayern":
+#         return "Bayern Munich"
+#     elif name == "PSG":
+#         return "Paris Saint-Germain"
+#     elif name == "Atletico":
+#         return "Atletico Madrid"
+#     elif name == "RBL":
+#         return "RB Leipzig"
+#     elif name == "Derby":
+#         return "Derby County F.C."
+#     elif name == "Monaco":
+#         return "AS Monaco"
+#     elif name == "Leverkusen":
+#         return "Bayer Leverkusen"
+#     elif name == "Atletico MG":
+#         return "Atletico Mineiro"
+#     elif name == "Porto":
+#         return "FC Porto"
+#     elif name == "Wolfsburg":
+#         return "VfL Wolfsburg"
+#     else:
+#         return name
 
 def league_abbreviation_to_name(abbr, season):
     if abbr == "UEC":
@@ -87,7 +132,7 @@ def replaceSpecialLetters(name):
         if name[i] == 'é':
             name = name[:i] + 'e' + name[i+1:]
         elif name[i] == 'É':
-            name = name[:i] + 'É' + name[i+1:]
+            name = name[:i] + 'E' + name[i+1:]
         elif name[i] == 'ë':
             name = name[:i] + 'e' + name[i+1:]
         elif name[i] == 'á':
@@ -129,6 +174,8 @@ def parse_player_profile_text(player_profile_text):
                 player_profile["current-club"] = "N/A"
             else:
                 player_profile["current-club"] = " ".join(words[2:])
+                if player_profile["current-club"] in team_abbreviation_to_name_dict:
+                    player_profile["current-club"] = team_abbreviation_to_name_dict[player_profile["current-club"]]
         elif first_word == "Shirt":
             player_profile["shirt-number"] = int(words[2])
         elif first_word == "Age:":
@@ -156,11 +203,13 @@ def parse_player_stats_text(player_stats_text, player_profile):
         words = line.split()
         if season_and_club:
             season_stats["season"] = words[0]
-            if player_profile["nationality"] == words[1]:
-                season_stats["club"] = " ".join(words[1:]) 
-            else:
-                season_stats["club"] = " ".join(words[1:])  
-                season_stats["club"] = team_abbreviation_to_name_map(season_stats["club"])
+            # if player_profile["nationality"] == words[1]:
+            #     season_stats["club"] = " ".join(words[1:]) 
+            # else:
+            #     season_stats["club"] = " ".join(words[1:])  
+            season_stats["club"] = " ".join(words[1:]) 
+            if season_stats["club"] in team_abbreviation_to_name_dict:
+                season_stats["club"] = team_abbreviation_to_name_dict[season_stats["club"]]
         else:
             league = league_abbreviation_to_name(words[0], season_stats["season"])
             if league:
@@ -233,13 +282,13 @@ def scrape_player_page(link):
         driver.quit()
 
 links = [
+# "https://www.whoscored.com/Players/315227/History/Erling-Haaland",
 # "https://www.whoscored.com/Players/136741/History/Bernardo-Silva",
 # "https://www.whoscored.com/Players/11119/History/Lionel-Messi",
 # "https://www.whoscored.com/Players/50835/History/Neymar",
 # "https://www.whoscored.com/Players/2302/History/Xavi",
 # "https://www.whoscored.com/Players/5/History/Thierry-Henry",
 # "https://www.whoscored.com/Players/29400/History/Robert-Lewandowski",
-# "https://www.whoscored.com/Players/315227/History/Erling-Haaland",
 # "https://www.whoscored.com/Players/20874/History/Luka-Modric",
 # "https://www.whoscored.com/Players/73084/History/Kevin-De-Bruyne",
 # "https://www.whoscored.com/Players/5583/History/Cristiano-Ronaldo",
@@ -350,11 +399,11 @@ links = [
 # "https://www.whoscored.com/Players/144711/History/Leroy-Sané",
 # "https://www.whoscored.com/Players/91961/History/Marco-Verratti",
 # "https://www.whoscored.com/Players/25604/History/Hugo-Lloris",
-"https://www.whoscored.com/Players/343346/History/Mason-Mount",
+# "https://www.whoscored.com/Players/343346/History/Mason-Mount",
 # "https://www.whoscored.com/Players/115726/History/Andy-Robertson",
 # "https://www.whoscored.com/Players/13754/History/Manuel-Neuer",
 # "https://www.whoscored.com/Players/65901/History/Keylor-Navas",
-# "https://www.whoscored.com/Players/29463/History/Willian",
+"https://www.whoscored.com/Players/29463/History/Willian",
 # "https://www.whoscored.com/Players/24328/History/Edinson-Cavani",
 # "https://www.whoscored.com/Players/235755/History/Diogo-Jota",
 # "https://www.whoscored.com/Players/106981/History/Jamie-Vardy",
@@ -380,16 +429,17 @@ links = [
 # "https://www.whoscored.com/Players/24248/History/Diego-Costa",
 # "https://www.whoscored.com/Players/301019/History/Jules-Koundé",
 # "https://www.whoscored.com/Players/327721/History/Dayot-Upamecano",
-"https://www.whoscored.com/Players/27586/History/David-Luiz",
-"https://www.whoscored.com/Players/122366/History/Anthony-Martial",
-"https://www.whoscored.com/Players/367782/History/Mason-Greenwood",
-"https://www.whoscored.com/Players/361330/History/Reece-James",
-"https://www.whoscored.com/Players/346300/History/Jadon-Sancho",
-"https://www.whoscored.com/Players/247800/History/Presnel-Kimpembe",
-"https://www.whoscored.com/Players/125883/History/Kingsley-Coman",
-"https://www.whoscored.com/Players/382234/History/Ansu-Fati",
-"https://www.whoscored.com/Players/425142/History/Kaoru-Mitoma",
-"https://www.whoscored.com/Players/369109/History/Eduardo-Camavinga",
+# "https://www.whoscored.com/Players/27586/History/David-Luiz",
+# "https://www.whoscored.com/Players/122366/History/Anthony-Martial",
+# "https://www.whoscored.com/Players/367782/History/Mason-Greenwood",
+# "https://www.whoscored.com/Players/361330/History/Reece-James",
+# "https://www.whoscored.com/Players/346300/History/Jadon-Sancho",
+# "https://www.whoscored.com/Players/247800/History/Presnel-Kimpembe",
+# "https://www.whoscored.com/Players/125883/History/Kingsley-Coman",
+# "https://www.whoscored.com/Players/382234/History/Ansu-Fati",
+# "https://www.whoscored.com/Players/425142/History/Kaoru-Mitoma",
+# "https://www.whoscored.com/Players/369109/History/Eduardo-Camavinga",
+# "https://www.whoscored.com/Players/75691/History/Nicolás-Otamendi"
 ]
 
 def add_club_to_db(club_name, league_name, nationality, club_img_url):
@@ -398,6 +448,8 @@ def add_club_to_db(club_name, league_name, nationality, club_img_url):
     # if league doesnt exist in db, create new league document
     league_name = replaceSpecialLetters(league_name)
     club_name = replaceSpecialLetters(club_name)
+    if club_name in team_abbreviation_to_name_dict:
+        club_name = team_abbreviation_to_name_dict[club_name]
     client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
     db = client['soccer-player-index']  
     club_collection = db['club']
@@ -412,7 +464,11 @@ def add_club_to_db(club_name, league_name, nationality, club_img_url):
         )
         league_document = league_collection.find_one({"name":league_name})
     
-    
+    club_document = club_collection.find({"name": club_name})
+    if club_document != None:
+        return
+        
+        
     setCondition = None
     if club_img_url == "":
         setCondition = {
@@ -423,7 +479,6 @@ def add_club_to_db(club_name, league_name, nationality, club_img_url):
             "image-url": club_img_url,
             "is-club": (nationality != club_name)
         }
-    
     
     club_collection.update_one(
         {"name": club_name},  # Query to find the document
@@ -465,19 +520,17 @@ def add_player_to_db(player_profile, clubs, player_img_url):
     club_collection = db['club'] 
     current_club_document = club_collection.find_one({"name": player_profile["current-club"]})
     player_document = player_collection.find_one({"name": player_profile["name"]})
-    clubObjectList = []
+    clubIds = []
     if player_profile["current-club"] != "N/A":
-        clubObjectList.append({
-            "name": current_club_document["name"],
-            "_club_id": current_club_document["_id"]
-        })
+        clubIds.append(current_club_document["_id"])
     for club in clubs:
         club_document = club_collection.find_one({"name": club})
+        if club_document == None:
+            print("could not find club ", club)
+            return
+
         if club_document["name"] != player_profile["current-club"]:
-            clubObjectList.append({
-                "name": club_document["name"],
-                "_club_id": club_document["_id"]
-            })
+            clubIds.append(club_document["_id"])
     if player_document == None:
         if player_profile["current-club"] != "N/A":
             player_collection.insert_one({
@@ -487,9 +540,8 @@ def add_player_to_db(player_profile, clubs, player_img_url):
                 "nationality": player_profile["nationality"],
                 "positions": player_profile["positions"],
                 "age": player_profile["age"],
-                "current-club": player_profile["current-club"],
                 "shirt-number": player_profile["shirt-number"],
-                "club-history": clubObjectList,
+                "_club_ids": clubIds,
                 "image-url": player_img_url
             })  
         else:
@@ -500,9 +552,8 @@ def add_player_to_db(player_profile, clubs, player_img_url):
                 "nationality": player_profile["nationality"],
                 "positions": player_profile["positions"],
                 "age": player_profile["age"],
-                "current-club": player_profile["current-club"],
                 "shirt-number": player_profile["shirt-number"],
-                "club-history": clubObjectList
+                "_club_ids": clubIds,
             })  
         player_document = player_collection.find_one({"name": player_profile["name"]})
     return player_document["_id"]
@@ -534,70 +585,53 @@ def add_player_season_to_db(player_profile, season_stats):
     league_document = league_collection.find_one({"name": season_stats["league"]})
         
     if league_document == None:
-        league_collection.insert_one(
-            {
-                "name":season_stats["league"],
-                "location": "TBD"
-            },  
-        )
-        league_document = league_collection.find_one({"name":season_stats["league"]})
+        # league_collection.insert_one(
+        #     {
+        #         "name":season_stats["league"],
+        #         "location": "TBD"
+        #     },  
+        # )
+        # league_document = league_collection.find_one({"name":season_stats["league"]})
+        print("could not find league ", season_stats["league"])
+        return
             
     club_document = club_collection.find_one({"name": season_stats["club"]})
     if club_document == None:
-        add_club_to_db(season_stats["club"], season_stats["league"], player_profile["Nationality"], "")
-        club_document = club_collection.find_one({"name": season_stats["club"]})
+        print("could not find club ", season_stats["club"])
+        return
+        # add_club_to_db(season_stats["club"], season_stats["league"], player_profile["Nationality"], "")
+        # club_document = club_collection.find_one({"name": season_stats["club"]})
         
     player_document = player_collection.find_one({"name": player_profile["name"]})
     if player_document == None:
-        add_player_to_db(player_profile, [], "")
-        player_document = player_collection.find_one({"name": player_profile["name"]})
+        print("could not find player ", player_profile["name"])
+        return
+        # add_player_to_db(player_profile, [], "")
+        # player_document = player_collection.find_one({"name": player_profile["name"]})
     
     player_id = player_document["_id"]
     
-    player_stats_document = player_stats_collection.find_one({
-            "name": player_profile["name"],
-            "club": season_stats["club"],
-            "season": season_stats["season"],
-            "league": season_stats["league"]
-    })
-
-    if player_stats_document == None:
-        
-        if club_document == None:
-            player_stats_collection.insert_one({
-                "_player_id": player_id,
-                "_club_id": "N/A",
-                "_league_id": league_document["_id"],
-                "name": player_profile["name"],
-                "club": season_stats["club"],
-                "season": season_stats["season"],
-                "league": season_stats["league"],
-                "appearances": convertStrToInt(season_stats["appearances"]),
-                "goals": convertStrToInt(season_stats["goals"]),
-                "assists": convertStrToInt(season_stats["assists"]),
-                "yellow-cards": convertStrToInt(season_stats["yellow-cards"]),
-                "red-cards": convertStrToInt(season_stats["red-cards"]),
-                "man-of-the-matches": convertStrToInt(season_stats["man-of-the-matches"]),
-                "average-match-rating": convertStrToFloat(season_stats["average-match-rating"]),
-            })
-            
-        else:
-            player_stats_collection.insert_one({
-                "_player_id": player_id,
-                "_club_id": club_document["_id"],
-                "_league_id": league_document["_id"],
-                "name": player_profile["name"],
-                "club": season_stats["club"],
-                "season": season_stats["season"],
-                "league": season_stats["league"],
-                "appearances": convertStrToInt(season_stats["appearances"]),
-                "goals": convertStrToInt(season_stats["goals"]),
-                "assists": convertStrToInt(season_stats["assists"]),
-                "yellow-cards": convertStrToInt(season_stats["yellow-cards"]),
-                "red-cards": convertStrToInt(season_stats["red-cards"]),
-                "man-of-the-matches": convertStrToInt(season_stats["man-of-the-matches"]),
-                "average-match-rating": convertStrToFloat(season_stats["average-match-rating"]),
-            })
+    player_stats_collection.update_one({
+        "_player_id": player_id,
+        "_club_id": club_document["_id"],
+        "season": season_stats["season"],
+        "_league_id": league_document["_id"]
+    },
+    { "$set":{
+        "_player_id": player_id,
+        "_club_id": club_document["_id"],
+        "_league_id": league_document["_id"],
+        "season": season_stats["season"],
+        "appearances": convertStrToInt(season_stats["appearances"]),
+        "goals": convertStrToInt(season_stats["goals"]),
+        "assists": convertStrToInt(season_stats["assists"]),
+        "yellow-cards": convertStrToInt(season_stats["yellow-cards"]),
+        "red-cards": convertStrToInt(season_stats["red-cards"]),
+        "man-of-the-matches": convertStrToInt(season_stats["man-of-the-matches"]),
+        "average-match-rating": convertStrToFloat(season_stats["average-match-rating"]),
+    }
+    },
+    upsert=True)
     
 
 def add_player_seasons_to_db(player_profile, player_stats):
@@ -637,43 +671,95 @@ def add_league_to_club(club,league):
     league_document = league_collection.find_one({"name": league})
     if league_document == None:
         print("Could not find league ", league)
+        return
     club_document = club_collection.find_one({"name":club})
     if club_document == None:
         print("Could not find club ", club)
-    print("club before: ", club_document)
+        return
     club_collection.update_one(
         {"name": club},  # Query to find the document
         {
-            "$addToSet": {
-                "leagues": 
-                    {
-                        "name": league_document["name"],
-                        "_league_id": league_document["_id"]        
-                    } 
-            }
+            "$addToSet": {"_league_ids": league_document["_id"]}
         },
     )
-    club_document = club_collection.find_one({"name":club})
-    print("club after: ", club_document)
     
+def addNewDataToDB():
+    for link in links:
+        player_profile, player_stats, player_img_url, current_club_img_url = scrape_player_page(link)
+        print("here1")
+        club_to_leagues = find_leagues_per_club(player_stats)
+        print("here2")
+
+        add_clubs_to_db(club_to_leagues, player_profile["current-club"], current_club_img_url, player_profile["nationality"]) 
+        print("here3")
+
+        clubs = []
+        for club in club_to_leagues:
+            clubs.append(club)
+        add_club_to_db2(player_profile["current-club"], current_club_img_url, player_profile["nationality"])
+        print("here4")
+
+        add_player_to_db(player_profile, clubs, player_img_url)
+        add_player_seasons_to_db(player_profile, player_stats)
+        print("finished adding ", player_profile["name"])
+        print("here5")
+def updatePlayerSeasonStats():
+    client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
+    db = client['soccer-player-index']  
+    player_stats_collection = db['player-stats'] 
+    club_collection = db['club'] 
+    league_collection = db['league'] 
+    player_collection = db['player'] 
     
+    temp = []
+    for link in links:
+        player_profile, player_stats, player_img_url, current_club_img_url = scrape_player_page(link)
+        player_document = player_collection.find_one({"name": player_profile["name"]})
+        if player_document == None:
+            print("could not find player: ", player_profile["name"])
+            return
+        for season_stats in player_stats:
+           
 
-for link in links:
-    player_profile, player_stats, player_img_url, current_club_img_url = scrape_player_page(link)
-    print("here1")
-    club_to_leagues = find_leagues_per_club(player_stats)
-    print("here2")
-
-    add_clubs_to_db(club_to_leagues, player_profile["current-club"], current_club_img_url, player_profile["nationality"]) 
-    print("here3")
-
-    clubs = []
-    for club in club_to_leagues:
-        clubs.append(club)
-    add_club_to_db2(player_profile["current-club"], current_club_img_url, player_profile["nationality"])
-    print("here4")
-
-    add_player_to_db(player_profile, clubs, player_img_url)
-    add_player_seasons_to_db(player_profile, player_stats)
-    print("finished adding ", player_profile["name"])
-    print("here5")
+            league_document = league_collection.find_one({"name": season_stats["league"]})
+        
+            if league_document == None:
+                print("could not find league: ", season_stats["league"])
+                # return
+            
+            club_document = club_collection.find_one({"name": season_stats["club"]})
+            if club_document == None:
+                # print("could not find club: ", season_stats["club"])
+                temp.append(season_stats["club"])
+                # return
+        
+            # player_id = player_document["_id"]
+    
+            # player_stats_collection.update_one({
+            #     "_player_id": player_id,
+            #     "_club_id": club_document["_id"],
+            #     "season": season_stats["season"],
+            #     "_league_id": league_document["_id"]
+            # },
+            # { "$set":{
+            #     "_player_id": player_id,
+            #     "_club_id": club_document["_id"],
+            #     "_league_id": league_document["_id"],
+            #     "season": season_stats["season"],
+            #     "appearances": convertStrToInt(season_stats["appearances"]),
+            #     "goals": convertStrToInt(season_stats["goals"]),
+            #     "assists": convertStrToInt(season_stats["assists"]),
+            #     "yellow-cards": convertStrToInt(season_stats["yellow-cards"]),
+            #     "red-cards": convertStrToInt(season_stats["red-cards"]),
+            #     "man-of-the-matches": convertStrToInt(season_stats["man-of-the-matches"]),
+            #     "average-match-rating": convertStrToFloat(season_stats["average-match-rating"]),
+            #     }
+            # },
+            # upsert=True)
+        print("finished updating ", player_profile["name"])
+        if len(temp)> 0:
+            print("temp: ", temp)
+    print("clubs that I need to add to dict: ", temp)       
+       
+# updatePlayerSeasonStats()
+addNewDataToDB()
