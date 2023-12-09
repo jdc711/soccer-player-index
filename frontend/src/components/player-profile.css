@@ -21,6 +21,12 @@ div.playerProfile table tr td:nth-child(1) {
     font-size: 13px;
 }
 
+@media (orientation: landscape) and (max-width: 767px) {
+    .playerProfile{
+        font-size: 13px;
+    }
+}
+
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
     .playerProfile{
