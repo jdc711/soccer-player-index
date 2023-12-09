@@ -37,8 +37,12 @@ exports.getPlayerStats = async (req, res) => {
     let playerStats;
     if (!clubId){
       if (sortDirection === ""){
+        console.log("jere")
+        let sort = {};
+        sort["season"] = -1;
         playerStats = await PlayerStats.aggregate([
           { $match: {_player_id: playerId} },
+          { $sort: sort }, 
           { $lookup: { from: 'club', localField: '_club_id', foreignField: '_id', as: 'club_info' } },
           { $lookup: { from: 'league', localField: '_league_id', foreignField: '_id', as: 'league_info' } },
           { $lookup: { from: 'player', localField: '_player_id', foreignField: '_id', as: 'player_info' } },
