@@ -60,6 +60,9 @@ div.clubList table tr td:nth-child(1) {
     min-height: 450px;
     font-size: 13px;
 }
+.clubList th{
+    font-size: 13px;
+}
 
 .clubList.loading {
     padding-top: 10px;
@@ -73,6 +76,9 @@ div.clubList table tr td:nth-child(1) {
     } */
     
     .clubList{
+        font-size: 16px;
+    }
+    .clubList th{
         font-size: 16px;
     }
 
