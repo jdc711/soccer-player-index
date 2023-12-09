@@ -6,7 +6,7 @@ div.clubProfile table tr td:nth-child(1) {
 
 .clubProfile table {
     width: 100%; /* Or any specific width */
-    table-layout: fixed;
+    table-layout: auto;
 }
 
 .clubProfile table th, .clubProfile table td {

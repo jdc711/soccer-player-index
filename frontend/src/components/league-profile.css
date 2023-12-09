@@ -6,7 +6,7 @@ div.leagueProfile table tr td:nth-child(1) {
 
 .leagueProfile table {
     width: 100%; /* Or any specific width */
-    table-layout: fixed;
+    table-layout: auto;
 }
 
 .leagueProfile table th, .leagueProfile table td {
