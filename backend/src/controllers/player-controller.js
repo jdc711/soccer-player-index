@@ -281,7 +281,6 @@ exports.getTopPerformersStats = async (req, res) => {
           { $lookup: { from: 'player', localField: '_player_id', foreignField: '_id', as: 'player_info' } },
       { $sort: sortCondition },
     ]).skip(skip).limit(pageLimit);
-    console.log("topGoalScorersStats:" , topGoalScorersStats)
       
     res.json({
       topGoalScorersStats: topGoalScorersStats,

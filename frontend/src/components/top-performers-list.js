@@ -19,7 +19,6 @@ const TopPerformersList = ({selectedLeagues, selectedClubs, selectedSeasons, isC
           response = await playerService.getTopPerformersStats(selectedLeagues, selectedClubs, selectedSeasons, isClub, currentPage, 10, category);
           setTopPerformers(response.topGoalScorersStats);
           setTotalPages(response.totalPages);
-          console.log("response: ", response.topGoalScorersStats)
           setError('');
         } catch (error) {
           console.error(error);
