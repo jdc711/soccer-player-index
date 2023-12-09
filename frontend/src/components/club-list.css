@@ -71,17 +71,10 @@ div.clubList table tr td:nth-child(1) {
 
 /* Medium devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-    /* .clubList table {
-        table-layout: fixed; 
-    } */
-    
     .clubList{
         font-size: 16px;
     }
-    .clubList th{
-        font-size: 16px;
-    }
-
+    
     /* Width for first column */
     div.clubList table tr th:nth-child(1),
     div.clubList table tr td:nth-child(1) {
