@@ -9,7 +9,7 @@ const TopPerformersPage = () => {
     // passed up from dropdown menu
     const [selectedLeagues, setSelectedLeagues] = useState([]);
     const [selectedClubs, setSelectedClubs] = useState([]);
-    const [selectedSeasons, setSelectedSeasons] = useState("All");
+    const [selectedSeasons, setSelectedSeasons] = useState("2023/2024");
     const [isClub, setIsClub] = useState("All");
     const [submitStatus, setSubmitStatus] = useState(false);
 

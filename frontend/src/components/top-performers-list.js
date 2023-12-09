@@ -19,7 +19,7 @@ const TopPerformersList = ({selectedLeagues, selectedClubs, selectedSeasons, isC
           response = await playerService.getTopPerformersStats(selectedLeagues, selectedClubs, selectedSeasons, isClub, currentPage, 10, category);
           setTopPerformers(response.topGoalScorersStats);
           setTotalPages(response.totalPages);
-
+          console.log("response: ", response.topGoalScorersStats)
           setError('');
         } catch (error) {
           console.error(error);
@@ -112,7 +112,7 @@ const TopPerformersList = ({selectedLeagues, selectedClubs, selectedSeasons, isC
                     <tr key={SeasonStat._id}>
                         <td>
                           <Link to={"/player/" + SeasonStat._player_id}>
-                            <span>{SeasonStat.name}</span>
+                            <span>{SeasonStat["player_info"][0].name}</span>
                           </Link>
                         </td>
                         <td>
@@ -120,12 +120,12 @@ const TopPerformersList = ({selectedLeagues, selectedClubs, selectedSeasons, isC
                         </td>
                         <td>
                           <Link to={"/league/" + SeasonStat._league_id}>
-                            <span>{SeasonStat.league}</span>
+                            <span>{SeasonStat["league_info"][0].name}</span>
                           </Link>
                         </td>
                         <td>
                           <Link to={"/club/" + SeasonStat._club_id}>
-                            <span>{SeasonStat.club}</span>
+                            <span>{SeasonStat["club_info"].name}</span>
                           </Link>
                         </td>
                         {category === "goals" && <td>{SeasonStat.goals}</td>}

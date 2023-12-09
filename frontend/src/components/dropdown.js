@@ -10,7 +10,7 @@ const Dropdown = ({ category, isClub, leagueIds, onLeagueChange, onSeasonChange,
     const [seasons, setSeasons] = useState([]);   
     const [leagues, setLeagues] = useState([]);
     // to display selected value as selected in each dropdown
-    const [selectedSeasons, setSelectedSeasons] = useState("All")
+    const [selectedSeasons, setSelectedSeasons] = useState("2023/2024")
     const [selectedLeagues, setSelectedLeagues] = useState("All")
     const [selectedClubs, setSelectedClubs] = useState("All")
     

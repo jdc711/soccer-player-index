@@ -242,8 +242,9 @@ exports.getTopPerformersStats = async (req, res) => {
       { $unwind: '$club_info' },
       { $addFields: { 'is-club': '$club_info.is-club'} },
       { $match: isClubMatchCondition }, 
+      { $lookup: { from: 'league', localField: '_league_id', foreignField: '_id', as: 'league_info' } },
+      { $lookup: { from: 'player', localField: '_player_id', foreignField: '_id', as: 'player_info' } },
       { $sort: sortCondition },
-      { $project: { 'club_info': 0 } },
       { $count: "totalCount" }
     ]);
     
@@ -275,9 +276,12 @@ exports.getTopPerformersStats = async (req, res) => {
       { $unwind: '$club_info' },
       { $addFields: { 'is-club': '$club_info.is-club' } },
       { $match: isClubMatchCondition }, 
+      // { $lookup: { from: 'club', localField: '_club_id', foreignField: '_id', as: 'club_info' } },
+          { $lookup: { from: 'league', localField: '_league_id', foreignField: '_id', as: 'league_info' } },
+          { $lookup: { from: 'player', localField: '_player_id', foreignField: '_id', as: 'player_info' } },
       { $sort: sortCondition },
-      { $project: { 'club_info': 0 } },
     ]).skip(skip).limit(pageLimit);
+    console.log("topGoalScorersStats:" , topGoalScorersStats)
       
     res.json({
       topGoalScorersStats: topGoalScorersStats,
