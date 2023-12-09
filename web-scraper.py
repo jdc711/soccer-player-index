@@ -319,127 +319,127 @@ links = [
 # "https://www.whoscored.com/Players/379868/History/Jude-Bellingham",
 # "https://www.whoscored.com/Players/337782/History/Vinícius-Júnior",
 # "https://www.whoscored.com/Players/303139/History/Rodri",
-# "https://www.whoscored.com/Players/88526/History/Casemiro",
-# "https://www.whoscored.com/Players/367185/History/Bukayo-Saka",
-# "https://www.whoscored.com/Players/80241/History/Antoine-Griezmann",
-# "https://www.whoscored.com/Players/402197/History/Pedri",
-# "https://www.whoscored.com/Players/344644/History/Federico-Valverde",
-# "https://www.whoscored.com/Players/3859/History/Wayne-Rooney",
-# "https://www.whoscored.com/Players/299513/History/Ousmane-Dembélé",
-# "https://www.whoscored.com/Players/114075/History/N-Golo-Kanté",
-# "https://www.whoscored.com/Players/9016/History/Franck-Ribéry",
-# "https://www.whoscored.com/Players/4173/History/Arjen-Robben",
-# "https://www.whoscored.com/Players/23110/History/Ángel-Di-María",
-# "https://www.whoscored.com/Players/37099/History/Thomas-Müller",
-# "https://www.whoscored.com/Players/5780/History/Dani-Alves",
-# "https://www.whoscored.com/Players/20241/History/Marcelo",
-# "https://www.whoscored.com/Players/347862/History/Rodrygo",
-# "https://www.whoscored.com/Players/93206/History/Raphaël-Varane",
-# "https://www.whoscored.com/Players/28550/History/Thiago-Silva",
-# "https://www.whoscored.com/Players/377168/History/Luis-Díaz",
-# "https://www.whoscored.com/Players/8040/History/Cesc-Fàbregas",
-# "https://www.whoscored.com/Players/109915/History/Sadio-Mané",
-# "https://www.whoscored.com/Players/1320/History/Carles-Puyol",
-# "https://www.whoscored.com/Players/12712/History/Gerard-Piqué",
-# "https://www.whoscored.com/Players/6319/History/David-Villa",
-# "https://www.whoscored.com/Players/320834/History/Achraf-Hakimi",
-# "https://www.whoscored.com/Players/102248/History/Emiliano-Martínez",
-# "https://www.whoscored.com/Players/369430/History/Enzo-Fernández",
-# "https://www.whoscored.com/Players/349207/History/Rafael-Leão",
-# "https://www.whoscored.com/Players/331254/History/Phil-Foden",
-# "https://www.whoscored.com/Players/395252/History/Jamal-Musiala",
-# "https://www.whoscored.com/Players/24444/History/Olivier-Giroud",
-# "https://www.whoscored.com/Players/402664/History/Josko-Gvardiol",
-# "https://www.whoscored.com/Players/365409/History/Julián-Álvarez",
-# "https://www.whoscored.com/Players/300945/History/Christopher-Nkunku",
-# "https://www.whoscored.com/Players/114147/History/Alisson-Becker",
-# "https://www.whoscored.com/Players/128967/History/João-Cancelo",
-# "https://www.whoscored.com/Players/422937/History/Gavi",
-# "https://www.whoscored.com/Players/370984/History/Khvicha-Kvaratskhelia",
-# "https://www.whoscored.com/Players/283323/History/Joshua-Kimmich",
-# "https://www.whoscored.com/Players/39722/History/David-Alaba",
-# "https://www.whoscored.com/Players/136220/History/Yassine-Bounou",
-# "https://www.whoscored.com/Players/353423/History/Aurélien-Tchouaméni",
-# "https://www.whoscored.com/Players/303115/History/Théo-Hernández",
-# "https://www.whoscored.com/Players/345319/History/Alexis-Mac-Allister",
-# "https://www.whoscored.com/Players/125547/History/Rodrigo-De-Paul",
-# "https://www.whoscored.com/Players/77464/History/Ilkay-Gündogan",
-# "https://www.whoscored.com/Players/104749/History/Riyad-Mahrez",
-# "https://www.whoscored.com/Players/279379/History/Gabriel-Jesus",
-# "https://www.whoscored.com/Players/13812/History/Gareth-Bale",
-# "https://www.whoscored.com/Players/97752/History/Paul-Pogba",
-# "https://www.whoscored.com/Players/320040/History/Alphonso-Davies",
-# "https://www.whoscored.com/Players/79554/History/David-de-Gea",
-# "https://www.whoscored.com/Players/318871/History/Trent-Alexander-Arnold",
-# "https://www.whoscored.com/Players/114863/History/Paulo-Dybala",
-# "https://www.whoscored.com/Players/300299/History/Marcus-Rashford",
-# "https://www.whoscored.com/Players/25244/History/Alexis-Sánchez",
-# "https://www.whoscored.com/Players/41330/History/Marco-Reus",
-# "https://www.whoscored.com/Players/80767/History/Philippe-Coutinho",
-# "https://www.whoscored.com/Players/97692/History/Raheem-Sterling",
-# "https://www.whoscored.com/Players/279423/History/Frenkie-de-Jong",
-# "https://www.whoscored.com/Players/13756/History/Mesut-Özil",
-# "https://www.whoscored.com/Players/78498/History/Romelu-Lukaku",
-# "https://www.whoscored.com/Players/299344/History/Lautaro-Martínez",
-# "https://www.whoscored.com/Players/76662/History/Jan-Oblak",
-# "https://www.whoscored.com/Players/101949/History/Marquinhos",
-# "https://www.whoscored.com/Players/44120/History/Pierre-Emerick-Aubameyang",
-# "https://www.whoscored.com/Players/332325/History/Declan-Rice",
-# "https://www.whoscored.com/Players/121774/History/Ederson",
-# "https://www.whoscored.com/Players/302692/History/Christian-Pulisic",
-# "https://www.whoscored.com/Players/82989/History/Isco",
-# "https://www.whoscored.com/Players/113069/History/Jack-Grealish",
-# "https://www.whoscored.com/Players/71182/History/James-Rodríguez",
-# "https://www.whoscored.com/Players/14102/History/David-Silva",
-# "https://www.whoscored.com/Players/96182/History/Roberto-Firmino",
-# "https://www.whoscored.com/Players/3328/History/Gianluigi-Buffon",
-# "https://www.whoscored.com/Players/362431/History/João-Félix",
-# "https://www.whoscored.com/Players/326413/History/Kai-Havertz",
-# "https://www.whoscored.com/Players/69344/History/Christian-Eriksen",
-# "https://www.whoscored.com/Players/144711/History/Leroy-Sané",
-# "https://www.whoscored.com/Players/91961/History/Marco-Verratti",
-# "https://www.whoscored.com/Players/25604/History/Hugo-Lloris",
-# "https://www.whoscored.com/Players/343346/History/Mason-Mount",
-# "https://www.whoscored.com/Players/115726/History/Andy-Robertson",
-# "https://www.whoscored.com/Players/13754/History/Manuel-Neuer",
-# "https://www.whoscored.com/Players/65901/History/Keylor-Navas",
+"https://www.whoscored.com/Players/88526/History/Casemiro",
+"https://www.whoscored.com/Players/367185/History/Bukayo-Saka",
+"https://www.whoscored.com/Players/80241/History/Antoine-Griezmann",
+"https://www.whoscored.com/Players/402197/History/Pedri",
+"https://www.whoscored.com/Players/344644/History/Federico-Valverde",
+"https://www.whoscored.com/Players/3859/History/Wayne-Rooney",
+"https://www.whoscored.com/Players/299513/History/Ousmane-Dembélé",
+"https://www.whoscored.com/Players/114075/History/N-Golo-Kanté",
+"https://www.whoscored.com/Players/9016/History/Franck-Ribéry",
+"https://www.whoscored.com/Players/4173/History/Arjen-Robben",
+"https://www.whoscored.com/Players/23110/History/Ángel-Di-María",
+"https://www.whoscored.com/Players/37099/History/Thomas-Müller",
+"https://www.whoscored.com/Players/5780/History/Dani-Alves",
+"https://www.whoscored.com/Players/20241/History/Marcelo",
+"https://www.whoscored.com/Players/347862/History/Rodrygo",
+"https://www.whoscored.com/Players/93206/History/Raphaël-Varane",
+"https://www.whoscored.com/Players/28550/History/Thiago-Silva",
+"https://www.whoscored.com/Players/377168/History/Luis-Díaz",
+"https://www.whoscored.com/Players/8040/History/Cesc-Fàbregas",
+"https://www.whoscored.com/Players/109915/History/Sadio-Mané",
+"https://www.whoscored.com/Players/1320/History/Carles-Puyol",
+"https://www.whoscored.com/Players/12712/History/Gerard-Piqué",
+"https://www.whoscored.com/Players/6319/History/David-Villa",
+"https://www.whoscored.com/Players/320834/History/Achraf-Hakimi",
+"https://www.whoscored.com/Players/102248/History/Emiliano-Martínez",
+"https://www.whoscored.com/Players/369430/History/Enzo-Fernández",
+"https://www.whoscored.com/Players/349207/History/Rafael-Leão",
+"https://www.whoscored.com/Players/331254/History/Phil-Foden",
+"https://www.whoscored.com/Players/395252/History/Jamal-Musiala",
+"https://www.whoscored.com/Players/24444/History/Olivier-Giroud",
+"https://www.whoscored.com/Players/402664/History/Josko-Gvardiol",
+"https://www.whoscored.com/Players/365409/History/Julián-Álvarez",
+"https://www.whoscored.com/Players/300945/History/Christopher-Nkunku",
+"https://www.whoscored.com/Players/114147/History/Alisson-Becker",
+"https://www.whoscored.com/Players/128967/History/João-Cancelo",
+"https://www.whoscored.com/Players/422937/History/Gavi",
+"https://www.whoscored.com/Players/370984/History/Khvicha-Kvaratskhelia",
+"https://www.whoscored.com/Players/283323/History/Joshua-Kimmich",
+"https://www.whoscored.com/Players/39722/History/David-Alaba",
+"https://www.whoscored.com/Players/136220/History/Yassine-Bounou",
+"https://www.whoscored.com/Players/353423/History/Aurélien-Tchouaméni",
+"https://www.whoscored.com/Players/303115/History/Théo-Hernández",
+"https://www.whoscored.com/Players/345319/History/Alexis-Mac-Allister",
+"https://www.whoscored.com/Players/125547/History/Rodrigo-De-Paul",
+"https://www.whoscored.com/Players/77464/History/Ilkay-Gündogan",
+"https://www.whoscored.com/Players/104749/History/Riyad-Mahrez",
+"https://www.whoscored.com/Players/279379/History/Gabriel-Jesus",
+"https://www.whoscored.com/Players/13812/History/Gareth-Bale",
+"https://www.whoscored.com/Players/97752/History/Paul-Pogba",
+"https://www.whoscored.com/Players/320040/History/Alphonso-Davies",
+"https://www.whoscored.com/Players/79554/History/David-de-Gea",
+"https://www.whoscored.com/Players/318871/History/Trent-Alexander-Arnold",
+"https://www.whoscored.com/Players/114863/History/Paulo-Dybala",
+"https://www.whoscored.com/Players/300299/History/Marcus-Rashford",
+"https://www.whoscored.com/Players/25244/History/Alexis-Sánchez",
+"https://www.whoscored.com/Players/41330/History/Marco-Reus",
+"https://www.whoscored.com/Players/80767/History/Philippe-Coutinho",
+"https://www.whoscored.com/Players/97692/History/Raheem-Sterling",
+"https://www.whoscored.com/Players/279423/History/Frenkie-de-Jong",
+"https://www.whoscored.com/Players/13756/History/Mesut-Özil",
+"https://www.whoscored.com/Players/78498/History/Romelu-Lukaku",
+"https://www.whoscored.com/Players/299344/History/Lautaro-Martínez",
+"https://www.whoscored.com/Players/76662/History/Jan-Oblak",
+"https://www.whoscored.com/Players/101949/History/Marquinhos",
+"https://www.whoscored.com/Players/44120/History/Pierre-Emerick-Aubameyang",
+"https://www.whoscored.com/Players/332325/History/Declan-Rice",
+"https://www.whoscored.com/Players/121774/History/Ederson",
+"https://www.whoscored.com/Players/302692/History/Christian-Pulisic",
+"https://www.whoscored.com/Players/82989/History/Isco",
+"https://www.whoscored.com/Players/113069/History/Jack-Grealish",
+"https://www.whoscored.com/Players/71182/History/James-Rodríguez",
+"https://www.whoscored.com/Players/14102/History/David-Silva",
+"https://www.whoscored.com/Players/96182/History/Roberto-Firmino",
+"https://www.whoscored.com/Players/3328/History/Gianluigi-Buffon",
+"https://www.whoscored.com/Players/362431/History/João-Félix",
+"https://www.whoscored.com/Players/326413/History/Kai-Havertz",
+"https://www.whoscored.com/Players/69344/History/Christian-Eriksen",
+"https://www.whoscored.com/Players/144711/History/Leroy-Sané",
+"https://www.whoscored.com/Players/91961/History/Marco-Verratti",
+"https://www.whoscored.com/Players/25604/History/Hugo-Lloris",
+"https://www.whoscored.com/Players/343346/History/Mason-Mount",
+"https://www.whoscored.com/Players/115726/History/Andy-Robertson",
+"https://www.whoscored.com/Players/13754/History/Manuel-Neuer",
+"https://www.whoscored.com/Players/65901/History/Keylor-Navas",
 "https://www.whoscored.com/Players/29463/History/Willian",
-# "https://www.whoscored.com/Players/24328/History/Edinson-Cavani",
-# "https://www.whoscored.com/Players/235755/History/Diogo-Jota",
-# "https://www.whoscored.com/Players/106981/History/Jamie-Vardy",
-# "https://www.whoscored.com/Players/69778/History/Kyle-Walker",
-# "https://www.whoscored.com/Players/337879/History/Éder-Militão",
-# "https://www.whoscored.com/Players/317804/History/Richarlison",
-# "https://www.whoscored.com/Players/321390/History/Édouard-Mendy",
-# "https://www.whoscored.com/Players/296337/History/Ferland-Mendy",
-# "https://www.whoscored.com/Players/105962/History/Benjamin-Mendy",
-# "https://www.whoscored.com/Players/320374/History/Matthijs-de-Ligt",
-# "https://www.whoscored.com/Players/370912/History/Kim-Min-Jae",
-# "https://www.whoscored.com/Players/22732/History/Ivan-Rakitic",
-# "https://www.whoscored.com/Players/70524/History/Ivan-Perisic",
-# "https://www.whoscored.com/Players/323663/History/Cristian-Romero",
-# "https://www.whoscored.com/Players/14199/History/Claudio-Bravo",
-# "https://www.whoscored.com/Players/115916/History/Fabinho",
-# "https://www.whoscored.com/Players/20664/History/Leonardo-Bonucci",
-# "https://www.whoscored.com/Players/9991/History/Giorgio-Chiellini",
-# "https://www.whoscored.com/Players/101374/History/John-Stones",
-# "https://www.whoscored.com/Players/25165/History/Carlos-Vela",
-# "https://www.whoscored.com/Players/367780/History/Lee-Kang-In",
-# "https://www.whoscored.com/Players/90880/History/Kalidou-Koulibaly",
-# "https://www.whoscored.com/Players/24248/History/Diego-Costa",
-# "https://www.whoscored.com/Players/301019/History/Jules-Koundé",
-# "https://www.whoscored.com/Players/327721/History/Dayot-Upamecano",
-# "https://www.whoscored.com/Players/27586/History/David-Luiz",
-# "https://www.whoscored.com/Players/122366/History/Anthony-Martial",
-# "https://www.whoscored.com/Players/367782/History/Mason-Greenwood",
-# "https://www.whoscored.com/Players/361330/History/Reece-James",
-# "https://www.whoscored.com/Players/346300/History/Jadon-Sancho",
-# "https://www.whoscored.com/Players/247800/History/Presnel-Kimpembe",
-# "https://www.whoscored.com/Players/125883/History/Kingsley-Coman",
-# "https://www.whoscored.com/Players/382234/History/Ansu-Fati",
-# "https://www.whoscored.com/Players/425142/History/Kaoru-Mitoma",
-# "https://www.whoscored.com/Players/369109/History/Eduardo-Camavinga",
-# "https://www.whoscored.com/Players/75691/History/Nicolás-Otamendi"
+"https://www.whoscored.com/Players/24328/History/Edinson-Cavani",
+"https://www.whoscored.com/Players/235755/History/Diogo-Jota",
+"https://www.whoscored.com/Players/106981/History/Jamie-Vardy",
+"https://www.whoscored.com/Players/69778/History/Kyle-Walker",
+"https://www.whoscored.com/Players/337879/History/Éder-Militão",
+"https://www.whoscored.com/Players/317804/History/Richarlison",
+"https://www.whoscored.com/Players/321390/History/Édouard-Mendy",
+"https://www.whoscored.com/Players/296337/History/Ferland-Mendy",
+"https://www.whoscored.com/Players/105962/History/Benjamin-Mendy",
+"https://www.whoscored.com/Players/320374/History/Matthijs-de-Ligt",
+"https://www.whoscored.com/Players/370912/History/Kim-Min-Jae",
+"https://www.whoscored.com/Players/22732/History/Ivan-Rakitic",
+"https://www.whoscored.com/Players/70524/History/Ivan-Perisic",
+"https://www.whoscored.com/Players/323663/History/Cristian-Romero",
+"https://www.whoscored.com/Players/14199/History/Claudio-Bravo",
+"https://www.whoscored.com/Players/115916/History/Fabinho",
+"https://www.whoscored.com/Players/20664/History/Leonardo-Bonucci",
+"https://www.whoscored.com/Players/9991/History/Giorgio-Chiellini",
+"https://www.whoscored.com/Players/101374/History/John-Stones",
+"https://www.whoscored.com/Players/25165/History/Carlos-Vela",
+"https://www.whoscored.com/Players/367780/History/Lee-Kang-In",
+"https://www.whoscored.com/Players/90880/History/Kalidou-Koulibaly",
+"https://www.whoscored.com/Players/24248/History/Diego-Costa",
+"https://www.whoscored.com/Players/301019/History/Jules-Koundé",
+"https://www.whoscored.com/Players/327721/History/Dayot-Upamecano",
+"https://www.whoscored.com/Players/27586/History/David-Luiz",
+"https://www.whoscored.com/Players/122366/History/Anthony-Martial",
+"https://www.whoscored.com/Players/367782/History/Mason-Greenwood",
+"https://www.whoscored.com/Players/361330/History/Reece-James",
+"https://www.whoscored.com/Players/346300/History/Jadon-Sancho",
+"https://www.whoscored.com/Players/247800/History/Presnel-Kimpembe",
+"https://www.whoscored.com/Players/125883/History/Kingsley-Coman",
+"https://www.whoscored.com/Players/382234/History/Ansu-Fati",
+"https://www.whoscored.com/Players/425142/History/Kaoru-Mitoma",
+"https://www.whoscored.com/Players/369109/History/Eduardo-Camavinga",
+"https://www.whoscored.com/Players/75691/History/Nicolás-Otamendi"
 ]
 
 def add_club_to_db(club_name, league_name, nationality, club_img_url):
@@ -519,6 +519,9 @@ def add_player_to_db(player_profile, clubs, player_img_url):
     player_collection = db['player'] 
     club_collection = db['club'] 
     current_club_document = club_collection.find_one({"name": player_profile["current-club"]})
+    if current_club_document == None:
+        print("could not find club ", player_profile["current-club"])
+        return
     player_document = player_collection.find_one({"name": player_profile["name"]})
     clubIds = []
     if player_profile["current-club"] != "N/A":
@@ -531,7 +534,10 @@ def add_player_to_db(player_profile, clubs, player_img_url):
 
         if club_document["name"] != player_profile["current-club"]:
             clubIds.append(club_document["_id"])
-    if player_document == None:
+    if player_document != None: 
+        print("already added player ", player_profile["name"])
+        return
+    else:
         if player_profile["current-club"] != "N/A":
             player_collection.insert_one({
                 "_current_club_id": current_club_document["_id"],
@@ -603,8 +609,8 @@ def add_player_season_to_db(player_profile, season_stats):
         # club_document = club_collection.find_one({"name": season_stats["club"]})
         
     player_document = player_collection.find_one({"name": player_profile["name"]})
-    if player_document == None:
-        print("could not find player ", player_profile["name"])
+    if player_document != None:
+        print("already added player ", player_profile["name"])
         return
         # add_player_to_db(player_profile, [], "")
         # player_document = player_collection.find_one({"name": player_profile["name"]})
@@ -635,8 +641,57 @@ def add_player_season_to_db(player_profile, season_stats):
     
 
 def add_player_seasons_to_db(player_profile, player_stats):
+    client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
+    db = client['soccer-player-index']  
+    player_stats_collection = db['player-stats'] 
+    club_collection = db['club'] 
+    league_collection = db['league'] 
+    player_collection = db['player'] 
+    player_document = player_collection.find_one({"name": player_profile["name"]})
+    if player_document == None:
+        print("could not find player ", player_profile["name"])
+        return
     for season_stats in player_stats:
-        add_player_season_to_db(player_profile,season_stats)
+        # add_player_season_to_db(player_profile,season_stats)
+        league_document = league_collection.find_one({"name": season_stats["league"]})  
+        if league_document == None:
+           
+            print("could not find league ", season_stats["league"])
+            return
+            
+        club_document = club_collection.find_one({"name": season_stats["club"]})
+        if club_document == None:
+            print("could not find club ", season_stats["club"])
+            return
+           
+        
+    for season_stats in player_stats:
+        # add_player_season_to_db(player_profile,season_stats)
+        league_document = league_collection.find_one({"name": season_stats["league"]})       
+        club_document = club_collection.find_one({"name": season_stats["club"]})
+        player_id = player_document["_id"]
+    
+        player_stats_collection.update_one({
+            "_player_id": player_id,
+            "_club_id": club_document["_id"],
+            "season": season_stats["season"],
+            "_league_id": league_document["_id"]
+        },
+        { "$set":{
+            "_player_id": player_id,
+            "_club_id": club_document["_id"],
+            "_league_id": league_document["_id"],
+            "season": season_stats["season"],
+            "appearances": convertStrToInt(season_stats["appearances"]),
+            "goals": convertStrToInt(season_stats["goals"]),
+            "assists": convertStrToInt(season_stats["assists"]),
+            "yellow-cards": convertStrToInt(season_stats["yellow-cards"]),
+            "red-cards": convertStrToInt(season_stats["red-cards"]),
+            "man-of-the-matches": convertStrToInt(season_stats["man-of-the-matches"]),
+            "average-match-rating": convertStrToFloat(season_stats["average-match-rating"]),
+        }
+        },
+        upsert=True)
             
 def add_club_to_db2(club, current_club_img_url, nationality):
     if club== "N/A": return
@@ -690,14 +745,14 @@ def addNewDataToDB():
         club_to_leagues = find_leagues_per_club(player_stats)
         print("here2")
 
-        add_clubs_to_db(club_to_leagues, player_profile["current-club"], current_club_img_url, player_profile["nationality"]) 
-        print("here3")
+        # add_clubs_to_db(club_to_leagues, player_profile["current-club"], current_club_img_url, player_profile["nationality"]) 
+        # print("here3")
 
         clubs = []
         for club in club_to_leagues:
             clubs.append(club)
-        add_club_to_db2(player_profile["current-club"], current_club_img_url, player_profile["nationality"])
-        print("here4")
+        # add_club_to_db2(player_profile["current-club"], current_club_img_url, player_profile["nationality"])
+        # print("here4")
 
         add_player_to_db(player_profile, clubs, player_img_url)
         add_player_seasons_to_db(player_profile, player_stats)
@@ -711,7 +766,6 @@ def updatePlayerSeasonStats():
     league_collection = db['league'] 
     player_collection = db['player'] 
     
-    temp = []
     for link in links:
         player_profile, player_stats, player_img_url, current_club_img_url = scrape_player_page(link)
         player_document = player_collection.find_one({"name": player_profile["name"]})
@@ -720,46 +774,45 @@ def updatePlayerSeasonStats():
             return
         for season_stats in player_stats:
            
-
             league_document = league_collection.find_one({"name": season_stats["league"]})
         
             if league_document == None:
                 print("could not find league: ", season_stats["league"])
-                # return
+                return
             
             club_document = club_collection.find_one({"name": season_stats["club"]})
             if club_document == None:
-                # print("could not find club: ", season_stats["club"])
-                temp.append(season_stats["club"])
-                # return
+                print("could not find club: ", season_stats["club"])
+                return
         
-            # player_id = player_document["_id"]
+        for season_stats in player_stats:
+           
+            league_document = league_collection.find_one({"name": season_stats["league"]})
+            club_document = club_collection.find_one({"name": season_stats["club"]})
+           
+            player_id = player_document["_id"]
     
-            # player_stats_collection.update_one({
-            #     "_player_id": player_id,
-            #     "_club_id": club_document["_id"],
-            #     "season": season_stats["season"],
-            #     "_league_id": league_document["_id"]
-            # },
-            # { "$set":{
-            #     "_player_id": player_id,
-            #     "_club_id": club_document["_id"],
-            #     "_league_id": league_document["_id"],
-            #     "season": season_stats["season"],
-            #     "appearances": convertStrToInt(season_stats["appearances"]),
-            #     "goals": convertStrToInt(season_stats["goals"]),
-            #     "assists": convertStrToInt(season_stats["assists"]),
-            #     "yellow-cards": convertStrToInt(season_stats["yellow-cards"]),
-            #     "red-cards": convertStrToInt(season_stats["red-cards"]),
-            #     "man-of-the-matches": convertStrToInt(season_stats["man-of-the-matches"]),
-            #     "average-match-rating": convertStrToFloat(season_stats["average-match-rating"]),
-            #     }
-            # },
-            # upsert=True)
+            player_stats_collection.update_one({
+                "_player_id": player_id,
+                "_club_id": club_document["_id"],
+                "season": season_stats["season"],
+                "_league_id": league_document["_id"]
+            },
+            { "$set":{
+                "_player_id": player_id,
+                "_club_id": club_document["_id"],
+                "_league_id": league_document["_id"],
+                "season": season_stats["season"],
+                "appearances": convertStrToInt(season_stats["appearances"]),
+                "goals": convertStrToInt(season_stats["goals"]),
+                "assists": convertStrToInt(season_stats["assists"]),
+                "yellow-cards": convertStrToInt(season_stats["yellow-cards"]),
+                "red-cards": convertStrToInt(season_stats["red-cards"]),
+                "man-of-the-matches": convertStrToInt(season_stats["man-of-the-matches"]),
+                "average-match-rating": convertStrToFloat(season_stats["average-match-rating"]),
+                }
+            },
+            upsert=True)
         print("finished updating ", player_profile["name"])
-        if len(temp)> 0:
-            print("temp: ", temp)
-    print("clubs that I need to add to dict: ", temp)       
        
-# updatePlayerSeasonStats()
-addNewDataToDB()
+updatePlayerSeasonStats()
