@@ -5,7 +5,6 @@ import "./club-list.css"
 
 const ClubList = ({name}) => {
   const [clubs, setClubs] = useState([]);
-  // const [leaguesPerClub, setLeaguesPerClub] = useState([]);
   const [nationalTeams, setNationalTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');

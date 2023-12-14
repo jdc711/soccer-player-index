@@ -110,7 +110,6 @@ exports.searchByPlayerName = async (req, res) => {
   try {
     let players;
     let totalPlayerCount;
-    // let matchCondition = { name: {$regex : nameToSearch,  $options: "i"} };
     let matchCondition =  { "searchable-names": { $regex: nameToSearch, $options: "i" } };
 
     if (sortDirection === ""){
@@ -284,7 +283,6 @@ exports.getTopPerformersStats = async (req, res) => {
       { $unwind: '$club_info' },
       { $addFields: { 'is-club': '$club_info.is-club' } },
       { $match: isClubMatchCondition }, 
-      // { $lookup: { from: 'club', localField: '_club_id', foreignField: '_id', as: 'club_info' } },
           { $lookup: { from: 'league', localField: '_league_id', foreignField: '_id', as: 'league_info' } },
           { $lookup: { from: 'player', localField: '_player_id', foreignField: '_id', as: 'player_info' } },
       { $sort: sortCondition },
