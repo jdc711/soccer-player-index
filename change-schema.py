@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 import os
 import pprint
 import pymongo
+from bson import ObjectId
 # Load environment variables from .env file
 load_dotenv()
 
@@ -62,4 +63,35 @@ def addClubsAsOwnArray():
             {'$set': {'_club_ids': _club_ids}}
         )
 
-addClubsAsOwnArray()
+# addClubsAsOwnArray()
+
+
+def removeLeaguesArrayFromClub():
+    client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
+    db = client['soccer-player-index']  
+    club_collection = db["club"]
+    club_collection.update_many(
+        {}, { "$unset": { "leagues": "" } })
+
+# removeLeaguesArrayFromClub()
+
+
+def removeClubHistoryArrayFromPlayer():
+    client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
+    db = client['soccer-player-index']  
+    player_collection = db["player"]
+    player_collection.update_many(
+        {}, { "$unset": { "club-history": "","current-club":"" } })
+
+def addSearchableNamesArray():
+    client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
+    db = client['soccer-player-index']  
+    player_collection = db["player"]
+    player_collection.update_many(
+    {},
+    [
+        {"$set": {"searchable-names": ["$name"]}}
+    ]
+    )
+    
+# addSearchableNamesArray()
