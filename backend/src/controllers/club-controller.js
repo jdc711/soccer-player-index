@@ -10,7 +10,9 @@ exports.getClubProfile = async (req, res) => {
       { $match: {_id: clubId} },
       { $lookup: { from: 'league', localField: '_league_ids', foreignField: '_id', as: 'league_info' } },
     ]);
-    
+    if (clubProfile.length > 0) {
+      clubProfile[0].league_info.sort((a, b) => a.name.localeCompare(b.name));
+    }
     res.json(clubProfile);
   } catch (err) {
     res.status(500).send('Server Error');
