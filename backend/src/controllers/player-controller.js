@@ -110,7 +110,9 @@ exports.searchByPlayerName = async (req, res) => {
   try {
     let players;
     let totalPlayerCount;
-    let matchCondition = { name: {$regex : nameToSearch,  $options: "i"} };
+    // let matchCondition = { name: {$regex : nameToSearch,  $options: "i"} };
+    let matchCondition =  { "searchable-names": { $regex: nameToSearch, $options: "i" } };
+
     if (sortDirection === ""){
       players = await Player.aggregate([
         { $match: matchCondition },
