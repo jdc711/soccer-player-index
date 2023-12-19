@@ -2,4 +2,4 @@
 chromedriver*
 .env*
 node_modules
-soccer-player-index-key.pem
+*.pem
