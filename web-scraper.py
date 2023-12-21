@@ -371,6 +371,7 @@ def scrape_player_page(link):
         driver.quit()
         
 def scrape_saudi_player_page(link, player_profile):
+    import time
     options = Options()
     options.add_argument("--headless")
 
@@ -382,18 +383,31 @@ def scrape_saudi_player_page(link, player_profile):
     driver = webdriver.Chrome(service=service, options=options)
     driver.delete_all_cookies()  # Clear cookies before navigating to the site
     driver.command_executor.set_timeout(20)
-    
     try:
         driver.get(link)
         wait = WebDriverWait(driver, 20)
-            
+
+        player_profile_scraped = wait.until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="layout-wrapper"]/div[3]/div[1]/div[1]/div[2]/div[2]'))
+        )      
+        
+        adButtonClose = wait.until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'body > div.webpush-swal2-container.webpush-swal2-center.webpush-swal2-fade.webpush-swal2-shown > div > div.webpush-swal2-header > button'))
+        )    
+        adButtonClose.click()
+        
         stats_table_scraped = wait.until(
             EC.presence_of_element_located((By.XPATH, '//*[@id="top-player-stats-summary-grid"]'))
         )
-       
-
+        
+        idx = 0
+        while idx < 100 and stats_table_scraped.text == "":
+            stats_table_scraped = wait.until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="top-player-stats-summary-grid"]'))
+            )
+            idx += 1
+            
         player_stats = parse_player_saudi_stats_text(stats_table_scraped.text, player_profile)
-        # print("player_stats saudi: ", player_stats)
         return player_stats
     except Exception as e:
         print("An error occurred:", e)
@@ -608,12 +622,12 @@ saudi_links = [
 # ("https://www.whoscored.com/Players/50835/History/Neymar","https://www.whoscored.com/Players/50835/Show/Neymar"),
 # ("https://www.whoscored.com/Players/136220/History/Yassine-Bounou","https://www.whoscored.com/Players/136220/Show/Yassine-Bounou"),
 # ("https://www.whoscored.com/Players/90880/History/Kalidou-Koulibaly","https://www.whoscored.com/Players/90880/Show/Kalidou-Koulibaly"),
-("https://www.whoscored.com/Players/109915/History/Sadio-Mané","https://www.whoscored.com/Players/109915/Show/Sadio-Mané"),
-("https://www.whoscored.com/Players/14296/History/Karim-Benzema","https://www.whoscored.com/Players/14296/Show/Karim-Benzema"),
-("https://www.whoscored.com/Players/114075/History/N-Golo-Kanté","https://www.whoscored.com/Players/114075/Show/N-Golo-Kanté"),
-("https://www.whoscored.com/Players/115916/History/Fabinho","https://www.whoscored.com/Players/115916/Show/Fabinho"),
-("https://www.whoscored.com/Players/68659/History/Jordan-Henderson", "https://www.whoscored.com/Players/68659/Show/Jordan-Henderson"),
-("https://www.whoscored.com/Players/115279/History/Aleksandar-Mitrovic","https://www.whoscored.com/Players/115279/Show/Aleksandar-Mitrovic")
+# ("https://www.whoscored.com/Players/109915/History/Sadio-Mané","https://www.whoscored.com/Players/109915/Show/Sadio-Mané"),
+# ("https://www.whoscored.com/Players/14296/History/Karim-Benzema","https://www.whoscored.com/Players/14296/Show/Karim-Benzema"),
+# ("https://www.whoscored.com/Players/114075/History/N-Golo-Kanté","https://www.whoscored.com/Players/114075/Show/N-Golo-Kanté"),
+# ("https://www.whoscored.com/Players/115916/History/Fabinho","https://www.whoscored.com/Players/115916/Show/Fabinho"),
+# ("https://www.whoscored.com/Players/68659/History/Jordan-Henderson", "https://www.whoscored.com/Players/68659/Show/Jordan-Henderson"),
+# ("https://www.whoscored.com/Players/115279/History/Aleksandar-Mitrovic","https://www.whoscored.com/Players/115279/Show/Aleksandar-Mitrovic")
 ]
 
 def add_club_to_db(club_name, league_name, nationality, club_img_url):
@@ -828,7 +842,7 @@ def add_player_seasons_to_db(player_profile, player_stats):
         "positions": player_profile["positions"]
     })
     if player_document == None:
-        print("could not find player ", player_profile["name"])
+        print("could not find player ", player_profile["name"], ", ", player_profile["nationality"], ", ", player_profile["positions"])
         return
     for season_stats in player_stats:
         # add_player_season_to_db(player_profile,season_stats)
@@ -953,7 +967,7 @@ def updatePlayerAndPlayerSeasonStats():
             "nationality": player_profile["nationality"], 
             "positions": player_profile["positions"]})
         if player_document == None:
-            print("could not find player: ", player_profile["name"])
+            print("could not find player ", player_profile["name"], ", ", player_profile["nationality"], ", ", player_profile["positions"])
             return
           
           
@@ -1057,6 +1071,7 @@ def updatePlayerAndPlayerSeasonStats():
         print("finished updating ", player_profile["name"])
        
 def update_saudi_season():
+    import time
     client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
     db = client['soccer-player-index']  
     player_stats_collection = db['player-stats'] 
@@ -1080,7 +1095,6 @@ def update_saudi_season():
         for season_stats in player_saudi_stats:
             if season_stats["league"] != "Saudi Pro League" and season_stats["league"] != "AFC Champions League":
                 continue
-            
             league_document = league_collection.find_one({"name": season_stats["league"]})
             
             if league_document == None:
@@ -1091,10 +1105,10 @@ def update_saudi_season():
             if club_document == None:
                 print("could not find club: ", season_stats["club"])
                 return
-        
         for season_stats in player_saudi_stats:
             if season_stats["league"] != "Saudi Pro League" and season_stats["league"] != "AFC Champions League":
                 continue
+            
             league_document = league_collection.find_one({"name": season_stats["league"]})
             club_document = club_collection.find_one({"name": season_stats["club"]})
            
@@ -1114,7 +1128,7 @@ def update_saudi_season():
                 "season": season_stats["season"],
                 "appearances": convertStrToInt(season_stats["appearances"]),
                 "goals": convertStrToInt(season_stats["goals"]),
-                "assists": convertStrToInt(season_stats["assists"]),
+                # "assists": convertStrToInt(season_stats["assists"]),
                 "yellow-cards": convertStrToInt(season_stats["yellow-cards"]),
                 "red-cards": convertStrToInt(season_stats["red-cards"]),
                 "man-of-the-matches": convertStrToInt(season_stats["man-of-the-matches"]),
