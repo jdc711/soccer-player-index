@@ -126,8 +126,8 @@ team_abbreviation_to_name_dict = {
     "Sochaux":"FC Sochaux-Montbéliard",
     "Cardiff":"Cardiff City F.C.",
     "Osasuna":"CA Osasuna",
-    "Celtic":"Celtic F.C."
-    
+    "Celtic":"Celtic F.C.",
+    "Zenit":"FC Zenit Saint Petersburg",  
 }
 
 # def team_abbreviation_to_name_map(name):
@@ -612,7 +612,13 @@ links = [
 # "https://www.whoscored.com/Players/426050/History/Nicolas-Jackson",
 # "https://www.whoscored.com/Players/336915/History/Scott-McTominay",
 # "https://www.whoscored.com/Players/345845/History/Eddie-Nketiah",
-"https://www.whoscored.com/Players/288767/History/Sergej-Milinkovic-Savic",
+# "https://www.whoscored.com/Players/288767/History/Sergej-Milinkovic-Savic",
+# "https://www.whoscored.com/Players/92516/History/Alphonse-Areola",
+# "https://www.whoscored.com/Players/146780/History/Malcom",
+# "https://www.whoscored.com/Players/395692/History/Cole-Palmer",
+# "https://www.whoscored.com/Players/144511/History/Lucas-Vázquez",
+# "https://www.whoscored.com/Players/90782/History/Sergi-Roberto",
+# "https://www.whoscored.com/Players/10105/History/Pepe"
 ]
 
 saudi_links = [
@@ -629,7 +635,8 @@ saudi_links = [
 # ("https://www.whoscored.com/Players/115916/History/Fabinho","https://www.whoscored.com/Players/115916/Show/Fabinho"),
 # ("https://www.whoscored.com/Players/68659/History/Jordan-Henderson", "https://www.whoscored.com/Players/68659/Show/Jordan-Henderson"),
 # ("https://www.whoscored.com/Players/115279/History/Aleksandar-Mitrovic","https://www.whoscored.com/Players/115279/Show/Aleksandar-Mitrovic"),
-("https://www.whoscored.com/Players/288767/History/Sergej-Milinkovic-Savic","https://www.whoscored.com/Players/288767/Show/Sergej-Milinkovic-Savic")
+# ("https://www.whoscored.com/Players/288767/History/Sergej-Milinkovic-Savic","https://www.whoscored.com/Players/288767/Show/Sergej-Milinkovic-Savic")
+# ("https://www.whoscored.com/Players/146780/History/Malcom","https://www.whoscored.com/Players/146780/Show/Malcom")
 ]
 
 def add_club_to_db(club_name, league_name, nationality, club_img_url):
@@ -704,9 +711,6 @@ def add_clubs_to_db(club_to_leagues, current_club, current_club_img_url, nationa
             
 def add_player_to_db(player_profile, clubs, player_img_url):
     # MongoDB connection setup
-    print("player_profile: ", player_profile)
-    print("clubs: ", clubs)
-
     client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
     db = client['soccer-player-index']  
     player_collection = db['player'] 
@@ -727,7 +731,6 @@ def add_player_to_db(player_profile, clubs, player_img_url):
         if club_document["name"] != player_profile["current-club"]:
             clubIds.append(club_document["_id"])
     player_document = player_collection.find_one({"name": player_profile["name"]})
-    print("player_document:", player_document)
     if player_document != None: 
         print("already added player ", player_profile["name"])
         return
@@ -747,7 +750,6 @@ def add_player_to_db(player_profile, clubs, player_img_url):
             })  
         else:
             player_collection.insert_one({
-                # "_current_club_id": "N/A",
                 "name": player_profile["name"],
                 "age": player_profile["age"],
                 "nationality": player_profile["nationality"],
@@ -755,6 +757,7 @@ def add_player_to_db(player_profile, clubs, player_img_url):
                 "age": player_profile["age"],
                 "shirt-number": player_profile["shirt-number"],
                 "_club_ids": clubIds,
+                "searchable-names": [ player_profile["name"],replaceSpecialLetters(player_profile["name"])]
             })  
         player_document = player_collection.find_one({"name": player_profile["name"]})
     return player_document["_id"]
@@ -774,67 +777,6 @@ def convertStrToFloat(numAsStr):
     if numAsStr == "-": return 0
     return float(numAsStr)
         
-    
-# def add_player_season_to_db(player_profile, season_stats):
-#     client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
-#     db = client['soccer-player-index']  
-#     player_stats_collection = db['player-stats'] 
-#     club_collection = db['club'] 
-#     league_collection = db['league'] 
-#     player_collection = db['player'] 
-
-#     league_document = league_collection.find_one({"name": season_stats["league"]})
-        
-#     if league_document == None:
-#         # league_collection.insert_one(
-#         #     {
-#         #         "name":season_stats["league"],
-#         #         "location": "TBD"
-#         #     },  
-#         # )
-#         # league_document = league_collection.find_one({"name":season_stats["league"]})
-#         print("could not find league ", season_stats["league"])
-#         return
-            
-#     club_document = club_collection.find_one({"name": season_stats["club"]})
-#     if club_document == None:
-#         print("could not find club ", season_stats["club"])
-#         return
-#         # add_club_to_db(season_stats["club"], season_stats["league"], player_profile["Nationality"], "")
-#         # club_document = club_collection.find_one({"name": season_stats["club"]})
-        
-#     player_document = player_collection.find_one({"name": player_profile["name"]})
-#     if player_document != None:
-#         print("already added player ", player_profile["name"])
-#         return
-#         # add_player_to_db(player_profile, [], "")
-#         # player_document = player_collection.find_one({"name": player_profile["name"]})
-    
-#     player_id = player_document["_id"]
-    
-#     player_stats_collection.update_one({
-#         "_player_id": player_id,
-#         "_club_id": club_document["_id"],
-#         "season": season_stats["season"],
-#         "_league_id": league_document["_id"]
-#     },
-#     { "$set":{
-#         "_player_id": player_id,
-#         "_club_id": club_document["_id"],
-#         "_league_id": league_document["_id"],
-#         "season": season_stats["season"],
-#         "appearances": convertStrToInt(season_stats["appearances"]),
-#         "goals": convertStrToInt(season_stats["goals"]),
-#         "assists": convertStrToInt(season_stats["assists"]),
-#         "yellow-cards": convertStrToInt(season_stats["yellow-cards"]),
-#         "red-cards": convertStrToInt(season_stats["red-cards"]),
-#         "man-of-the-matches": convertStrToInt(season_stats["man-of-the-matches"]),
-#         "average-match-rating": convertStrToFloat(season_stats["average-match-rating"]),
-#     }
-#     },
-#     upsert=True)
-    
-
 def add_player_seasons_to_db(player_profile, player_stats):
     client = pymongo.MongoClient(MONGODB_CONNECTION_STRING)
     db = client['soccer-player-index']  
@@ -1144,6 +1086,6 @@ def update_saudi_season():
             upsert=True)
         print("finished updating ", player_profile["name"])
 
-addNewDataToDB()
+# addNewDataToDB()
 # updatePlayerAndPlayerSeasonStats()
-update_saudi_season()
+# update_saudi_season()
