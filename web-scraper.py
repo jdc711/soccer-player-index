@@ -618,7 +618,8 @@ links = [
 # "https://www.whoscored.com/Players/395692/History/Cole-Palmer",
 # "https://www.whoscored.com/Players/144511/History/Lucas-Vázquez",
 # "https://www.whoscored.com/Players/90782/History/Sergi-Roberto",
-# "https://www.whoscored.com/Players/10105/History/Pepe"
+# "https://www.whoscored.com/Players/10105/History/Pepe",
+"https://www.whoscored.com/Players/364315/History/Antony",
 ]
 
 saudi_links = [
@@ -1086,6 +1087,6 @@ def update_saudi_season():
             upsert=True)
         print("finished updating ", player_profile["name"])
 
-# addNewDataToDB()
+addNewDataToDB()
 # updatePlayerAndPlayerSeasonStats()
 # update_saudi_season()
