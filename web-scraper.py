@@ -374,7 +374,6 @@ def scrape_saudi_player_page(link, player_profile):
     import time
     options = Options()
     options.add_argument("--headless")
-
     options.headless = True
     options.add_argument(USER_AGENT)
     service = Service(CHROME_DRIVER_PATH)
@@ -391,10 +390,10 @@ def scrape_saudi_player_page(link, player_profile):
             EC.presence_of_element_located((By.XPATH, '//*[@id="layout-wrapper"]/div[3]/div[1]/div[1]/div[2]/div[2]'))
         )      
         
-        adButtonClose = wait.until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, 'body > div.webpush-swal2-container.webpush-swal2-center.webpush-swal2-fade.webpush-swal2-shown > div > div.webpush-swal2-header > button'))
-        )    
-        adButtonClose.click()
+        # adButtonClose = wait.until(
+        #     EC.presence_of_element_located((By.CSS_SELECTOR, 'body > div.webpush-swal2-container.webpush-swal2-center.webpush-swal2-fade.webpush-swal2-shown > div > div.webpush-swal2-header > button'))
+        # )    
+        # adButtonClose.click()
         
         stats_table_scraped = wait.until(
             EC.presence_of_element_located((By.XPATH, '//*[@id="top-player-stats-summary-grid"]'))
@@ -415,14 +414,34 @@ def scrape_saudi_player_page(link, player_profile):
 
     finally:
         driver.quit()
+        
+retired_links = [
+"https://www.whoscored.com/Players/2302/History/Xavi",
+"https://www.whoscored.com/Players/5/History/Thierry-Henry",
+"https://www.whoscored.com/Players/2579/History/Andrea-Pirlo",
+"https://www.whoscored.com/Players/48/History/Frank-Lampard",
+"https://www.whoscored.com/Players/4384/History/Didier-Drogba",
+"https://www.whoscored.com/Players/17/History/Steven-Gerrard"
+# "https://www.whoscored.com/Players/3859/History/Wayne-Rooney",
+# "https://www.whoscored.com/Players/9016/History/Franck-Ribéry",
+# "https://www.whoscored.com/Players/4173/History/Arjen-Robben",
+# "https://www.whoscored.com/Players/33404/History/Eden-Hazard",
+# "https://www.whoscored.com/Players/2776/History/Iker-Casillas",
+# "https://www.whoscored.com/Players/8040/History/Cesc-Fàbregas",
+"https://www.whoscored.com/Players/12712/History/Gerard-Piqué",
+"https://www.whoscored.com/Players/6319/History/David-Villa",
+# "https://www.whoscored.com/Players/1320/History/Carles-Puyol",
+"https://www.whoscored.com/Players/14102/History/David-Silva",
+"https://www.whoscored.com/Players/3328/History/Gianluigi-Buffon",
+"https://www.whoscored.com/Players/9991/History/Giorgio-Chiellini",
+
+]
 
 links = [
 # "https://www.whoscored.com/Players/315227/History/Erling-Haaland",
 # "https://www.whoscored.com/Players/136741/History/Bernardo-Silva",
 # "https://www.whoscored.com/Players/11119/History/Lionel-Messi",
 # "https://www.whoscored.com/Players/50835/History/Neymar",
-# "https://www.whoscored.com/Players/2302/History/Xavi",
-# "https://www.whoscored.com/Players/5/History/Thierry-Henry",
 # "https://www.whoscored.com/Players/29400/History/Robert-Lewandowski",
 # "https://www.whoscored.com/Players/20874/History/Luka-Modric",
 # "https://www.whoscored.com/Players/73084/History/Kevin-De-Bruyne",
@@ -440,12 +459,6 @@ links = [
 # "https://www.whoscored.com/Players/44288/History/Jordi-Alba",
 # "https://www.whoscored.com/Players/22221/History/Luis-Suárez",
 # "https://www.whoscored.com/Players/9909/History/Sergio-Ramos",
-# "https://www.whoscored.com/Players/33404/History/Eden-Hazard",
-# "https://www.whoscored.com/Players/2776/History/Iker-Casillas",
-# "https://www.whoscored.com/Players/2579/History/Andrea-Pirlo",
-# "https://www.whoscored.com/Players/48/History/Frank-Lampard",
-# "https://www.whoscored.com/Players/4384/History/Didier-Drogba",
-# "https://www.whoscored.com/Players/17/History/Steven-Gerrard",
 # "https://www.whoscored.com/Players/298510/History/Victor-Osimhen",
 # "https://www.whoscored.com/Players/313171/History/Rúben-Dias",
 # "https://www.whoscored.com/Players/95408/History/Virgil-van-Dijk",
@@ -459,11 +472,8 @@ links = [
 # "https://www.whoscored.com/Players/80241/History/Antoine-Griezmann",
 # "https://www.whoscored.com/Players/402197/History/Pedri",
 # "https://www.whoscored.com/Players/344644/History/Federico-Valverde",
-# "https://www.whoscored.com/Players/3859/History/Wayne-Rooney",
 # "https://www.whoscored.com/Players/299513/History/Ousmane-Dembélé",
 # "https://www.whoscored.com/Players/114075/History/N-Golo-Kanté",
-# "https://www.whoscored.com/Players/9016/History/Franck-Ribéry",
-# "https://www.whoscored.com/Players/4173/History/Arjen-Robben",
 # "https://www.whoscored.com/Players/23110/History/Ángel-Di-María",
 # "https://www.whoscored.com/Players/37099/History/Thomas-Müller",
 # "https://www.whoscored.com/Players/5780/History/Dani-Alves",
@@ -472,11 +482,7 @@ links = [
 # "https://www.whoscored.com/Players/93206/History/Raphaël-Varane",
 # "https://www.whoscored.com/Players/28550/History/Thiago-Silva",
 # "https://www.whoscored.com/Players/377168/History/Luis-Díaz",
-# "https://www.whoscored.com/Players/8040/History/Cesc-Fàbregas",
 # "https://www.whoscored.com/Players/109915/History/Sadio-Mané",
-# "https://www.whoscored.com/Players/1320/History/Carles-Puyol",
-# "https://www.whoscored.com/Players/12712/History/Gerard-Piqué",
-# "https://www.whoscored.com/Players/6319/History/David-Villa",
 # "https://www.whoscored.com/Players/320834/History/Achraf-Hakimi",
 # "https://www.whoscored.com/Players/102248/History/Emiliano-Martínez",
 # "https://www.whoscored.com/Players/369430/History/Enzo-Fernández",
@@ -524,9 +530,7 @@ links = [
 # "https://www.whoscored.com/Players/82989/History/Isco",
 # "https://www.whoscored.com/Players/113069/History/Jack-Grealish",
 # "https://www.whoscored.com/Players/71182/History/James-Rodríguez",
-# "https://www.whoscored.com/Players/14102/History/David-Silva",
 # "https://www.whoscored.com/Players/96182/History/Roberto-Firmino",
-# "https://www.whoscored.com/Players/3328/History/Gianluigi-Buffon",
 # "https://www.whoscored.com/Players/362431/History/João-Félix",
 # "https://www.whoscored.com/Players/326413/History/Kai-Havertz",
 # "https://www.whoscored.com/Players/69344/History/Christian-Eriksen",
@@ -555,7 +559,6 @@ links = [
 # "https://www.whoscored.com/Players/14199/History/Claudio-Bravo",
 # "https://www.whoscored.com/Players/115916/History/Fabinho",
 # "https://www.whoscored.com/Players/20664/History/Leonardo-Bonucci",
-# "https://www.whoscored.com/Players/9991/History/Giorgio-Chiellini",
 # "https://www.whoscored.com/Players/101374/History/John-Stones",
 # "https://www.whoscored.com/Players/25165/History/Carlos-Vela",
 # "https://www.whoscored.com/Players/367780/History/Lee-Kang-In",
@@ -619,25 +622,25 @@ links = [
 # "https://www.whoscored.com/Players/144511/History/Lucas-Vázquez",
 # "https://www.whoscored.com/Players/90782/History/Sergi-Roberto",
 # "https://www.whoscored.com/Players/10105/History/Pepe",
-"https://www.whoscored.com/Players/364315/History/Antony",
+# "https://www.whoscored.com/Players/364315/History/Antony",
 ]
 
 saudi_links = [
-# ("https://www.whoscored.com/Players/5583/History/Cristiano-Ronaldo","https://www.whoscored.com/Players/5583/Show/Cristiano-Ronaldo"),
-# ("https://www.whoscored.com/Players/104749/History/Riyad-Mahrez","https://www.whoscored.com/Players/104749/Show/Riyad-Mahrez"),
-# ("https://www.whoscored.com/Players/96182/History/Roberto-Firmino","https://www.whoscored.com/Players/96182/Show/Roberto-Firmino"),
-# ("https://www.whoscored.com/Players/321390/History/Édouard-Mendy","https://www.whoscored.com/Players/321390/Show/Édouard-Mendy"),
-# ("https://www.whoscored.com/Players/50835/History/Neymar","https://www.whoscored.com/Players/50835/Show/Neymar"),
-# ("https://www.whoscored.com/Players/136220/History/Yassine-Bounou","https://www.whoscored.com/Players/136220/Show/Yassine-Bounou"),
-# ("https://www.whoscored.com/Players/90880/History/Kalidou-Koulibaly","https://www.whoscored.com/Players/90880/Show/Kalidou-Koulibaly"),
-# ("https://www.whoscored.com/Players/109915/History/Sadio-Mané","https://www.whoscored.com/Players/109915/Show/Sadio-Mané"),
-# ("https://www.whoscored.com/Players/14296/History/Karim-Benzema","https://www.whoscored.com/Players/14296/Show/Karim-Benzema"),
-# ("https://www.whoscored.com/Players/114075/History/N-Golo-Kanté","https://www.whoscored.com/Players/114075/Show/N-Golo-Kanté"),
-# ("https://www.whoscored.com/Players/115916/History/Fabinho","https://www.whoscored.com/Players/115916/Show/Fabinho"),
-# ("https://www.whoscored.com/Players/68659/History/Jordan-Henderson", "https://www.whoscored.com/Players/68659/Show/Jordan-Henderson"),
-# ("https://www.whoscored.com/Players/115279/History/Aleksandar-Mitrovic","https://www.whoscored.com/Players/115279/Show/Aleksandar-Mitrovic"),
-# ("https://www.whoscored.com/Players/288767/History/Sergej-Milinkovic-Savic","https://www.whoscored.com/Players/288767/Show/Sergej-Milinkovic-Savic")
-# ("https://www.whoscored.com/Players/146780/History/Malcom","https://www.whoscored.com/Players/146780/Show/Malcom")
+("https://www.whoscored.com/Players/5583/History/Cristiano-Ronaldo","https://www.whoscored.com/Players/5583/Show/Cristiano-Ronaldo"),
+("https://www.whoscored.com/Players/104749/History/Riyad-Mahrez","https://www.whoscored.com/Players/104749/Show/Riyad-Mahrez"),
+("https://www.whoscored.com/Players/96182/History/Roberto-Firmino","https://www.whoscored.com/Players/96182/Show/Roberto-Firmino"),
+("https://www.whoscored.com/Players/321390/History/Édouard-Mendy","https://www.whoscored.com/Players/321390/Show/Édouard-Mendy"),
+("https://www.whoscored.com/Players/50835/History/Neymar","https://www.whoscored.com/Players/50835/Show/Neymar"),
+("https://www.whoscored.com/Players/136220/History/Yassine-Bounou","https://www.whoscored.com/Players/136220/Show/Yassine-Bounou"),
+("https://www.whoscored.com/Players/90880/History/Kalidou-Koulibaly","https://www.whoscored.com/Players/90880/Show/Kalidou-Koulibaly"),
+("https://www.whoscored.com/Players/109915/History/Sadio-Mané","https://www.whoscored.com/Players/109915/Show/Sadio-Mané"),
+("https://www.whoscored.com/Players/14296/History/Karim-Benzema","https://www.whoscored.com/Players/14296/Show/Karim-Benzema"),
+("https://www.whoscored.com/Players/114075/History/N-Golo-Kanté","https://www.whoscored.com/Players/114075/Show/N-Golo-Kanté"),
+("https://www.whoscored.com/Players/115916/History/Fabinho","https://www.whoscored.com/Players/115916/Show/Fabinho"),
+("https://www.whoscored.com/Players/68659/History/Jordan-Henderson", "https://www.whoscored.com/Players/68659/Show/Jordan-Henderson"),
+("https://www.whoscored.com/Players/115279/History/Aleksandar-Mitrovic","https://www.whoscored.com/Players/115279/Show/Aleksandar-Mitrovic"),
+("https://www.whoscored.com/Players/288767/History/Sergej-Milinkovic-Savic","https://www.whoscored.com/Players/288767/Show/Sergej-Milinkovic-Savic"),
+("https://www.whoscored.com/Players/146780/History/Malcom","https://www.whoscored.com/Players/146780/Show/Malcom"),
 ]
 
 def add_club_to_db(club_name, league_name, nationality, club_img_url):
@@ -969,7 +972,9 @@ def updatePlayerAndPlayerSeasonStats():
             )
         
         
-            
+        if player_stats == []:
+            print("did not successfully parse player stats")
+            return
         for season_stats in player_stats:
            
             league_document = league_collection.find_one({"name": season_stats["league"]})
@@ -1041,6 +1046,9 @@ def update_saudi_season():
         if player_document == None:
             print("could not find player: ", player_profile["name"])
             return
+        if player_saudi_stats == []:
+            print("did not successfully parse player stats")
+            return
         for season_stats in player_saudi_stats:
             if season_stats["league"] != "Saudi Pro League" and season_stats["league"] != "AFC Champions League":
                 continue
@@ -1087,6 +1095,6 @@ def update_saudi_season():
             upsert=True)
         print("finished updating ", player_profile["name"])
 
-addNewDataToDB()
-# updatePlayerAndPlayerSeasonStats()
-# update_saudi_season()
+# addNewDataToDB()
+updatePlayerAndPlayerSeasonStats()
+update_saudi_season()
