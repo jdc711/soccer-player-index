@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 mongoose.set('debug', true);
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'prod') {
   require('dotenv').config({ path: '.env.production' });
 } else {
   require('dotenv').config({ path: '.env.development' });

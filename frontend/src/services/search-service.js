@@ -11,7 +11,7 @@ const searchPlayersByName = async (q, currentPage, pageLimit, sortColumn, sortDi
           currentPage: currentPage,
           pageLimit: pageLimit,
           sortColumn: sortColumn,
-          sortDirection, sortDirection
+          sortDirection: sortDirection
         } 
     });
     return response.data;
@@ -30,7 +30,7 @@ const searchClubsByName = async (q,  currentPage, pageLimit, sortColumn, sortDir
         currentPage: currentPage,
         pageLimit: pageLimit,
         sortColumn: sortColumn,
-        sortDirection, sortDirection
+        sortDirection: sortDirection
       } 
     });
     return response.data;
