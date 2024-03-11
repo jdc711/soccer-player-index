@@ -18,15 +18,16 @@
     color: #fff;
 }
 
+
 .clubList th p:hover {
-    text-decoration: underline;
+    /* text-decoration: underline; */
 }
 
 .clubList th p {
     display: inline;
     color: #fff;
-    cursor: pointer;
-}
+    /* cursor: pointer; */
+} 
 
 .clubList td span {
     cursor: pointer;

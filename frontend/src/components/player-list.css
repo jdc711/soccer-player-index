@@ -19,13 +19,13 @@
 }
 
 .playerList th p:hover {
-    text-decoration: underline;
+    /* text-decoration: underline; */
 }
 
 .playerList th p {
     display: inline;
     color: #fff;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .playerList td span {

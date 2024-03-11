@@ -113,23 +113,26 @@ exports.searchByPlayerName = async (req, res) => {
     let matchCondition =  { "searchable-names": { $regex: nameToSearch, $options: "i" } };
 
     if (sortDirection === ""){
+      // console.log("here1");
       players = await Player.aggregate([
         { $match: matchCondition },
         { $lookup: { from: 'club', localField: '_club_ids', foreignField: '_id', as: 'club_info' } },
         { $lookup: { from: 'club', localField: '_current_club_id', foreignField: '_id', as: 'current_club_info' } },
       ]).skip(skip).limit(pageLimit);
-      
+      // console.log("here2");
       totalPlayerCount = await Player.countDocuments(matchCondition);
     }
     else{
       let sort = {};
       sort[sortColumn] = sortDirection === 'DESC' ? -1 : 1;
+      // console.log("here3",  " pageLimit:", pageLimit, " sort: ", sort, " skip: ", skip, " matchCondition: ",matchCondition );
       players = await Player.aggregate([
         { $match: matchCondition },
         { $lookup: { from: 'club', localField: '_club_ids', foreignField: '_id', as: 'club_info' } },
         { $lookup: { from: 'club', localField: '_current_club_id', foreignField: '_id', as: 'current_club_info' } },
       ]).sort(sort).skip(skip).limit(pageLimit);
       
+      // console.log("here4");
       totalPlayerCount = await Player.countDocuments(matchCondition);
     }
     res.json({

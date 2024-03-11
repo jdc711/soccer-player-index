@@ -95,7 +95,8 @@ const ClubList = ({name}) => {
         <thead>
           <tr>
             <th>
-              <p onClick={() => changeSortColumn('name')}>Name</p> {renderSortDirectionIcon('name')}
+              {/* <p onClick={() => changeSortColumn('name')}>Name</p> {renderSortDirectionIcon('name')} */}
+              <p>Name</p> {renderSortDirectionIcon('name')}
             </th>
             <th>
               <p>Leagues</p>

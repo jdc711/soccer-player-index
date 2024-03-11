@@ -92,13 +92,16 @@ const PlayerList = ({ name }) => {
         <thead>
           <tr>
             <th>
-              <p onClick={() => changeSortColumn('name')}>Name</p> {renderSortDirectionIcon('name')}
+              {/* <p onClick={() => changeSortColumn('name')}>Name</p> {renderSortDirectionIcon('name')} */}
+              <p >Name</p> {renderSortDirectionIcon('name')}
             </th>
             <th>
-              <p onClick={() => changeSortColumn('nationality')}>Nationality</p> {renderSortDirectionIcon('nationality')}
+              {/* <p onClick={() => changeSortColumn('nationality')}>Nationality</p> {renderSortDirectionIcon('nationality')} */}
+              <p>Nationality</p> {renderSortDirectionIcon('nationality')}
             </th>
             <th>
-              <p onClick={() => changeSortColumn('current-club')}>Club</p> {renderSortDirectionIcon('current-club')}
+              {/* <p onClick={() => changeSortColumn('current-club')}>Club</p> {renderSortDirectionIcon('current-club')} */}
+              <p>Club</p> {renderSortDirectionIcon('current-club')}
             </th>
           </tr>
         </thead>
